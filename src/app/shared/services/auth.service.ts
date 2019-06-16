@@ -14,14 +14,15 @@ export class AuthService {
   public onSuccess(): void {
     sessionStorage.setItem('session-alive', 'true');
     this.token = 'some-temporary-token';
-    this.router.navigate(['/']);
+    this.router.navigate(['/timecard']);
     console.log('AUTH: ', this.auth);
   }
 
   public logout(): void {
     sessionStorage.removeItem('session-alive');
     this.token = null;
-    this.router.navigate(['/']);
+    console.log('LOGOUT!');
+    this.router.navigate(['/login']);
   }
 
   public getIdToken(): string {
