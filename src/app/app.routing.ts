@@ -23,7 +23,8 @@ import { AuthGuardService } from '@shared';
 
 import { LoginComponent } from './pages/login/login.component';
 import { TimecardComponent } from './pages/timecard/timecard.component';
-
+import { ChargeCodesComponent } from './pages/charge-codes/charge-codes.component'
+import { UsersComponent } from './pages/users/users.component'
 
 
 // Routing
@@ -33,6 +34,8 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch : 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'timecard', component: TimecardComponent },
+  { path: 'charge-codes', component: ChargeCodesComponent },
+  { path: 'users', component: UsersComponent },
 
   // Public pages
   //{ path: '', redirectTo: '/home', pathMatch : 'full' },

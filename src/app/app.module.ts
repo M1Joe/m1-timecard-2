@@ -14,6 +14,9 @@ import { BlocksModule } from './components/blocks/blocks.module';
 import { AuthModule } from './pages/auth/auth.module';
 import { LoginModule } from './pages/login/login.module';
 import { TimecardModule } from './pages/timecard/timecard.module';
+import { ChargeCodesModule } from './pages/charge-codes/charge-codes.module';
+import { UsersModule } from './pages/users/users.module';
+
 import { BackgroundsModule } from './components/backgrounds/backgrounds.module';
 import { ProfileModule } from './pages/profile/profile.module';
 import { MiscModule } from './components/misc/misc.module';
@@ -72,6 +75,8 @@ import { EmailMeComponent } from './components/email-me/email-me.component';
     AuthModule,
     LoginModule,
     TimecardModule,
+    ChargeCodesModule,
+    UsersModule,
     BackgroundsModule,
     ProfileModule,
     MiscModule,
