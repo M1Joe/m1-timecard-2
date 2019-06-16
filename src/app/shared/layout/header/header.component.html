@@ -52,8 +52,8 @@
 
   <!--JJF: button not showing proper status-->
   <div fxFlex *ngIf="authService.isAuthenticated()" fxLayout="row">
-    <span class="welcome">Welcome!</span>
-    <!--JJF: display name here-->
+    <span class="welcome">Welcome</span>
+    <!--JJF: display name here {{userName()}}-->
     <button type="button" routerLink="/login" mat-icon-button (click)="onLogout()">  
       <mat-icon>lock_open</mat-icon>
     </button>

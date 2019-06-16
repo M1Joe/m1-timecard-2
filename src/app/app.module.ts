@@ -22,6 +22,7 @@ import { PipesModule } from '@shared/pipes/pipes.module';
 // Shared
 import {
   FooterComponent,
+  AdminComponent,
   HeaderComponent,
   UserService,
   AlertService,
@@ -51,6 +52,7 @@ import { EmailMeComponent } from './components/email-me/email-me.component';
     AboutMeComponent,
     ContactComponent,
     HeaderComponent,
+    AdminComponent,
     FooterComponent,
     PageNotFoundComponent,
     EmailMeComponent

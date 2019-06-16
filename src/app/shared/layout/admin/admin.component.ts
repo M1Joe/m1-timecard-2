@@ -4,12 +4,14 @@ import * as firebase from 'firebase';
 import { AuthService, AlertService } from '../../services';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: 'header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: 'app-admin',
+  templateUrl: 'admin.component.html',
+  styleUrls: ['./admin.component.scss'],
 })
-export class HeaderComponent {
+export class AdminComponent {
   public isAuthenticated: string;
+  //public emailPrefix: string;
+  public test: string;
 
   constructor(
     public authService: AuthService,
@@ -28,6 +30,7 @@ export class HeaderComponent {
   }
 
   public userName(): string {
+    console.log('1');
     //console.log(firebase.auth().currentUser.displayName);
     //console.log(firebase.auth().currentUser.email);
     return firebase.auth().currentUser.displayName;
