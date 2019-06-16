@@ -1,0 +1,29 @@
+mat-card {
+    margin: 20px;
+}
+
+ngx-auth-firebaseui {
+    mat-tab-group {
+        display: none !important;
+        //the ngx-auth-firebaseui-providers doesn't work correctly.
+        //so, using ngx-auth-firebaseui and displaying the sign-in
+    }
+
+    mat-icon {
+        vertical-align: middle !important;
+    }
+
+    mat-divider {
+        display: none !important;
+    }
+
+    .mat-button {
+        background-color: #db4437;
+        width: 100%;
+        color: white;
+    }
+
+    .mat-icon {
+        display: none !important;
+    }
+}

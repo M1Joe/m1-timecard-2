@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './pages/not-found/not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutMeComponent } from './pages/about-me/about-me.component';
 import { ContactComponent } from './pages/contact/contact.component';
+
 import { AuthComponent } from './pages/auth/auth.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfileSettingsComponent } from './pages/profile/profile-settings.component';
@@ -19,11 +20,22 @@ import { MiscComponent } from './components/misc/misc.component';
 // Protected
 import { AuthGuardService } from '@shared';
 
+
+import { LoginComponent } from './pages/login/login.component';
+import { TimecardComponent } from './pages/timecard/timecard.component';
+
+
+
 // Routing
 const appRoutes: Routes = [
 
+  // M1 pages
+  { path: '', redirectTo: '/login', pathMatch : 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'timecard', component: TimecardComponent },
+
   // Public pages
-  { path: '', redirectTo: '/home', pathMatch : 'full' },
+  //{ path: '', redirectTo: '/home', pathMatch : 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutMeComponent },
   { path: 'contact', component: ContactComponent },

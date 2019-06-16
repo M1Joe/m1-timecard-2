@@ -7,10 +7,6 @@
   flex: 1 1 auto;
 }
 
-.spacer-light {
-  margin: 0 10px;
-}
-
 .mat-toolbar.mat-primary {
   box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
 }
@@ -72,8 +68,16 @@ span {
   margin-left: 15px;
 }
 
-img {
-  margin: 15px 15px 0;
-  max-width: 150px;
-  max-height: 180px;
+mat-toolbar {
+  background-color: #004ba0;
+}
+
+button {
+  background-color: #01aeef !important;
+}
+
+.welcome {
+  color: white;
+  font-size: 14px;
+  margin-right: 14px;
 }
