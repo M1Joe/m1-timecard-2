@@ -1,0 +1,65 @@
+
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <mat-card>
+    <h3>Create New Charge Code</h3>
+    <div fxLayout="row" fxFlex>
+      
+      <div fxLayout="column">
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="name" placeholder="Name" required>
+          </mat-form-field>
+        </div>
+        
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="type" placeholder="Type" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="column">
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="startYear" placeholder="Start Year" required>
+          </mat-form-field>
+        </div>
+        
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="startMonth" placeholder="Start Month" required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="startDay" placeholder="Start Day" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="column">
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="endYear" placeholder="End Year" required>
+          </mat-form-field>
+        </div>
+        
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="endMonth" placeholder="End Month" required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="endDay" placeholder="End Day" required>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <br />
+    <button mat-raised-button class="primary" type="submit" [disabled]="form.invalid">Submit</button>
+  </mat-card>
+</form>
+      

@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
 
-import { User } from '../models';
+import { User, ChargeCode } from '../models';
 import { AlertService } from './alert.service';
 
 @Injectable()
@@ -24,9 +24,19 @@ export class UserService {
   }
 
   public keepInTouch(email: string) {
-    this.alertService.showToaster('Your email is saved');
-    return firebase.database().ref().child('touch/').push({
+    //this.alertService.showToaster('Your email is saved');
+    return firebase.database().ref().child('chargeCodes/').push({
       email: email
+    });
+  }
+
+
+  //set = REPLACE
+  //update = modify 
+
+  public createChargeCode(chargeCode: ChargeCode) {
+    return firebase.database().ref().child('chargeCodes/').child(chargeCode.name).set({
+      chargeCode: chargeCode
     });
   }
 
