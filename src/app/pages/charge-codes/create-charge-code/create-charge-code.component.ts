@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgForm, FormBuilder, Validators, FormGroup  } from '@angular/forms';
 
 import { UserService, EmailValidator, ChargeCode } from '@shared';
@@ -12,6 +12,8 @@ export class CreateChargeCodeComponent {
 
   public form: FormGroup;
   
+  @Output() chargeCodeCreated: EventEmitter<any> = new EventEmitter();
+
 
   constructor(
     private userService: UserService,
@@ -45,6 +47,12 @@ export class CreateChargeCodeComponent {
     chargeCode.endMonth = form.value.endMonth;
     chargeCode.endDay = form.value.endDay;
 
-    return this.userService.createChargeCode(chargeCode);
+    this.userService.createChargeCode(chargeCode);
+
+    this.chargeCodeCreated.emit();
+
+    return true;
+    
   }
+
 }

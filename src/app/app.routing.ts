@@ -34,7 +34,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch : 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'timecard', component: TimecardComponent },
-  { path: 'charge-codes', component: ChargeCodesComponent },
+  { path: 'chargeCodes', component: ChargeCodesComponent },
   { path: 'users', component: UsersComponent },
 
   // Public pages

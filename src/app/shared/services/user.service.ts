@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { User, ChargeCode } from '../models';
 import { AlertService } from './alert.service';
+import { defaultAuthFirebaseUIConfig } from 'ngx-auth-firebaseui/module/interfaces/config.interface';
 
 @Injectable()
 export class UserService {
@@ -35,10 +36,44 @@ export class UserService {
   //update = modify 
 
   public createChargeCode(chargeCode: ChargeCode) {
-    return firebase.database().ref().child('chargeCodes/').child(chargeCode.name).set({
-      chargeCode: chargeCode
-    });
+    const sendAlert = this.alertService;
+    return firebase.database().ref().child('chargeCodes/').child(chargeCode.name).set(chargeCode, 
+      function(error) {
+        if (error) {
+          sendAlert.showToaster("Failure");
+          console.log("Failure");
+        } else {
+          sendAlert.showToaster("Success");
+          console.log("Success");
+        }
+      });
   }
+
+  public getChargeCodes() : ChargeCode[] {
+
+    const chargeCodes: ChargeCode[] = [];
+
+    var ref = firebase.database().ref().child('chargeCodes');
+    ref.once("value").then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        chargeCodes.push(childSnapshot.val())
+      });
+    });
+
+    return chargeCodes;
+  }
+
+  public deleteChargeCode(chargeCodeName: string) {
+    const sendAlert = this.alertService;
+    return firebase.database().ref().child('chargeCodes/').child(chargeCodeName).remove(function(error) {
+      if (error) { 
+        sendAlert.showToaster('Delete Failed');
+      } else {
+        sendAlert.showToaster('Delete Successful');
+      }
+    });      
+  }
+
 
   public contactFormSend(
     company: string,
