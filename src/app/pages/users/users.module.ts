@@ -2,22 +2,25 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatProgressBarModule,
          MatCardModule, MatIconModule } from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Components
 import { UsersComponent } from './users.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 @NgModule({
   declarations: [
-    UsersComponent
+    UsersComponent,
+    CreateUserComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule, MatInputModule, MatProgressBarModule,
     MatCardModule, MatIconModule,
     NgxAuthFirebaseUIModule
@@ -28,7 +31,8 @@ import { UsersComponent } from './users.component';
     CUSTOM_ELEMENTS_SCHEMA
   ],
   exports: [
-    UsersComponent
+    UsersComponent,
+    CreateUserComponent
   ]
 })
 export class UsersModule {

@@ -35,6 +35,9 @@ export class UserService {
   //set = REPLACE
   //update = modify 
 
+  /**
+   * Charge Codes
+   */
   public createChargeCode(chargeCode: ChargeCode) {
     const sendAlert = this.alertService;
     return firebase.database().ref().child('chargeCodes/').child(chargeCode.name).set(chargeCode, 
@@ -66,6 +69,48 @@ export class UserService {
   public deleteChargeCode(chargeCodeName: string) {
     const sendAlert = this.alertService;
     return firebase.database().ref().child('chargeCodes/').child(chargeCodeName).remove(function(error) {
+      if (error) { 
+        sendAlert.showToaster('Delete Failed');
+      } else {
+        sendAlert.showToaster('Delete Successful');
+      }
+    });      
+  }
+
+   /**
+   * Users
+   */
+  public createUser(user: User) {
+    const sendAlert = this.alertService;
+    return firebase.database().ref().child('users/').child(user.displayName).set(user, 
+      function(error) {
+        if (error) {
+          sendAlert.showToaster("Failure");
+          console.log("Failure");
+        } else {
+          sendAlert.showToaster("Success");
+          console.log("Success");
+        }
+      });
+  }
+
+  public getUsers() : User[] {
+
+    const users: User[] = [];
+
+    var ref = firebase.database().ref().child('users');
+    ref.once("value").then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        users.push(childSnapshot.val())
+      });
+    });
+
+    return users;
+  }
+
+  public deleteUser(displayName: string) {
+    const sendAlert = this.alertService;
+    return firebase.database().ref().child('users/').child(displayName).remove(function(error) {
       if (error) { 
         sendAlert.showToaster('Delete Failed');
       } else {

@@ -1,0 +1,26 @@
+
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <mat-card>
+    <h3>Create New User</h3>
+    <div fxLayout="row" fxFlex>
+      
+      <div fxLayout="column">
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="displayName" placeholder="Name" required>
+          </mat-form-field>
+        </div>
+        
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="email" placeholder="Email Address" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+    <br />
+    <button mat-raised-button class="submit-btn" type="submit" [disabled]="form.invalid">Submit</button>
+  </mat-card>
+</form>
+      
