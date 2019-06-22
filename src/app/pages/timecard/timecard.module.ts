@@ -3,23 +3,25 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatInputModule, MatProgressBarModule,
-         MatCardModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatProgressBarModule, 
+         MatCardModule, MatIconModule, MatSelectModule } from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Components
 import { TimecardComponent } from './timecard.component';
+import { TimePeriodPickerComponent } from '../../components/time-period-picker/time-period-picker.component'
 
 @NgModule({
   declarations: [
-    TimecardComponent
+    TimecardComponent,
+    TimePeriodPickerComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
     MatButtonModule, MatInputModule, MatProgressBarModule,
-    MatCardModule, MatIconModule,
+    MatCardModule, MatIconModule, MatSelectModule,
     NgxAuthFirebaseUIModule
   ],
   providers: [

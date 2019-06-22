@@ -1,3 +1,7 @@
 <mat-card>
-  Timecard works!
+  <app-time-period-picker 
+        [selectedMonth]="selectedMonth" 
+        [selectedYear]="selectedYear"
+        (requestToLoadTimecard)="requestToLoadTimecard($event)"
+  ></app-time-period-picker>
 </mat-card>

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule, MatMenuModule, MatInputModule, MatSnackBarModule,
          MatToolbarModule, MatDialogModule, MatSidenavModule, MatNativeDateModule,
-         MatCardModule, MatTabsModule, MatIconModule } from '@angular/material';
+         MatCardModule, MatTabsModule, MatIconModule, MatSelectModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
@@ -58,13 +58,13 @@ import { EmailMeComponent } from './components/email-me/email-me.component';
     AdminComponent,
     FooterComponent,
     PageNotFoundComponent,
-    EmailMeComponent
+    EmailMeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule, MatMenuModule, MatInputModule, MatSnackBarModule,
-    MatToolbarModule, MatDialogModule, MatSidenavModule, MatNativeDateModule,
+    MatToolbarModule, MatDialogModule, MatSidenavModule, MatNativeDateModule, MatSelectModule,
     MatCardModule, MatTabsModule, MatIconModule,
     FormsModule,
     ReactiveFormsModule,
