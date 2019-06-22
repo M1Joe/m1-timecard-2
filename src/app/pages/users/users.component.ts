@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm, FormBuilder, Validators, FormGroup  } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { NgForm, FormBuilder, Validators, FormGroup, FormControl  } from '@angular/forms';
 
-import { UserService, User } from '@shared';
+import { UserService, User, ChargeCode } from '@shared';
+import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
+import { Observable } from 'rxjs';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-users',
@@ -11,18 +15,15 @@ import { UserService, User } from '@shared';
 export class UsersComponent implements OnInit {
   
   users : User[];
+
+  availableChargeCodes: ChargeCode[];
+
   
-  constructor( private userService: UserService) {
-    //private userService: UserService
-    // public formBuilder: FormBuilder) {
-    // this.form = formBuilder.group({
-    //   email: ['', Validators.compose([Validators.required, EmailValidator.isValid])]
-    // });
-  }
+  constructor( private userService: UserService) { }
 
   ngOnInit(): void {
     this.users = this.userService.getUsers();
-    console.log(this.users);
+    this.availableChargeCodes = this.userService.getChargeCodes();
   }
 
   deleteUser(displayName: string) {
@@ -30,12 +31,10 @@ export class UsersComponent implements OnInit {
     this.refreshUserList();
   }
 
-  // public onSubmit(form: NgForm) {
-  //   const email = form.value.email;
-  //   return this.userService.keepInTouch(email);
-  // }
+  
 
   public refreshUserList() {
     this.users = this.userService.getUsers();
   }
+
 }

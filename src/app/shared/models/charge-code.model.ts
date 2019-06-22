@@ -2,13 +2,13 @@ export class ChargeCode {
   public name: string;
   public type: Type;
 
-  public startDay: number;
-  public startMonth: number;
-  public startYear: number;
+  public startDay: string;
+  public startMonth: string;
+  public startYear: string;
   
-  public endDay: number;
-  public endMonth: number;
-  public endYear: number;  
+  public endDay: string;
+  public endMonth: string;
+  public endYear: string;  
 }
 
 enum Type {

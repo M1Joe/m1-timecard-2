@@ -1,0 +1,22 @@
+<mat-card>
+  <mat-card-title>{{user.displayName}}</mat-card-title>
+  <mat-card-content>
+    <div>{{user.email}}</div>
+  
+    <form [formGroup]="availableChargeCodeNamesFormGroup" (ngSubmit)="saveUserChargeCodes()">
+      <div *ngFor="let chargeCodeName of availableChargeCodeNames; let i = index" >
+          <mat-checkbox class="example-margin" 
+                  (change)="onChange($event)" 
+                  [checked]="availableChargeCodeNamesFormGroup.get('chargeCodes').value.indexOf(chargeCodeName) > -1" 
+                  [value]="chargeCodeName">
+              {{chargeCodeName}}
+          </mat-checkbox>
+      </div>
+    </form>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button class="save-btn" (click)="saveUser()">Save</button>
+    <button mat-raised-button class="delete-btn" (click)="deleteUser()">Delete</button>
+  </mat-card-actions>
+</mat-card>

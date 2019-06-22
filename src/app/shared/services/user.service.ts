@@ -119,6 +119,19 @@ export class UserService {
     });      
   }
 
+  public updateUser(user: User): Promise<string>{
+    const sendAlert = this.alertService;
+    return firebase.database().ref().child('users/').child(user.displayName).update(user, 
+      function(error) {
+        if (error) {
+          sendAlert.showToaster("Save Failure");
+        } else {
+          sendAlert.showToaster("Save Success");
+        }
+      });
+  }
+
+
 
   public contactFormSend(
     company: string,

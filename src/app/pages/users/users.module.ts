@@ -3,17 +3,19 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatInputModule, MatProgressBarModule,
-         MatCardModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatProgressBarModule, MatCheckboxModule,
+         MatCardModule, MatIconModule, MatAutocompleteModule, MatChipsModule } from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Components
 import { UsersComponent } from './users.component';
+import { UserComponent } from './user/user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
+    UserComponent,
     CreateUserComponent
   ],
   imports: [
@@ -21,8 +23,8 @@ import { CreateUserComponent } from './create-user/create-user.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule, MatInputModule, MatProgressBarModule,
-    MatCardModule, MatIconModule,
+    MatButtonModule, MatInputModule, MatProgressBarModule, MatCheckboxModule, 
+    MatCardModule, MatIconModule, MatAutocompleteModule, MatChipsModule,
     NgxAuthFirebaseUIModule
   ],
   providers: [
