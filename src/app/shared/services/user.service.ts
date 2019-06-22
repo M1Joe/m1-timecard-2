@@ -74,7 +74,7 @@ export class UserService {
       } else {
         sendAlert.showToaster('Delete Successful');
       }
-    });      
+    });
   }
 
    /**

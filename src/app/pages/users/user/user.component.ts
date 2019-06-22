@@ -30,12 +30,20 @@ export class UserComponent implements OnInit {
 
     //get a string list of available charge codes
     this.availableChargeCodeNames = this.availableChargeCodes.map(a => a.name);
+    console.log('this.available' + this.availableChargeCodeNames);
 
     //set already selected values
-    const valuesFromServer = this.user.chargeCodes;
-    const formArray = this.availableChargeCodeNamesFormGroup.get('chargeCodes') as FormArray;
-    valuesFromServer.forEach(x => formArray.push(new FormControl(x)));  
-    
+    if (this.user.chargeCodeNames) {
+      const valuesFromServer = this.user.chargeCodeNames; 
+
+      const formArray = this.availableChargeCodeNamesFormGroup.get('chargeCodes') as FormArray;
+      valuesFromServer.forEach(x => {
+        if(this.availableChargeCodeNames.indexOf(x) > -1) { 
+          formArray.push(new FormControl(x));
+        }
+      });  
+    }
+
   }
 
   deleteUser() {
@@ -55,7 +63,9 @@ export class UserComponent implements OnInit {
   }
 
   saveUser() {
-    this.user.chargeCodes = this.availableChargeCodeNamesFormGroup.value.chargeCodes;
+    this.user.chargeCodeNames = [];
+    this.user.chargeCodeNames = this.availableChargeCodeNamesFormGroup.value.chargeCodes;
+    console.log('this.chargeCodes' + this.user.chargeCodeNames);
     this.userService.updateUser(this.user);
     
   }
