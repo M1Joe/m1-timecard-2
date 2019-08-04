@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
 import { User, ChargeCode } from '../models';
 import { AlertService } from './alert.service';
 import { defaultAuthFirebaseUIConfig } from 'ngx-auth-firebaseui/module/interfaces/config.interface';
+import { Observable, of } from 'rxjs';
+import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
+import { TimecardActivity } from '@shared/models/timecard-activity.model';
 
 @Injectable()
 export class UserService {
@@ -34,6 +37,39 @@ export class UserService {
 
   //set = REPLACE
   //update = modify 
+
+
+  /**
+   * Timecards
+   */
+  // public saveTimecardList(userDisplayName: string, timecardActivity: TimecardActivity) {
+  //   const sendAlert = this.alertService;
+  //   return firebase.database().ref().child('employeeEditableFields/').child(userDisplayName).set(chargeCode, 
+  //     function(error) {
+  //       if (error) {
+  //         sendAlert.showToaster("Failure");
+  //         console.log("Failure");
+  //       } else {
+  //         sendAlert.showToaster("Success");
+  //         console.log("Success");
+  //       }
+  //     });
+  // }
+
+  public getTimecardList() : ChargeCode[] {
+
+    const chargeCodes: ChargeCode[] = [];
+
+    var ref = firebase.database().ref().child('chargeCodes');
+    ref.once("value").then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        chargeCodes.push(childSnapshot.val())
+      });
+    });
+
+    return chargeCodes;
+  }
+
 
   /**
    * Charge Codes
@@ -131,6 +167,70 @@ export class UserService {
       });
   }
 
+  /**
+   * User Preferences
+   */
+  public getUserPreference(userDisplayName: string, preferenceName: string): CurrentTimePeriod[] {
+
+    console.log(userDisplayName);
+    var ref = firebase.database().ref().child('employeeEditableFields').child(userDisplayName).child('preferences').child(preferenceName);
+        
+    //var results: CurrentTimePeriod[] = [];
+    var results: CurrentTimePeriod[] = [];
+
+    ref.once("value").then(function(snapshot) {
+      if(snapshot.val() == null) {
+        var currentDate = new Date();
+        var noPref: CurrentTimePeriod = {selectedMonth: (currentDate.getMonth() + 1).toString(), selectedYear: currentDate.getFullYear().toString()};
+        results.push(noPref);
+      } else {
+        results.push(snapshot.val())
+      }
+      
+    });
+
+    console.log(results);
+    
+    return results;
+  }
+
+
+ 
+
+  // public getUserPreference(userDisplayName: string, preferenceName: string): Observable<any> {
+
+  //   console.log(userDisplayName);
+  //   var ref = firebase.database().ref().child('employeeEditableFields').child('users').child(userDisplayName).child('preferences').child(preferenceName);
+        
+  //   var results;
+
+  //   ref.on('value', function(snapshot) {
+  //     return snapshot.val();
+  //     //console.log(snapshot.val())
+      
+  //     results = snapshot.val();
+      
+  //     console.log(results);
+  //     console.log(results['selectedMonth']);
+  //     return of(results);
+  //   });
+
+  //   return Observable.bindCallback(ref) as Observable<any>
+
+  // }
+
+
+  public updateUserPreference(userDisplayName: string, preferenceName: string, preferenceValue: any): Promise<string>{
+    const sendAlert = this.alertService;
+    return firebase.database().ref().child('employeeEditableFields').child(userDisplayName).child('preferences').child(preferenceName).update(preferenceValue, 
+      function(error) {
+        if (error) {
+          sendAlert.showToaster("Save Failure");
+        } else {
+          //sendAlert.showToaster("Save Success");
+        }
+      });
+  }
 
 
   public contactFormSend(

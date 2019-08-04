@@ -11,6 +11,8 @@ import { firebaseKeys } from './firebase.config';
 export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
+    if (!firebase.apps.length) {
     firebase.initializeApp(firebaseKeys);
+    }
   }
 }

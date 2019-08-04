@@ -36,4 +36,15 @@ export class AuthService {
   public isAuthenticated(): string {
     return sessionStorage.getItem('session-alive');
   }
+
+  public getDisplayName(): string {
+    console.log(firebase.auth().currentUser.email);
+    //everything before the @ symbol
+    var displayName = firebase.auth().currentUser.email.substr(0, firebase.auth().currentUser.email.indexOf('@')); 
+  
+    //remove periods because they mess with firebase
+    displayName = displayName.replace('.','');
+
+    return displayName;
+  }
 }

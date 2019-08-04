@@ -9,12 +9,16 @@ export class TimePeriodPickerComponent implements OnInit {
 
   constructor() { }
 
-  @Input() selectedMonth: string;
-  @Input() selectedYear: string;
+  @Input() currentTimePeriod: any;
+  // @Input()selectedYear: string;
+  // @Input()selectedMonth: string;
   @Output() requestToLoadTimecard: EventEmitter<object> = new EventEmitter();
-
+  selectedMonth: string;
+  selectedYear: string;
 
   ngOnInit() {
+    this.selectedYear = this.currentTimePeriod['selectedYear']
+    this.selectedMonth = this.currentTimePeriod['selectedMonth']
     console.log(this.selectedMonth);
     console.log(this.selectedYear);
   }
