@@ -25,6 +25,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { TimecardComponent } from './pages/timecard/timecard.component';
 import { ChargeCodesComponent } from './pages/charge-codes/charge-codes.component'
 import { UsersComponent } from './pages/users/users.component'
+import { AuthGuard } from './auth.guard';
 
 
 // Routing
@@ -33,9 +34,9 @@ const appRoutes: Routes = [
   // M1 pages
   { path: '', redirectTo: '/login', pathMatch : 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'timecard', component: TimecardComponent },
-  { path: 'chargeCodes', component: ChargeCodesComponent },
-  { path: 'users', component: UsersComponent },
+  { path: 'timecard', canActivate : [AuthGuard], component: TimecardComponent },
+  { path: 'chargeCodes', canActivate : [AuthGuard], component: ChargeCodesComponent },
+  { path: 'users', canActivate : [AuthGuard], component: UsersComponent },
 
   // Public pages
   //{ path: '', redirectTo: '/home', pathMatch : 'full' },
