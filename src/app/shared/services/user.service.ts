@@ -6,7 +6,7 @@ import { AlertService } from './alert.service';
 import { defaultAuthFirebaseUIConfig } from 'ngx-auth-firebaseui/module/interfaces/config.interface';
 import { Observable, of } from 'rxjs';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
-import { TimecardActivity } from '@shared/models/timecard-activity.model';
+import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
 
 @Injectable()
 export class UserService {
@@ -42,33 +42,45 @@ export class UserService {
   /**
    * Timecards
    */
-  // public saveTimecardList(userDisplayName: string, timecardActivity: TimecardActivity) {
-  //   const sendAlert = this.alertService;
-  //   return firebase.database().ref().child('employeeEditableFields/').child(userDisplayName).set(chargeCode, 
-  //     function(error) {
-  //       if (error) {
-  //         sendAlert.showToaster("Failure");
-  //         console.log("Failure");
-  //       } else {
-  //         sendAlert.showToaster("Success");
-  //         console.log("Success");
-  //       }
-  //     });
-  // }
-
-  public getTimecardList() : ChargeCode[] {
-
-    const chargeCodes: ChargeCode[] = [];
-
-    var ref = firebase.database().ref().child('chargeCodes');
-    ref.once("value").then(function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        chargeCodes.push(childSnapshot.val())
+  public saveTimecard(userDisplayName: string, year: string, month: string, monthlyTimecard: MonthlyTimecard) {
+    const sendAlert = this.alertService;
+    return firebase.database().ref().child('employeeEditableFields/').child(userDisplayName).child(year).child(month).child('timecard').set(monthlyTimecard, 
+      function(error) {
+        if (error) {
+          sendAlert.showToaster("Failure");
+          console.log("Failure");
+        } else {
+          sendAlert.showToaster("Success");
+          console.log("Success");
+        }
       });
+
+     
+  }
+
+  public getTimecard(userDisplayName: string, year: string, month: string) : MonthlyTimecard[] {
+
+    console.log('getting timecard');
+    var ref = firebase.database().ref().child('employeeEditableFields/').child(userDisplayName).child(year).child(month).child('timecard');
+        
+    //var results: CurrentTimePeriod[] = [];
+    var monthlyTimecard: MonthlyTimecard[] = [];
+
+    ref.once("value").then(function(snapshot) {
+      if(snapshot.val() == null) {
+        var noTimecard: MonthlyTimecard = {activities: [], note: '', status: 'DRAFT'};
+        monthlyTimecard.push(noTimecard);
+
+      } else {
+        monthlyTimecard.push(snapshot.val())
+      }
+      
     });
 
-    return chargeCodes;
-  }
+    console.log(monthlyTimecard);
+    
+    return monthlyTimecard;
+}
 
 
   /**
