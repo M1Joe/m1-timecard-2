@@ -7,11 +7,15 @@ import { defaultAuthFirebaseUIConfig } from 'ngx-auth-firebaseui/module/interfac
 import { Observable, of } from 'rxjs';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
+//import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable()
 export class UserService {
 
-  constructor(private alertService: AlertService) {}
+  constructor(
+    private alertService: AlertService,
+    //private angularFireDatabase: AngularFireDatabase
+    ) {}
 
   public saveUserInfo(uid: string, name: string, email: string): Promise<string> {
     return firebase.database().ref().child('users/' + uid).set({
@@ -44,7 +48,7 @@ export class UserService {
    */
   public saveTimecard(userDisplayName: string, year: string, month: string, monthlyTimecard: MonthlyTimecard) {
     const sendAlert = this.alertService;
-    return firebase.database().ref().child('employeeEditableFields/').child(userDisplayName).child(year).child(month).child('timecard').set(monthlyTimecard, 
+    return firebase.database().ref().child('employeeEditableFields/').child('timecards').child(year).child(month).child(userDisplayName).set(monthlyTimecard, 
       function(error) {
         if (error) {
           sendAlert.showToaster("Failure");
@@ -81,6 +85,30 @@ export class UserService {
     
     return monthlyTimecard;
 }
+
+// public getTimecard2(userDisplayName: string, year: string, month: string) : Observable<MonthlyTimecard> {
+
+//   console.log('getting timecard');
+//   var ref = firebase.database().ref().child('employeeEditableFields/').child(userDisplayName).child(year).child(month).child('timecard');
+      
+//   //var results: CurrentTimePeriod[] = [];
+//   var monthlyTimecard: MonthlyTimecard[] = [];
+
+//   ref.once("value").then(function(snapshot) {
+//     if(snapshot.val() == null) {
+//       var noTimecard: MonthlyTimecard = {activities: [], note: '', status: 'DRAFT'};
+//       monthlyTimecard.push(noTimecard);
+
+//     } else {
+//       monthlyTimecard.push(snapshot.val())
+//     }
+    
+//   });
+
+//   console.log(monthlyTimecard);
+  
+//   return monthlyTimecard;
+// }
 
 
   /**
@@ -154,6 +182,20 @@ export class UserService {
     });
 
     return users;
+  }
+
+  public getUserChargeCodes(userDisplayName: string) : string[] {
+
+    const chargeCodes: string[] = [];
+
+    var ref = firebase.database().ref().child('users').child(userDisplayName).child('chargeCodeNames');
+    ref.once("value").then(function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        chargeCodes.push(childSnapshot.val())
+      });
+    });
+
+    return chargeCodes;
   }
 
   public deleteUser(displayName: string) {

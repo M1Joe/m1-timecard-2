@@ -2,7 +2,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatProgressBarModule, 
          MatCardModule, MatIconModule, MatSelectModule } from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
@@ -25,7 +25,8 @@ import { MonthlyTimecardComponent } from 'src/app/components/monthly-timecard/mo
     FormsModule,
     MatButtonModule, MatInputModule, MatProgressBarModule,
     MatCardModule, MatIconModule, MatSelectModule,
-    NgxAuthFirebaseUIModule
+    NgxAuthFirebaseUIModule,
+    ReactiveFormsModule
   ],
   providers: [
   ],
