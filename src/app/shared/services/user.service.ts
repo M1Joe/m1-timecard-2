@@ -7,14 +7,14 @@ import { defaultAuthFirebaseUIConfig } from 'ngx-auth-firebaseui/module/interfac
 import { Observable, of } from 'rxjs';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
-//import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable()
 export class UserService {
 
   constructor(
     private alertService: AlertService,
-    //private angularFireDatabase: AngularFireDatabase
+    private db: AngularFireDatabase
     ) {}
 
   public saveUserInfo(uid: string, name: string, email: string): Promise<string> {
@@ -65,6 +65,8 @@ export class UserService {
   public getTimecard(userDisplayName: string, year: string, month: string) : MonthlyTimecard[] {
 
     console.log('getting timecard');
+
+    ///////////////////BELOW IS WRONG ORDER
     var ref = firebase.database().ref().child('employeeEditableFields/').child(userDisplayName).child(year).child(month).child('timecard');
         
     //var results: CurrentTimePeriod[] = [];
@@ -86,29 +88,11 @@ export class UserService {
     return monthlyTimecard;
 }
 
-// public getTimecard2(userDisplayName: string, year: string, month: string) : Observable<MonthlyTimecard> {
+public getTimecard2(userDisplayName: string, year: string, month: string) : Observable<any> {
 
-//   console.log('getting timecard');
-//   var ref = firebase.database().ref().child('employeeEditableFields/').child(userDisplayName).child(year).child(month).child('timecard');
-      
-//   //var results: CurrentTimePeriod[] = [];
-//   var monthlyTimecard: MonthlyTimecard[] = [];
+  return this.db.object(`employeeEditableFields/timecards/${year}/${month}/${userDisplayName}`).valueChanges();
 
-//   ref.once("value").then(function(snapshot) {
-//     if(snapshot.val() == null) {
-//       var noTimecard: MonthlyTimecard = {activities: [], note: '', status: 'DRAFT'};
-//       monthlyTimecard.push(noTimecard);
-
-//     } else {
-//       monthlyTimecard.push(snapshot.val())
-//     }
-    
-//   });
-
-//   console.log(monthlyTimecard);
-  
-//   return monthlyTimecard;
-// }
+}
 
 
   /**

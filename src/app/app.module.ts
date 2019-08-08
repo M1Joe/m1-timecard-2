@@ -22,6 +22,11 @@ import { ProfileModule } from './pages/profile/profile.module';
 import { MiscModule } from './components/misc/misc.module';
 import { PipesModule } from '@shared/pipes/pipes.module';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
 // Shared
 import {
   FooterComponent,
@@ -80,7 +85,11 @@ import { EmailMeComponent } from './components/email-me/email-me.component';
     BackgroundsModule,
     ProfileModule,
     MiscModule,
-    NgxAuthFirebaseUIModule.forRoot(firebaseKeys)
+    NgxAuthFirebaseUIModule.forRoot(firebaseKeys),
+    AngularFireModule.initializeApp(firebaseKeys),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireDatabaseModule
   ],
   providers: [
     UserService,

@@ -1,8 +1,8 @@
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)" #f="ngForm">   
-  <div fxLayout="column" *ngIf="isMonthlyTimeCardDefined()">
+  <div fxLayout="column" *ngIf="monthlyTimecard$ | async as monthlyTimecard">
     <div fxLayout="row" >
       <!-- activities -->
-      <div *ngFor="let activity of monthlyTimecardList[0].activities" >
+      <div *ngFor="let activity of monthlyTimecard.activities" >
 
         <!-- charge code drop down -->
         <mat-form-field class="charge-code-picker">
@@ -12,9 +12,9 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field style="width: 40px">
+        <!-- <mat-form-field style="width: 40px">
           <input matInput placeholder="" formControlName="d1" value="d1">
-        </mat-form-field>    
+        </mat-form-field>     -->
     
       </div>
       <button mat-raised-button class="submit-btn" (click)="addActivity()" type="button">Add Timecard Activity</button>
@@ -22,7 +22,7 @@
       
     </div>
     <mat-form-field style="width: 100%">
-      <textarea matInput placeholder="Notes" formControlName="note" value="note"></textarea>
+      <textarea matInput placeholder="Notes" formControlName="note"></textarea>
     </mat-form-field>
   </div>
     <button mat-raised-button class="submit-btn" type="submit">Submit</button>

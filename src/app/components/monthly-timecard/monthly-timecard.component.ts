@@ -4,6 +4,8 @@ import { AuthService } from '@shared/services/auth.service';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Activity } from '@shared/models/activity.model';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-monthly-timecard',
@@ -11,15 +13,17 @@ import { Activity } from '@shared/models/activity.model';
   styleUrls: ['./monthly-timecard.component.scss']
 })
 export class MonthlyTimecardComponent implements OnInit {
+  
+  
   public form: FormGroup;
-  monthlyTimecardList: MonthlyTimecard[];
+  monthlyTimecard$: Observable<MonthlyTimecard>;
   chargeCodes: string[];
   
   monthlyTimeCard: MonthlyTimecard = new MonthlyTimecard();
 
   constructor(private userService: UserService, private authService: AuthService, public formBuilder: FormBuilder) { 
-    this.form = formBuilder.group({
-      note: ''
+    this.form = this.formBuilder.group({
+      note: ['']
 
     });
   }
@@ -28,7 +32,14 @@ export class MonthlyTimecardComponent implements OnInit {
     this.chargeCodes = this.userService.getUserChargeCodes(this.authService.getDisplayName());
 
     //TODO do not hard code month and year
-    this.monthlyTimecardList = this.userService.getTimecard(this.authService.getDisplayName(), '2019', '10');
+    this.monthlyTimecard$ = this.userService.getTimecard2(this.authService.getDisplayName(), '2019', '10').pipe(
+      tap(results => {
+        console.log(results.note);
+        this.form.patchValue(results);
+      })
+    );
+
+    this.monthlyTimecard$.subscribe(result => console.log('res' + result));
     
   }
 
@@ -43,11 +54,11 @@ export class MonthlyTimecardComponent implements OnInit {
     this.monthlyTimeCard.activities.push(new Activity);
   }
 
-  isMonthlyTimeCardDefined() {
+  // isMonthlyTimeCardDefined() {
     // Firebase won't just let you get an observable as a single item.
     // To get around that, the service returns a list.  
     // Once the list is defined, grab the first item out of the list.
     // This is totally stupid, but it works.
-    return this.monthlyTimecardList[0];
-  }
+  //   return this.monthlyTimecardList[0];
+  // }
 }
