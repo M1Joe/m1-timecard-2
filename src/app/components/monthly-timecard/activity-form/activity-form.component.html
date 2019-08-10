@@ -1,8 +1,8 @@
-<div [formGroup]="activityGroup">
+<div [formGroup]="activityGroup" fxLayout="row" style="min-width: 1500px;">
   <!-- charge code drop down -->
   <mat-form-field class="charge-code-picker">
     <mat-label>ChargeCode</mat-label>
-    <mat-select formControlName="name"> <!-- [(value)]="chargeCode"-->
+    <mat-select formControlName="chargeCode"> <!-- [(value)]="chargeCode"-->
       <!--formControlName='name'-->
       <mat-option *ngFor="let chargeCode of chargeCodes$ | async"  [value]="chargeCode">{{chargeCode}}</mat-option>
     </mat-select>

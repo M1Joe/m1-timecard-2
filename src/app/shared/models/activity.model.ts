@@ -1,5 +1,5 @@
 export class Activity {
-  name: string;
+  chargeCode: string;
   d01?: string;
   d02?: string;
   d03?: string;

@@ -33,8 +33,8 @@ export class MonthlyTimecardComponent implements OnInit {
       activities: this.formBuilder.array([
          this.formBuilder.control('')
       ]),
-      status: [''],
-      note: ['']
+      note: [''] 
+      // status: [''],
     });
 
     this.addActivity();
@@ -45,11 +45,13 @@ export class MonthlyTimecardComponent implements OnInit {
     
     this.monthlyTimecard$ = this.userService.getTimecard(this.authService.getUserKey(), '2019', '11').pipe(
       tap(results => {
-        this.form.patchValue(results.note);
-        this.form.patchValue({activities: results.activities});
-        console.log(results.note);
-        console.log(results.activities);
-        this.form.patchValue(results);
+        // this.form.patchValue(results.note);
+        // this.form.patchValue({activities: results.activities});
+        // console.log(results.note);
+        // console.log(results.activities);
+        // this.form.patchValue(results);
+        this.form.controls['note'].patchValue(results.note);
+
       })
     );    
   }

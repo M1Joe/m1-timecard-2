@@ -14,9 +14,11 @@ export class ActivityFormComponent implements OnInit {
   
   chargeCodes$: Observable<string[]>;
   
-  @Input('group') activityGroup: FormGroup;
+  @Input('group') 
+  activityGroup: FormGroup;
 
-  @Input('activity') activity: Activity;
+  @Input('activity') 
+  activity: Activity;
 
   constructor (
     private userService: UserService, 
