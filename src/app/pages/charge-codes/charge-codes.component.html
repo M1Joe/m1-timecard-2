@@ -1,18 +1,19 @@
 
-<div *ngFor="let chargeCode of chargeCodes">
-  <mat-card>
-    <mat-card-title>{{chargeCode.name}}</mat-card-title>
-    <mat-card-content>
-        <div>{{chargeCode.type}}</div>
-        <div>Start: {{chargeCode.startYear}}-{{chargeCode.startMonth}}-{{chargeCode.startDay}}</div>
-        <div>End: {{chargeCode.endYear}}-{{chargeCode.endMonth}}-{{chargeCode.endDay}}</div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button class="delete-btn" (click)="deleteChargeCode(chargeCode.name)">Delete</button>
-    </mat-card-actions>
-  </mat-card>
+<div *ngIf="chargeCodes$ | async as chargeCodes">
+  <div *ngFor="let chargeCode of chargeCodes">
+    <mat-card>
+      <mat-card-title>{{chargeCode.name}}</mat-card-title>
+      <mat-card-content>
+          <div>{{chargeCode.type}}</div>
+          <div>Start: {{chargeCode.startYear}}-{{chargeCode.startMonth}}-{{chargeCode.startDay}}</div>
+          <div>End: {{chargeCode.endYear}}-{{chargeCode.endMonth}}-{{chargeCode.endDay}}</div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button class="delete-btn" (click)="deleteChargeCode(chargeCode.name)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
 
 
-
-<app-create-charge-code (chargeCodeCreated)="refreshChargeCodeList()"></app-create-charge-code>
+<app-create-charge-code></app-create-charge-code>

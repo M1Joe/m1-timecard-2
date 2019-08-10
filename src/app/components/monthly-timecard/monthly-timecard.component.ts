@@ -17,7 +17,7 @@ export class MonthlyTimecardComponent implements OnInit {
   
   public form: FormGroup;
   monthlyTimecard$: Observable<MonthlyTimecard>;
-  chargeCodes: string[];
+  chargeCodes$: Observable<string[]>;
   
   monthlyTimeCard: MonthlyTimecard = new MonthlyTimecard();
 
@@ -29,10 +29,10 @@ export class MonthlyTimecardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.chargeCodes = this.userService.getUserChargeCodes(this.authService.getDisplayName());
+    this.chargeCodes$ = this.userService.getUserChargeCodes(this.authService.getUserKey());
 
     //TODO do not hard code month and year
-    this.monthlyTimecard$ = this.userService.getTimecard(this.authService.getDisplayName(), '2019', '10').pipe(
+    this.monthlyTimecard$ = this.userService.getTimecard(this.authService.getUserKey(), '2019', '10').pipe(
       tap(results => {
         console.log(results.note);
         this.form.patchValue(results);
@@ -46,7 +46,7 @@ export class MonthlyTimecardComponent implements OnInit {
   onSubmit(form: NgForm) {
     
     this.monthlyTimeCard.note = form.value.note;
-    this.userService.saveTimecard(this.authService.getDisplayName(), "2019", "10", this.monthlyTimeCard);
+    this.userService.saveTimecard(this.authService.getUserKey(), "2019", "10", this.monthlyTimeCard);
   }
 
   addActivity() {

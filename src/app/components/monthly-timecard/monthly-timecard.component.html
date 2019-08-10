@@ -8,7 +8,7 @@
         <mat-form-field class="charge-code-picker">
           <mat-label>ChargeCode</mat-label>
           <mat-select [(value)]="chargeCode"> <!--formControlName='name'-->
-            <mat-option *ngFor="let chargeCode of chargeCodes">{{chargeCode}}</mat-option>
+            <mat-option *ngFor="let chargeCode of chargeCodes$ | async">{{chargeCode}}</mat-option>
           </mat-select>
         </mat-form-field>
 

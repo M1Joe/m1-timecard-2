@@ -22,27 +22,23 @@ export class TimecardComponent implements OnInit {
 
   selectedMonth = "4";
   selectedYear = "2019";
-  userDisplayName: string;
-  currentTimePeriodList: CurrentTimePeriod[];  //because firebase won't let you just get a single object...
+  userKey: string;
+  currentTimePeriod$: Observable<CurrentTimePeriod>; 
   currentTimePeriod: CurrentTimePeriod;
+
   ngOnInit(): void {
 
-    this.userDisplayName = this.authService.getDisplayName();
-    this.currentTimePeriodList = this.userService.getUserPreference(this.userDisplayName, 'currentTimePeriod');
-    this.currentTimePeriod = this.currentTimePeriodList[0];
+    this.userKey = this.authService.getUserKey();
+    this.currentTimePeriod$ = this.userService.getCurrentTimePeriod(this.userKey);
+
+    this.currentTimePeriod$.subscribe(res => console.log(res));
     
   }
 
   requestToLoadTimecard($event) {
-    this.userService.updateUserPreference(this.userDisplayName, 'currentTimePeriod', $event);
+    console.log($event);
+    this.userService.setCurrentTimePeriod(this.userKey, $event);
   }
 
-  isCurrentTimePeriodDefined() {
-    // Firebase won't just let you get an observable as a single item.
-    // To get around that, the service returns a list.  
-    // Once the list is defined, grab the first item out of the list.
-    // This is totally stupid, but it works.
-    return this.currentTimePeriodList[0];
-  }
 
 }

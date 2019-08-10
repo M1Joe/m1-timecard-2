@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
+import { User } from '@shared/models/user.model';
 
 @Injectable()
 export class AuthService {
@@ -37,14 +38,21 @@ export class AuthService {
     return sessionStorage.getItem('session-alive');
   }
 
-  public getDisplayName(): string {
+  public getUserKey(user?: User): string {
     console.log(firebase.auth().currentUser.email);
     //everything before the @ symbol
-    var displayName = firebase.auth().currentUser.email.substr(0, firebase.auth().currentUser.email.indexOf('@')); 
-  
-    //remove periods because they mess with firebase
-    displayName = displayName.replace('.','');
 
-    return displayName;
+    var userKey;
+
+    if (user) {
+      userKey = user.email.substr(0, user.email.indexOf('@')); 
+    } else {
+      userKey = firebase.auth().currentUser.email.substr(0, firebase.auth().currentUser.email.indexOf('@')); 
+    }
+    
+    //remove periods because they mess with firebase
+    userKey = userKey.replace('.','');
+
+    return userKey;
   }
 }

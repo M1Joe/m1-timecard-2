@@ -11,9 +11,6 @@ import { UserService, EmailValidator, ChargeCode } from '@shared';
 export class CreateChargeCodeComponent {
 
   public form: FormGroup;
-  
-  @Output() chargeCodeCreated: EventEmitter<any> = new EventEmitter();
-
 
   constructor(
     private userService: UserService,
@@ -48,8 +45,6 @@ export class CreateChargeCodeComponent {
     chargeCode.endDay = form.value.endDay;
 
     this.userService.createChargeCode(chargeCode);
-
-    this.chargeCodeCreated.emit();
 
     return true;
     

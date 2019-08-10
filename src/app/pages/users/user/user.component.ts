@@ -16,7 +16,8 @@ export class UserComponent implements OnInit {
   @Input() availableChargeCodes: ChargeCode[];
   availableChargeCodeNames: string[];
   @Input() user: User;
-  @Output() refreshUserList = new EventEmitter();
+  
+  //@Output() refreshUserList = new EventEmitter();
 
   availableChargeCodeNamesFormGroup : FormGroup;
 
@@ -47,8 +48,8 @@ export class UserComponent implements OnInit {
   }
 
   deleteUser() {
-    this.userService.deleteUser(this.user.displayName);
-    this.refreshUserList.emit('');
+    this.userService.deleteUser(this.user);
+    //this.refreshUserList.emit('');
   }
 
   onChange(event) {

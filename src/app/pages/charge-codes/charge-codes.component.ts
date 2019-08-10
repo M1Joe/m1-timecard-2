@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, Validators, FormGroup  } from '@angular/forms';
 
 import { UserService, EmailValidator, ChargeCode } from '@shared';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-charge-codes',
@@ -12,31 +13,20 @@ export class ChargeCodesComponent implements OnInit {
   
 
   //public form: FormGroup;
-  chargeCodes : ChargeCode[];
+  chargeCodes$ : Observable<ChargeCode[]>;
   
   constructor( private userService: UserService) {
-    //private userService: UserService
-    // public formBuilder: FormBuilder) {
-    // this.form = formBuilder.group({
-    //   email: ['', Validators.compose([Validators.required, EmailValidator.isValid])]
-    // });
+
   }
 
   ngOnInit(): void {
-    this.chargeCodes = this.userService.getChargeCodes();
+    this.chargeCodes$ = this.userService.getChargeCodes();
   }
 
   deleteChargeCode(chargeCodeName: string) {
     this.userService.deleteChargeCode(chargeCodeName);
-    this.refreshChargeCodeList();
   }
 
-  // public onSubmit(form: NgForm) {
-  //   const email = form.value.email;
-  //   return this.userService.keepInTouch(email);
-  // }
-
   public refreshChargeCodeList() {
-    this.chargeCodes = this.userService.getChargeCodes();
   }
 }

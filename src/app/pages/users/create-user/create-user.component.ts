@@ -12,7 +12,7 @@ export class CreateUserComponent {
 
   public form: FormGroup;
   
-  @Output() userCreated: EventEmitter<any> = new EventEmitter();
+  //@Output() userCreated: EventEmitter<any> = new EventEmitter();
 
 
   constructor(
@@ -32,8 +32,6 @@ export class CreateUserComponent {
     user.email = form.value.email;
     
     this.userService.createUser(user);
-
-    this.userCreated.emit();
 
     return true;
     

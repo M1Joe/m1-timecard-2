@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 
 @Component({
   selector: 'app-time-period-picker',
@@ -7,20 +8,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class TimePeriodPickerComponent implements OnInit {
 
-  constructor() { }
-
-  @Input() currentTimePeriod: any;
-  // @Input()selectedYear: string;
-  // @Input()selectedMonth: string;
+  @Input() currentTimePeriod: CurrentTimePeriod;
   @Output() requestToLoadTimecard: EventEmitter<object> = new EventEmitter();
   selectedMonth: string;
   selectedYear: string;
 
   ngOnInit() {
-    this.selectedYear = this.currentTimePeriod['selectedYear']
-    this.selectedMonth = this.currentTimePeriod['selectedMonth']
-    console.log(this.selectedMonth);
-    console.log(this.selectedYear);
+    this.selectedYear = this.currentTimePeriod.selectedYear
+    this.selectedMonth = this.currentTimePeriod.selectedMonth;
   }
 
   loadTimecard() {

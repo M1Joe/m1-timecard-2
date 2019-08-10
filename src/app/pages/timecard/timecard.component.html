@@ -1,6 +1,6 @@
 <mat-card>
-  <div *ngIf="isCurrentTimePeriodDefined()">
-    <app-time-period-picker  [currentTimePeriod]="currentTimePeriodList[0]"
+  <div *ngIf="currentTimePeriod$ | async as currentTimePeriod">
+    <app-time-period-picker  [currentTimePeriod]="currentTimePeriod"
       (requestToLoadTimecard)="requestToLoadTimecard($event)"></app-time-period-picker>
   </div>
   

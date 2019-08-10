@@ -1,5 +1,9 @@
-<div *ngFor="let user of users">
-  <app-user *ngIf="availableChargeCodes.length != 0 && user.length != 0" [user]="user" [availableChargeCodes]="availableChargeCodes" (refreshUserList)="refreshUserList()"></app-user>
+<div *ngIf="users$ | async as users">
+  <div *ngFor="let user of users">
+    <div *ngIf="availableChargeCodes$ | async as availableChargeCodes">
+      <app-user *ngIf="user.length != 0" [user]="user" [availableChargeCodes]="availableChargeCodes" (refreshUserList)="refreshUserList()"></app-user>
+    </div>
+  </div>
 </div>
 
-<app-create-user (userCreated)="refreshUserList()"></app-create-user>
+<app-create-user></app-create-user>

@@ -14,27 +14,17 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class UsersComponent implements OnInit {
   
-  users : User[];
+  users$ : Observable<User[]>;
 
-  availableChargeCodes: ChargeCode[];
+  availableChargeCodes$: Observable<ChargeCode[]>;
 
   
   constructor( private userService: UserService) { }
 
   ngOnInit(): void {
-    this.users = this.userService.getUsers();
-    this.availableChargeCodes = this.userService.getChargeCodes();
+    this.users$ = this.userService.getUsers();
+    this.availableChargeCodes$ = this.userService.getChargeCodes();
   }
-
-  deleteUser(displayName: string) {
-    this.userService.deleteUser(displayName);
-    this.refreshUserList();
-  }
-
-  
-
-  public refreshUserList() {
-    this.users = this.userService.getUsers();
-  }
+ 
 
 }
