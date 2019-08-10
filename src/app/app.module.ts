@@ -16,7 +16,6 @@ import { TimecardModule } from './pages/timecard/timecard.module';
 import { ChargeCodesModule } from './pages/charge-codes/charge-codes.module';
 import { UsersModule } from './pages/users/users.module';
 
-import { BackgroundsModule } from './components/backgrounds/backgrounds.module';
 import { PipesModule } from '@shared/pipes/pipes.module';
 
 import { AngularFireModule } from '@angular/fire';
@@ -41,7 +40,6 @@ import { AppRoutingModule } from './app.routing';
 import { firebaseKeys } from './firebase.config';
 
 // Pages
-import { AboutMeComponent } from './pages/about-me/about-me.component';
 import { PageNotFoundComponent } from './pages/not-found/not-found.component';
 
 // Components
@@ -49,7 +47,6 @@ import { PageNotFoundComponent } from './pages/not-found/not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AboutMeComponent,
     HeaderComponent,
     AdminComponent,
     PageNotFoundComponent
@@ -70,7 +67,6 @@ import { PageNotFoundComponent } from './pages/not-found/not-found.component';
     TimecardModule,
     ChargeCodesModule,
     UsersModule,
-    BackgroundsModule,
     NgxAuthFirebaseUIModule.forRoot(firebaseKeys),
     AngularFireModule.initializeApp(firebaseKeys),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features

@@ -6,8 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './pages/not-found/not-found.component';
 
 // Pages
-import { AboutMeComponent } from './pages/about-me/about-me.component';
-
 import { AuthComponent } from './pages/auth/auth.component';
 
 // Protected
@@ -33,7 +31,6 @@ const appRoutes: Routes = [
 
   // Public pages
   //{ path: '', redirectTo: '/home', pathMatch : 'full' },
-  { path: 'about', component: AboutMeComponent },
   { path: 'auth', component: AuthComponent },
 
   // Protected pages
