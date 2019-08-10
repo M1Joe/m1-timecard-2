@@ -5,9 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 // 404 page
 import { PageNotFoundComponent } from './pages/not-found/not-found.component';
 
-// Pages
-import { AuthComponent } from './pages/auth/auth.component';
-
 // Protected
 import { AuthGuardService } from '@shared';
 
@@ -29,9 +26,7 @@ const appRoutes: Routes = [
   { path: 'chargeCodes', canActivate : [AuthGuard], component: ChargeCodesComponent },
   { path: 'users', canActivate : [AuthGuard], component: UsersComponent },
 
-  // Public pages
-  //{ path: '', redirectTo: '/home', pathMatch : 'full' },
-  { path: 'auth', component: AuthComponent },
+
 
   // Protected pages
   // { path: 'profile/:uid/:name', component: ProfileComponent, canActivate: [AuthGuardService] },

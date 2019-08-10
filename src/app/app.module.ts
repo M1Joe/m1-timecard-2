@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Modules
-import { AuthModule } from './pages/auth/auth.module';
 import { LoginModule } from './pages/login/login.module';
 import { TimecardModule } from './pages/timecard/timecard.module';
 import { ChargeCodesModule } from './pages/charge-codes/charge-codes.module';
@@ -62,7 +61,6 @@ import { PageNotFoundComponent } from './pages/not-found/not-found.component';
     HttpClientModule,
     AppRoutingModule,
     PipesModule,
-    AuthModule,
     LoginModule,
     TimecardModule,
     ChargeCodesModule,
