@@ -7,7 +7,7 @@
         <!-- charge code drop down -->
         <mat-form-field class="charge-code-picker">
           <mat-label>ChargeCode</mat-label>
-          <mat-select [(value)]="chargeCode">
+          <mat-select [(value)]="chargeCode"> <!--formControlName='name'-->
             <mat-option *ngFor="let chargeCode of chargeCodes">{{chargeCode}}</mat-option>
           </mat-select>
         </mat-form-field>

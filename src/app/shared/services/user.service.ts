@@ -62,37 +62,10 @@ export class UserService {
      
   }
 
-  public getTimecard(userDisplayName: string, year: string, month: string) : MonthlyTimecard[] {
 
-    console.log('getting timecard');
-
-    ///////////////////BELOW IS WRONG ORDER
-    var ref = firebase.database().ref().child('employeeEditableFields/').child(userDisplayName).child(year).child(month).child('timecard');
-        
-    //var results: CurrentTimePeriod[] = [];
-    var monthlyTimecard: MonthlyTimecard[] = [];
-
-    ref.once("value").then(function(snapshot) {
-      if(snapshot.val() == null) {
-        var noTimecard: MonthlyTimecard = {activities: [], note: '', status: 'DRAFT'};
-        monthlyTimecard.push(noTimecard);
-
-      } else {
-        monthlyTimecard.push(snapshot.val())
-      }
-      
-    });
-
-    console.log(monthlyTimecard);
-    
-    return monthlyTimecard;
-}
-
-public getTimecard2(userDisplayName: string, year: string, month: string) : Observable<any> {
-
-  return this.db.object(`employeeEditableFields/timecards/${year}/${month}/${userDisplayName}`).valueChanges();
-
-}
+  public getTimecard(userDisplayName: string, year: string, month: string) : Observable<any> {
+    return this.db.object(`employeeEditableFields/timecards/${year}/${month}/${userDisplayName}`).valueChanges();
+  }
 
 
   /**

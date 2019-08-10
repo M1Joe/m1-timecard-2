@@ -32,7 +32,7 @@ export class MonthlyTimecardComponent implements OnInit {
     this.chargeCodes = this.userService.getUserChargeCodes(this.authService.getDisplayName());
 
     //TODO do not hard code month and year
-    this.monthlyTimecard$ = this.userService.getTimecard2(this.authService.getDisplayName(), '2019', '10').pipe(
+    this.monthlyTimecard$ = this.userService.getTimecard(this.authService.getDisplayName(), '2019', '10').pipe(
       tap(results => {
         console.log(results.note);
         this.form.patchValue(results);
