@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Modules
-import { BlocksModule } from './components/blocks/blocks.module';
 import { AuthModule } from './pages/auth/auth.module';
 import { LoginModule } from './pages/login/login.module';
 import { TimecardModule } from './pages/timecard/timecard.module';
@@ -18,8 +17,6 @@ import { ChargeCodesModule } from './pages/charge-codes/charge-codes.module';
 import { UsersModule } from './pages/users/users.module';
 
 import { BackgroundsModule } from './components/backgrounds/backgrounds.module';
-import { ProfileModule } from './pages/profile/profile.module';
-import { MiscModule } from './components/misc/misc.module';
 import { PipesModule } from '@shared/pipes/pipes.module';
 
 import { AngularFireModule } from '@angular/fire';
@@ -29,7 +26,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 // Shared
 import {
-  FooterComponent,
   AdminComponent,
   HeaderComponent,
   UserService,
@@ -45,25 +41,18 @@ import { AppRoutingModule } from './app.routing';
 import { firebaseKeys } from './firebase.config';
 
 // Pages
-import { HomeComponent } from './pages/home/home.component';
 import { AboutMeComponent } from './pages/about-me/about-me.component';
-import { ContactComponent } from './pages/contact/contact.component';
 import { PageNotFoundComponent } from './pages/not-found/not-found.component';
 
 // Components
-import { EmailMeComponent } from './components/email-me/email-me.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     AboutMeComponent,
-    ContactComponent,
     HeaderComponent,
     AdminComponent,
-    FooterComponent,
-    PageNotFoundComponent,
-    EmailMeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -76,15 +65,12 @@ import { EmailMeComponent } from './components/email-me/email-me.component';
     HttpClientModule,
     AppRoutingModule,
     PipesModule,
-    BlocksModule,
     AuthModule,
     LoginModule,
     TimecardModule,
     ChargeCodesModule,
     UsersModule,
     BackgroundsModule,
-    ProfileModule,
-    MiscModule,
     NgxAuthFirebaseUIModule.forRoot(firebaseKeys),
     AngularFireModule.initializeApp(firebaseKeys),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
