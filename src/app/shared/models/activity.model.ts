@@ -1,14 +1,14 @@
 export class Activity {
   name: string;
-  d1?: string;
-  d2?: string;
-  d3?: string;
-  d4?: string;
-  d5?: string;
-  d6?: string;
-  d7?: string;
-  d8?: string;
-  d9?: string;
+  d01?: string;
+  d02?: string;
+  d03?: string;
+  d04?: string;
+  d05?: string;
+  d06?: string;
+  d07?: string;
+  d08?: string;
+  d09?: string;
   d10?: string;
   d11?: string;
   d12?: string;

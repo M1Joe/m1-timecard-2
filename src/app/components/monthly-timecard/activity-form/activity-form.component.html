@@ -1,0 +1,51 @@
+<div [formGroup]="activityGroup">
+  <!-- charge code drop down -->
+  <mat-form-field class="charge-code-picker">
+    <mat-label>ChargeCode</mat-label>
+    <mat-select formControlName="name"> <!-- [(value)]="chargeCode"-->
+      <!--formControlName='name'-->
+      <mat-option *ngFor="let chargeCode of chargeCodes$ | async"  [value]="chargeCode">{{chargeCode}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- <mat-form-field appearance="outline" class="hours-form-field">
+    <input matInput type="number" formControlName="d01" class="hours-input">
+  </mat-form-field> -->
+
+  <input type="number" formControlName="d01" class="hours-input">
+  <input type="number" formControlName="d02" class="hours-input">
+  <!-- <mat-form-field appearance="outline" class="hours-form-field">
+    <input matInput type="number" formControlName="d02" class="hours-input">
+  </mat-form-field> -->
+  <input  type="number" formControlName="d03" class="hours-input">
+  <input  type="number" formControlName="d04" class="hours-input">
+  <input  type="number" formControlName="d05" class="hours-input">
+  <input  type="number" formControlName="d06" class="hours-input">
+  <input  type="number" formControlName="d07" class="hours-input">
+  <input  type="number" formControlName="d08" class="hours-input">
+  <input  type="number" formControlName="d09" class="hours-input">
+  <input  type="number" formControlName="d10" class="hours-input">
+  <input  type="number" formControlName="d11" class="hours-input">
+  <input  type="number" formControlName="d12" class="hours-input">
+  <input  type="number" formControlName="d13" class="hours-input">
+  <input  type="number" formControlName="d14" class="hours-input">
+  <input  type="number" formControlName="d15" class="hours-input">
+  <input  type="number" formControlName="d16" class="hours-input">
+  <input  type="number" formControlName="d17" class="hours-input">
+  <input  type="number" formControlName="d18" class="hours-input">
+  <input  type="number" formControlName="d19" class="hours-input">
+  <input  type="number" formControlName="d20" class="hours-input">
+  <input  type="number" formControlName="d21" class="hours-input">
+  <input  type="number" formControlName="d22" class="hours-input">
+  <input  type="number" formControlName="d23" class="hours-input">
+  <input  type="number" formControlName="d24" class="hours-input">
+  <input  type="number" formControlName="d25" class="hours-input">
+  <input  type="number" formControlName="d26" class="hours-input">
+  <input  type="number" formControlName="d27" class="hours-input">
+  <input  type="number" formControlName="d28" class="hours-input">
+  <input  type="number" formControlName="d29" class="hours-input">
+  <input  type="number" formControlName="d30" class="hours-input">
+  <input  type="number" formControlName="d31" class="hours-input">
+
+
+</div>

@@ -1,0 +1,18 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.hours-form-field {
+    width: 60px;
+    margin: 2px;
+    padding: 0px;
+}
+
+.hours-input {
+    margin: 1px;
+    padding: 0px;
+    width: 34px;
+}
+
