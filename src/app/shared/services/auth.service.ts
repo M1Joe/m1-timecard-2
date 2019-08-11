@@ -75,4 +75,8 @@ export class AuthService {
       }
     }));
   }
+
+  public isAdmin(): boolean {
+    return this.getUserKey() === 'joe';
+  }
 }

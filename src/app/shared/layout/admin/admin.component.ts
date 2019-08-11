@@ -40,4 +40,10 @@ export class AdminComponent {
     this.alertService.showToaster('Logout succesful');
     return this.authService.logout();
   }
+
+  public isAdmin() {
+    return this.authService.isAdmin();
+  }
+
+  
 }
