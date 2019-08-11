@@ -27,8 +27,9 @@ export class TimecardComponent implements OnInit {
   currentTimePeriod: CurrentTimePeriod;
 
   ngOnInit(): void {
-
     this.userKey = this.authService.getUserKey();
+
+    console.log(this.userKey);
     this.currentTimePeriod$ = this.userService.getCurrentTimePeriod(this.userKey);
 
     this.currentTimePeriod$.subscribe(res => console.log(res));

@@ -3,6 +3,12 @@
 
   <form [formGroup]="timecardForm">
 
+    <div fxLayout="row">
+      <button mat-raised-button class="submit-btn" (click)="saveForm()" type="button" [disabled]="isSaveAndSubmitDisabled()">Save</button>
+      <button mat-raised-button class="submit-btn" (click)="submitForm()" type="button" [disabled]="isSaveAndSubmitDisabled()">Submit</button>
+      <span class="status"><b>Status: </b><input type="text" formControlName="status" disabled class="fake-input"></span>
+    </div>
+    <mat-divider></mat-divider>
     <div formArrayName="activities" fxLayout="column">
       <div class="activity-container">
         <div fxLayout="row" class="activity-title">
@@ -87,6 +93,7 @@
           <input type="number" formControlName="d29" class="hours-input">
           <input type="number" formControlName="d30" class="hours-input">
           <input type="number" formControlName="d31" class="hours-input">
+
           <button mat-icon-button color="warn" type="button" (click)="removeActivity(activityIndex)">
             <mat-icon>delete</mat-icon>
           </button>
@@ -99,7 +106,7 @@
       <textarea matInput placeholder="Notes" formControlName="note"></textarea>
     </mat-form-field>
 
-    <button mat-raised-button class="submit-btn" (click)="saveForm()" type="button">Save</button>
+    
   </form>
 </mat-card>
 <!-- <span>SAVED FORM DATA</span>

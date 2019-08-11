@@ -3,6 +3,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { User } from '@shared/models/user.model';
+import { Observable, pipe } from 'rxjs';
+import 'rxjs/add/operator/map';
+import { map } from 'rxjs/internal/operators/map';
+
 
 @Injectable()
 export class AuthService {
@@ -10,13 +14,14 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private auth: AngularFireAuth) { }
+    private af: AngularFireAuth,
+    private afAuth: AngularFireAuth) { }
 
   public onSuccess(): void {
     sessionStorage.setItem('session-alive', 'true');
     this.token = 'some-temporary-token';
     this.router.navigate(['/timecard']);
-    console.log('AUTH: ', this.auth);
+    console.log('afAuth: ', this.afAuth);
   }
 
   public logout(): void {
@@ -39,11 +44,12 @@ export class AuthService {
   }
 
   public getUserKey(user?: User): string {
-    console.log(firebase.auth().currentUser.email);
-    //everything before the @ symbol
-
+    
+    //TODO: Handle timecard page refreshes.  Maybe need to convert this all to an observable?
+    //It theoretically shouldn't happen outside of development or page refreshes.
     var userKey;
 
+    //everything before the @ symbol
     if (user) {
       userKey = user.email.substr(0, user.email.indexOf('@')); 
     } else {
@@ -54,5 +60,19 @@ export class AuthService {
     userKey = userKey.replace('.','');
 
     return userKey;
+  }
+
+  public getUserKeyNew(user?: User): Observable<string> {
+    return this.af.authState.pipe(map((auth) => {
+      if (auth == null) {
+        this.router.navigate(['/login']);
+        return '';
+      } else {
+        var userKey = this.afAuth.auth.currentUser.email;
+        userKey = userKey.substr(0, userKey.indexOf('@'));
+        userKey = userKey.replace('.','');
+        return userKey;
+      }
+    }));
   }
 }

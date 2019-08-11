@@ -5,6 +5,7 @@ import { AuthService } from '@shared/services/auth.service';
 import { UserService } from '@shared/services/user.service';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { first, take } from 'rxjs/operators';
+import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
 
 @Component({
   selector: 'app-monthly-timecard',
@@ -14,20 +15,16 @@ import { first, take } from 'rxjs/operators';
 export class MonthlyTimecardComponent implements OnInit {
 
   timecardForm: FormGroup;
-  dataModel: any; //active model
-  storeData: any;  //save to disk model
   chargeCodes$: Observable<string[]>;
 
   activitiesFormArray: FormArray;
 
-  // @Input()
-  // currentTimePeriod: CurrentTimePeriod;
-
   currentTimePeriod: CurrentTimePeriod;
+
+  disableSaveAndSubmit: boolean;
 
   @Input() set curTimePer(value: CurrentTimePeriod) {
     this.currentTimePeriod = value;
-    console.log('current time period reset');
     this.initForm();
     
   }
@@ -38,16 +35,20 @@ export class MonthlyTimecardComponent implements OnInit {
     return this.timecardForm.getRawValue();
   }
 
-  showSavedValue() {
-    return this.dataModel;
+  saveForm() {
+    var timecard: MonthlyTimecard = this.timecardForm.value;
+    //this.timecardForm.status = 'DRAFT'
+    timecard.status = 'DRAFT';
+    this.timecardForm.patchValue(timecard);
+
+    this.userService.saveTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, this.timecardForm.value);
   }
 
-  saveForm() {
-    //save form values to ojbect and reset the form
-    this.storeData = this.timecardForm.getRawValue();
-
-    //TODO REMOVE HARD CODED DATE
-    this.userService.saveTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, this.timecardForm.value);
+  submitForm() {
+    var timecard: MonthlyTimecard = this.timecardForm.value;
+    timecard.status = 'SUBMITTED';
+    this.timecardForm.patchValue(timecard);
+    this.userService.saveTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, timecard);
 
   }
 
@@ -60,13 +61,8 @@ export class MonthlyTimecardComponent implements OnInit {
   }
 
   loadForm(data) {
-    //create activities array first
-    // console.log('load form data');
-    // if (data === null) {
-    //   //there is nothing in Firebase at all for this month, so give the user a new activity.
-    //   this.activitiesFormArray.push(this.activity);
-    // } else {
-      
+  
+
     //TODO: Nice to have - automatically add a row for the user when one doesn't exist.  
     
     if (data.activities && data.activities.length && data.activities.length > 0) {
@@ -74,33 +70,34 @@ export class MonthlyTimecardComponent implements OnInit {
         this.activitiesFormArray.push(this.activity);
       }
     }
-    //   } else {
-    //     // there is something in Firebase, just no activities
-    //     console.log('caught you error');
-    //     this.activitiesFormArray.push(this.activity);
-    //   }
-    // }
-    
+
     
     //once we setup the form with all the arrays and such, we cna just
     //patch the form:
     this.timecardForm.patchValue(data);
   }
 
+  isSaveAndSubmitDisabled() {
+    return this.disableSaveAndSubmit;
+  }
+  
   loadData(): void {
-    //this.userService.getTimecard(this.authService.getUserKey(), "2019", "11").subscribe(
+    console.log('loadData Called');
+
     this.userService.getTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth).pipe(take(1)).subscribe(
       results => {
         if (results !== null) {
+          if (results.status === 'SUBMITTED') {
+            this.disableSaveAndSubmit = true;
+          }
           this.loadForm(results);
+          
         } 
       }
     );
 
       //TODO: UNSUBSCRIBE
   }
-
-  
 
 
   //get functions cannot have parameters...
@@ -144,27 +141,21 @@ export class MonthlyTimecardComponent implements OnInit {
 
   ngOnInit() {
     this.chargeCodes$ = this.userService.getUserChargeCodes(this.authService.getUserKey());
-
-    this.initForm();
     
   }
 
   initForm() {
-    this.dataModel = Object.create(null);
 
     this.timecardForm = this._fb.group({
       note: ['', [Validators.required]],
+      status: [{value: 'DRAFT', disabled: true}],
       activities: this._fb.array([
       ])
     });
 
-
     this.activitiesFormArray = this.timecardForm.get("activities") as FormArray;
 
-    //subscribe to value changes on form
-    this.timecardForm.valueChanges.subscribe(data => {
-      this.dataModel = data;
-    });
+
 
     this.loadData();
   }
