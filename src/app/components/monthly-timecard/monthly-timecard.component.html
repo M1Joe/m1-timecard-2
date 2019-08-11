@@ -1,37 +1,5 @@
-<!-- <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)" #f="ngForm">   
-  <div fxLayout="column" *ngIf="monthlyTimecard$ | async as monthlyTimecard">
-    <div>
-      
-      <div formArrayName="activities">
-        <div *ngFor="let activity of form.controls.activities.controls; let i = index">
 
-          <div fxLayout="row">
-          
-            <div [formGroupName]="i">
-              <app-activity-form [activity]="monthlyTimecard.activities[i]" [group]="form.controls.activities.controls[i]"></app-activity-form>
-            </div>
-
-            <div>
-              <button mat-mini-fab color="warn" type="button" (click)="removeActivity(i)"> <mat-icon>delete</mat-icon></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button mat-raised-button class="submit-btn" (click)="addActivity()" type="button">Add Timecard Activity</button>
-      
-      
-    </div>
-    <mat-form-field style="width: 100%">
-      <textarea matInput placeholder="Notes" formControlName="note"></textarea>
-    </mat-form-field>
-  </div>
-    <button mat-raised-button class="submit-btn" type="submit">Submit</button>
-</form>
-  
- -->
 <mat-card>
-
-
 
   <form [formGroup]="timecardForm">
 

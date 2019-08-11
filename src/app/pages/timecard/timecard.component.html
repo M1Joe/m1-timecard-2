@@ -1,13 +1,13 @@
-<mat-card>
-  <div *ngIf="currentTimePeriod$ | async as currentTimePeriod">
-    <app-time-period-picker  [currentTimePeriod]="currentTimePeriod"
-      (requestToLoadTimecard)="requestToLoadTimecard($event)"></app-time-period-picker>
-  </div>
-  
-</mat-card>
+<div *ngIf="currentTimePeriod$ | async as currentTimePeriod">
+
+<app-time-period-picker [currentTimePeriod]="currentTimePeriod" (requestToLoadTimecard)="requestToLoadTimecard($event)">
+</app-time-period-picker>
 
 
-<app-monthly-timecard></app-monthly-timecard>
 
+
+
+<app-monthly-timecard [curTimePer]="currentTimePeriod"></app-monthly-timecard>
+
+</div>
 <!---*ngIf="currentTimePeriod$ | async as currentTimePeriod" -->
-

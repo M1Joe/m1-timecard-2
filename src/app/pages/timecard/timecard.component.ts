@@ -32,12 +32,14 @@ export class TimecardComponent implements OnInit {
     this.currentTimePeriod$ = this.userService.getCurrentTimePeriod(this.userKey);
 
     this.currentTimePeriod$.subscribe(res => console.log(res));
+
+    
     
   }
 
-  requestToLoadTimecard($event) {
-    console.log($event);
-    this.userService.setCurrentTimePeriod(this.userKey, $event);
+  requestToLoadTimecard(currentTimePeriod: CurrentTimePeriod) {
+    this.currentTimePeriod = currentTimePeriod;
+    this.userService.setCurrentTimePeriod(this.userKey, currentTimePeriod);
   }
 
 
