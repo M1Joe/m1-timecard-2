@@ -11,13 +11,15 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { TimecardComponent } from './timecard.component';
 import { TimePeriodPickerComponent } from '../../components/time-period-picker/time-period-picker.component'
 import { MonthlyTimecardComponent } from 'src/app/components/monthly-timecard/monthly-timecard.component';
+import { ActivityFormComponent } from 'src/app/components/monthly-timecard/activity-form/activity-form.component';
 
 
 @NgModule({
   declarations: [
     TimecardComponent,
     TimePeriodPickerComponent,
-    MonthlyTimecardComponent
+    MonthlyTimecardComponent,
+    ActivityFormComponent,
   ],
   imports: [
     CommonModule,

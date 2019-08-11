@@ -1,21 +1,21 @@
-<form class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)" #f="ngForm">   
+<!-- <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)" #f="ngForm">   
   <div fxLayout="column" *ngIf="monthlyTimecard$ | async as monthlyTimecard">
-    <div fxLayout="row" >
-      <!-- activities -->
-      <div *ngFor="let activity of monthlyTimecard.activities" >
+    <div>
+      
+      <div formArrayName="activities">
+        <div *ngFor="let activity of form.controls.activities.controls; let i = index">
 
-        <!-- charge code drop down -->
-        <mat-form-field class="charge-code-picker">
-          <mat-label>ChargeCode</mat-label>
-          <mat-select [(value)]="chargeCode"> <!--formControlName='name'-->
-            <mat-option *ngFor="let chargeCode of chargeCodes$ | async">{{chargeCode}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <div fxLayout="row">
+          
+            <div [formGroupName]="i">
+              <app-activity-form [activity]="monthlyTimecard.activities[i]" [group]="form.controls.activities.controls[i]"></app-activity-form>
+            </div>
 
-        <!-- <mat-form-field style="width: 40px">
-          <input matInput placeholder="" formControlName="d1" value="d1">
-        </mat-form-field>     -->
-    
+            <div>
+              <button mat-mini-fab color="warn" type="button" (click)="removeActivity(i)"> <mat-icon>delete</mat-icon></button>
+            </div>
+          </div>
+        </div>
       </div>
       <button mat-raised-button class="submit-btn" (click)="addActivity()" type="button">Add Timecard Activity</button>
       
@@ -28,4 +28,116 @@
     <button mat-raised-button class="submit-btn" type="submit">Submit</button>
 </form>
   
+ -->
+<mat-card>
 
+
+
+  <form [formGroup]="timecardForm">
+
+    <div formArrayName="activities" fxLayout="column">
+      <div class="activity-container">
+        <div fxLayout="row" class="activity-title">
+          <span class="picker-title">Day:</span>
+          <span class="hours-title">1</span>
+          <span class="hours-title">2</span>
+          <span class="hours-title">3</span>
+          <span class="hours-title">4</span>
+          <span class="hours-title">5</span>
+          <span class="hours-title">6</span>
+          <span class="hours-title">7</span>
+          <span class="hours-title">8</span>
+          <span class="hours-title">9</span>
+          <span class="hours-title">10</span>
+          <span class="hours-title">11</span>
+          <span class="hours-title">12</span>
+          <span class="hours-title">13</span>
+          <span class="hours-title">14</span>
+          <span class="hours-title">15</span>
+          <span class="hours-title">16</span>
+          <span class="hours-title">17</span>
+          <span class="hours-title">18</span>
+          <span class="hours-title">19</span>
+          <span class="hours-title">20</span>
+          <span class="hours-title">21</span>
+          <span class="hours-title">22</span>
+          <span class="hours-title">23</span>
+          <span class="hours-title">24</span>
+          <span class="hours-title">25</span>
+          <span class="hours-title">26</span>
+          <span class="hours-title">27</span>
+          <span class="hours-title">28</span>
+          <span class="hours-title">29</span>
+          <span class="hours-title">30</span>
+          <span class="hours-title">31</span>
+          <!-- TODO: delete extra days in short months-->
+        </div>
+        <div *ngFor="let activity of timecardForm.get('activities').controls; let activityIndex = index"
+          [formGroupName]="activityIndex" class="activity">
+
+          <!-- <input type="text" formControlName="chargeCode" class="TODO"> -->
+
+          <mat-form-field class="charge-code-picker" appearance="outline">
+            <mat-label>ChargeCode</mat-label>
+            <mat-select formControlName="chargeCode">
+              <!-- [(value)]="chargeCode"-->
+              <!--formControlName='name'-->
+              <mat-option *ngFor="let chargeCode of chargeCodes$ | async" [value]="chargeCode">{{chargeCode}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <input type="number" formControlName="d01" class="hours-input">
+          <input type="number" formControlName="d02" class="hours-input">
+          <input type="number" formControlName="d03" class="hours-input">
+          <input type="number" formControlName="d04" class="hours-input">
+          <input type="number" formControlName="d05" class="hours-input">
+          <input type="number" formControlName="d06" class="hours-input">
+          <input type="number" formControlName="d07" class="hours-input">
+          <input type="number" formControlName="d08" class="hours-input">
+          <input type="number" formControlName="d09" class="hours-input">
+          <input type="number" formControlName="d10" class="hours-input">
+          <input type="number" formControlName="d11" class="hours-input">
+          <input type="number" formControlName="d12" class="hours-input">
+          <input type="number" formControlName="d13" class="hours-input">
+          <input type="number" formControlName="d14" class="hours-input">
+          <input type="number" formControlName="d15" class="hours-input">
+          <input type="number" formControlName="d16" class="hours-input">
+          <input type="number" formControlName="d17" class="hours-input">
+          <input type="number" formControlName="d18" class="hours-input">
+          <input type="number" formControlName="d19" class="hours-input">
+          <input type="number" formControlName="d20" class="hours-input">
+          <input type="number" formControlName="d21" class="hours-input">
+          <input type="number" formControlName="d22" class="hours-input">
+          <input type="number" formControlName="d23" class="hours-input">
+          <input type="number" formControlName="d24" class="hours-input">
+          <input type="number" formControlName="d25" class="hours-input">
+          <input type="number" formControlName="d26" class="hours-input">
+          <input type="number" formControlName="d27" class="hours-input">
+          <input type="number" formControlName="d28" class="hours-input">
+          <input type="number" formControlName="d29" class="hours-input">
+          <input type="number" formControlName="d30" class="hours-input">
+          <input type="number" formControlName="d31" class="hours-input">
+          <button mat-icon-button color="warn" type="button" (click)="removeActivity(activityIndex)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button mat-raised-button class="add-btn" (click)="addActivity()" type="button">Add Timecard Activity</button>
+
+    <mat-form-field style="width: 100%" appearance="outline">
+      <textarea matInput placeholder="Notes" formControlName="note"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button class="submit-btn" (click)="saveForm()" type="button">Save</button>
+  </form>
+</mat-card>
+<!-- <span>SAVED FORM DATA</span>
+  <pre>  {{showSavedValue() | json }}
+    </pre>
+  <hr />
+  <span>LIVE FORM DATA</span>
+  <pre>{{showValue() | json}}</pre>
+   -->

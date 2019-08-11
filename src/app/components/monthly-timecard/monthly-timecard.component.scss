@@ -1,5 +1,52 @@
+mat-card {
+    margin-top: 10px;
+}
+
+.add-btn,
 .submit-btn {
-    margin: 0px 6px;
+    margin: 4px 6px;
     background-color: #004ba0;
     color: white;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.hours-input {
+    margin: 1px;
+    padding: 0px;
+    width: 34px;
+}
+
+.charge-code-picker {
+    width: 230px;
+}
+
+.picker-title {
+    width: 230px;
+    display: inline-block;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.hours-title {
+    margin: 1px;
+    padding: 0px;
+    width: 34px;
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.activity-container {
+    overflow-x: scroll;
+}
+
+.activity-title,
+.activity {
+    min-width: 1400px;
 }
