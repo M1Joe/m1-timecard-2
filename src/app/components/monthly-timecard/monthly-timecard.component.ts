@@ -7,7 +7,6 @@ import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { first, take } from 'rxjs/operators';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
 import { Activity } from '@shared/models/activity.model';
-import { ChargeCode } from '@shared/';
 
 @Component({
   selector: 'app-monthly-timecard',
