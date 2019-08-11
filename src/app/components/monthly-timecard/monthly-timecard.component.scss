@@ -48,20 +48,31 @@ input[type=number]::-webkit-outer-spin-button {
 
 .activity-title,
 .activity {
-    min-width: 1400px;
+    min-width: 1500px;
 }
 
 .fake-input {
     background: white;
     border: none;
+    width: 120px;
 }
+
 
 .status {
     margin-left: 6px;
+    width: 100px;
 }
 
 .weekend {
     background-color: #b9b8b8;
     border-color: #b9b8b8;
     border-style: solid;
+}
+
+.total-hours {
+    margin-left: 4px;
+}
+
+.hours-available {
+    margin-left: 20px;
 }

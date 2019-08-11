@@ -10,6 +10,10 @@
         <button mat-raised-button class="submit-btn" (click)="submitForm()" type="button">Submit</button>  <!--[disabled]="isSaveAndSubmitDisabled()"-->
         <span class="status"><b>Status: </b><input type="text" formControlName="status" disabled
             class="fake-input"></span>
+
+        <span class="total-hours"><b>Total Hours Entered: </b>{{totalHoursAllActivities()}}</span>
+        <span class="total-hours hours-available"><b>Total Available Hours: </b>{{totalAvailableHoursInMonth()}}</span>
+        
       </div>
       <mat-divider></mat-divider>
       <div formArrayName="activities" fxLayout="column">
@@ -47,6 +51,8 @@
             <span class="hours-title" *ngIf="daysInMonth>=29">29</span>
             <span class="hours-title" *ngIf="daysInMonth>=30">30</span>
             <span class="hours-title" *ngIf="daysInMonth>=31">31</span>
+            <span class="hours-title">Total</span>
+
             <!-- TODO: delete extra days in short months-->
           </div>
           <div *ngFor="let activity of timecardForm.get('activities').controls; let activityIndex = index"
@@ -66,7 +72,7 @@
 
 
             <input type="number" formControlName="d01" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(1) }">
-            <input type="number" formControlName="d21" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(2) }">
+            <input type="number" formControlName="d02" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(2) }">
             <input type="number" formControlName="d03" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(3) }">
             <input type="number" formControlName="d04" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(4) }">
             <input type="number" formControlName="d05" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(5) }">
@@ -101,6 +107,7 @@
             <input type="number" formControlName="d31" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(31) }"
               *ngIf="daysInMonth>=31">
 
+            <span class="total-hours">{{totalHoursForActivity(activityIndex)}}</span>
 
             <button mat-icon-button color="warn" type="button" (click)="removeActivity(activityIndex)">
               <mat-icon>delete</mat-icon>

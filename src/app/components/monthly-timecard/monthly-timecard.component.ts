@@ -7,6 +7,7 @@ import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { first, take } from 'rxjs/operators';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
 import { Activity } from '@shared/models/activity.model';
+import { ChargeCode } from '@shared/';
 
 @Component({
   selector: 'app-monthly-timecard',
@@ -170,5 +171,37 @@ export class MonthlyTimecardComponent implements OnInit {
     var date = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth-1, day);
     var day = date.getDay();
     return day === 0 || day === 6;
+  }
+
+  totalHoursForActivity(index: number) {
+    var totalHours = 0;
+
+    Object.entries(this.timecardForm.value.activities[index]).forEach(
+      ([key, value]) => {
+        if (key !== "chargeCode" && key.charAt(0) === 'd' && key.length === 3) {
+          totalHours = totalHours + +value;
+        }
+      }
+    );    
+    return totalHours;
+  }
+
+  totalHoursAllActivities() {
+    var grandTotal = 0;
+    for (let index = 0; index < this.timecardForm.value.activities.length; index++) {
+    //for (let index of this.timecardForm.value.activities) {
+      grandTotal = grandTotal + this.totalHoursForActivity(index);
+    }
+    return grandTotal;
+  }
+
+  totalAvailableHoursInMonth() {
+    var totalHoursAvailable = 0;
+    for (let day = 1; day <= this.daysInMonth; day++) {
+      if (!this.isWeekend(day)) {
+        totalHoursAvailable = totalHoursAvailable + 8;
+      }
+    }
+    return totalHoursAvailable;
   }
 }
