@@ -22,8 +22,13 @@ export class MonthlyTimecardComponent implements OnInit {
   currentTimePeriod: CurrentTimePeriod;
 
   disableSaveAndSubmit: boolean;
-
+  
+  daysInMonth = 31;
+  
   @Input() set curTimePer(value: CurrentTimePeriod) {
+    //In order to find the number of days in a month, you need to get the 'date' of the 0th day of the next month.
+    this.daysInMonth = new Date(+value.selectedYear, +value.selectedMonth, 0).getDate();
+    console.log("days in month is " + this.daysInMonth);
     this.currentTimePeriod = value;
     this.initForm();
     
@@ -80,7 +85,7 @@ export class MonthlyTimecardComponent implements OnInit {
   isSaveAndSubmitDisabled() {
     return this.disableSaveAndSubmit;
   }
-  
+
   loadData(): void {
     console.log('loadData Called');
 
@@ -158,5 +163,11 @@ export class MonthlyTimecardComponent implements OnInit {
 
 
     this.loadData();
+  }
+
+  isWeekend(day: number) {
+    var date = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth-1, day);
+    var day = date.getDay();
+    return day === 0 || day === 6;
   }
 }

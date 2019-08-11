@@ -40,10 +40,10 @@
           <span class="hours-title">25</span>
           <span class="hours-title">26</span>
           <span class="hours-title">27</span>
-          <span class="hours-title">28</span>
-          <span class="hours-title">29</span>
-          <span class="hours-title">30</span>
-          <span class="hours-title">31</span>
+          <span class="hours-title" *ngIf="daysInMonth>=28">28</span>
+          <span class="hours-title" *ngIf="daysInMonth>=29">29</span>
+          <span class="hours-title" *ngIf="daysInMonth>=30">30</span>
+          <span class="hours-title" *ngIf="daysInMonth>=31">31</span>
           <!-- TODO: delete extra days in short months-->
         </div>
         <div *ngFor="let activity of timecardForm.get('activities').controls; let activityIndex = index"
@@ -62,37 +62,38 @@
           </mat-form-field>
 
 
-          <input type="number" formControlName="d01" class="hours-input">
-          <input type="number" formControlName="d02" class="hours-input">
-          <input type="number" formControlName="d03" class="hours-input">
-          <input type="number" formControlName="d04" class="hours-input">
-          <input type="number" formControlName="d05" class="hours-input">
-          <input type="number" formControlName="d06" class="hours-input">
-          <input type="number" formControlName="d07" class="hours-input">
-          <input type="number" formControlName="d08" class="hours-input">
-          <input type="number" formControlName="d09" class="hours-input">
-          <input type="number" formControlName="d10" class="hours-input">
-          <input type="number" formControlName="d11" class="hours-input">
-          <input type="number" formControlName="d12" class="hours-input">
-          <input type="number" formControlName="d13" class="hours-input">
-          <input type="number" formControlName="d14" class="hours-input">
-          <input type="number" formControlName="d15" class="hours-input">
-          <input type="number" formControlName="d16" class="hours-input">
-          <input type="number" formControlName="d17" class="hours-input">
-          <input type="number" formControlName="d18" class="hours-input">
-          <input type="number" formControlName="d19" class="hours-input">
-          <input type="number" formControlName="d20" class="hours-input">
-          <input type="number" formControlName="d21" class="hours-input">
-          <input type="number" formControlName="d22" class="hours-input">
-          <input type="number" formControlName="d23" class="hours-input">
-          <input type="number" formControlName="d24" class="hours-input">
-          <input type="number" formControlName="d25" class="hours-input">
-          <input type="number" formControlName="d26" class="hours-input">
-          <input type="number" formControlName="d27" class="hours-input">
-          <input type="number" formControlName="d28" class="hours-input">
-          <input type="number" formControlName="d29" class="hours-input">
-          <input type="number" formControlName="d30" class="hours-input">
-          <input type="number" formControlName="d31" class="hours-input">
+          <input type="number" formControlName="d01" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(1) }">
+          <input type="number" formControlName="d21" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(2) }">
+          <input type="number" formControlName="d03" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(3) }">
+          <input type="number" formControlName="d04" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(4) }">
+          <input type="number" formControlName="d05" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(5) }">
+          <input type="number" formControlName="d06" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(6) }">
+          <input type="number" formControlName="d07" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(7) }">
+          <input type="number" formControlName="d08" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(8) }">
+          <input type="number" formControlName="d09" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(9) }">
+          <input type="number" formControlName="d10" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(10) }">
+          <input type="number" formControlName="d11" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(11) }">
+          <input type="number" formControlName="d12" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(12) }">
+          <input type="number" formControlName="d13" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(13) }">
+          <input type="number" formControlName="d14" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(14) }">
+          <input type="number" formControlName="d15" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(15) }">
+          <input type="number" formControlName="d16" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(16) }">
+          <input type="number" formControlName="d17" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(17) }">
+          <input type="number" formControlName="d18" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(18) }">
+          <input type="number" formControlName="d19" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(19) }">
+          <input type="number" formControlName="d20" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(20) }">
+          <input type="number" formControlName="d21" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(21) }">
+          <input type="number" formControlName="d22" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(22) }">
+          <input type="number" formControlName="d23" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(23) }">
+          <input type="number" formControlName="d24" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(24) }">
+          <input type="number" formControlName="d25" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(25) }">
+          <input type="number" formControlName="d26" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(26) }">
+          <input type="number" formControlName="d27" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(27) }">
+          <input type="number" formControlName="d28" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(28) }" *ngIf="daysInMonth>=28">
+          <input type="number" formControlName="d29" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(29) }" *ngIf="daysInMonth>=29">
+          <input type="number" formControlName="d30" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(30) }" *ngIf="daysInMonth>=30">
+          <input type="number" formControlName="d31" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(31) }" *ngIf="daysInMonth>=31">
+
 
           <button mat-icon-button color="warn" type="button" (click)="removeActivity(activityIndex)">
             <mat-icon>delete</mat-icon>
