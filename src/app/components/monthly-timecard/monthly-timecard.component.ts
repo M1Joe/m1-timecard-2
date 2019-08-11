@@ -24,8 +24,12 @@ export class MonthlyTimecardComponent implements OnInit {
   disableSaveAndSubmit: boolean;
   
   daysInMonth = 31;
-  
+
+  //for spinner in HTML
+  loading = true;
+
   @Input() set curTimePer(value: CurrentTimePeriod) {
+    this.loading = true;
     //In order to find the number of days in a month, you need to get the 'date' of the 0th day of the next month.
     this.daysInMonth = new Date(+value.selectedYear, +value.selectedMonth, 0).getDate();
     console.log("days in month is " + this.daysInMonth);
@@ -77,9 +81,11 @@ export class MonthlyTimecardComponent implements OnInit {
     }
 
     
-    //once we setup the form with all the arrays and such, we cna just
-    //patch the form:
+    //once we setup the form with all the arrays and such, we can just patch the form:
     this.timecardForm.patchValue(data);
+
+    //show form to user
+    this.loading = false;
   }
 
   isSaveAndSubmitDisabled() {
@@ -96,8 +102,10 @@ export class MonthlyTimecardComponent implements OnInit {
             this.disableSaveAndSubmit = true;
           }
           this.loadForm(results);
-          
-        } 
+        } else {
+          //show form to user
+          this.loading = false;
+        }
       }
     );
 
@@ -159,8 +167,6 @@ export class MonthlyTimecardComponent implements OnInit {
     });
 
     this.activitiesFormArray = this.timecardForm.get("activities") as FormArray;
-
-
 
     this.loadData();
   }
