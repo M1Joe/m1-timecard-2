@@ -6,6 +6,7 @@ import { UserService } from '@shared/services/user.service';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { first, take } from 'rxjs/operators';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
+import { Activity } from '@shared/models/activity.model';
 
 @Component({
   selector: 'app-monthly-timecard',
@@ -16,13 +17,9 @@ export class MonthlyTimecardComponent implements OnInit {
 
   timecardForm: FormGroup;
   chargeCodes$: Observable<string[]>;
-
   activitiesFormArray: FormArray;
-
   currentTimePeriod: CurrentTimePeriod;
-
   disableSaveAndSubmit: boolean;
-  
   daysInMonth = 31;
 
   //for spinner in HTML
@@ -69,10 +66,19 @@ export class MonthlyTimecardComponent implements OnInit {
     this.activitiesFormArray.removeAt(idx);
   }
 
-  loadForm(data) {
+  loadForm(data: MonthlyTimecard) {
   
-
-    //TODO: Nice to have - automatically add a row for the user when one doesn't exist.  
+    if (data !== null) {
+      if (data.status === 'SUBMITTED') {
+        this.disableSaveAndSubmit = true;
+      } else {
+        this.disableSaveAndSubmit = false;
+      }
+      
+    } else {
+      // add a blank row when one doesn't exist.
+      data = {status: 'DRAFT', activities : [{'chargeCode': ''}], note: ''};
+    }
     
     if (data.activities && data.activities.length && data.activities.length > 0) {
       for (let activity = 0; activity < data.activities.length; activity++) {
@@ -80,7 +86,6 @@ export class MonthlyTimecardComponent implements OnInit {
       }
     }
 
-    
     //once we setup the form with all the arrays and such, we can just patch the form:
     this.timecardForm.patchValue(data);
 
@@ -89,7 +94,8 @@ export class MonthlyTimecardComponent implements OnInit {
   }
 
   isSaveAndSubmitDisabled() {
-    return this.disableSaveAndSubmit;
+    return this.timecardForm.value.status !== 'SUBMITTED';
+    //return this.disableSaveAndSubmit;
   }
 
   loadData(): void {
@@ -97,23 +103,12 @@ export class MonthlyTimecardComponent implements OnInit {
 
     this.userService.getTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth).pipe(take(1)).subscribe(
       results => {
-        if (results !== null) {
-          if (results.status === 'SUBMITTED') {
-            this.disableSaveAndSubmit = true;
-          }
-          this.loadForm(results);
-        } else {
-          //show form to user
-          this.loading = false;
-        }
+        this.loadForm(results);
       }
     );
-
-      //TODO: UNSUBSCRIBE
   }
 
 
-  //get functions cannot have parameters...
   get activity(): FormGroup {
     return this._fb.group({
       chargeCode: '',
