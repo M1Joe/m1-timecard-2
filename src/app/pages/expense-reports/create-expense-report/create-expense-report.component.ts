@@ -12,7 +12,8 @@ import { ExpenseReport } from '@shared/models/expense-report.model';
 export class CreateExpenseReportComponent {
 
   public expenseForm: FormGroup;
-
+  reimburseableChecked: boolean;
+  
   constructor(
     private authService: AuthService,
     private userService: UserService,
