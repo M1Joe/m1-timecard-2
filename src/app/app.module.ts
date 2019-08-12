@@ -21,6 +21,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Shared
 import {
@@ -40,6 +41,7 @@ import { firebaseKeys } from './firebase.config';
 
 // Pages
 import { PageNotFoundComponent } from './pages/not-found/not-found.component';
+import { ExpenseReportModule } from './pages/expense-reports/expense-reports.module';
 
 // Components
 
@@ -56,6 +58,7 @@ import { PageNotFoundComponent } from './pages/not-found/not-found.component';
     MatButtonModule, MatCheckboxModule, MatMenuModule, MatInputModule, MatSnackBarModule,
     MatToolbarModule, MatDialogModule, MatSidenavModule, MatNativeDateModule, MatSelectModule,
     MatCardModule, MatTabsModule, MatIconModule,
+    FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -64,6 +67,7 @@ import { PageNotFoundComponent } from './pages/not-found/not-found.component';
     LoginModule,
     TimecardModule,
     ChargeCodesModule,
+    ExpenseReportModule,
     UsersModule,
     NgxAuthFirebaseUIModule.forRoot(firebaseKeys),
     AngularFireModule.initializeApp(firebaseKeys),

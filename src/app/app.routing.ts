@@ -14,6 +14,7 @@ import { TimecardComponent } from './pages/timecard/timecard.component';
 import { ChargeCodesComponent } from './pages/charge-codes/charge-codes.component'
 import { UsersComponent } from './pages/users/users.component'
 import { AuthGuard } from './auth.guard';
+import { ExpenseReportsComponent } from './pages/expense-reports/expense-reports.component';
 
 
 // Routing
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'timecard', canActivate : [AuthGuard], component: TimecardComponent },
   { path: 'chargeCodes', canActivate : [AuthGuard], component: ChargeCodesComponent },
+  { path: 'expenseReports', canActivate : [AuthGuard], component: ExpenseReportsComponent },
   { path: 'users', canActivate : [AuthGuard], component: UsersComponent },
 
 

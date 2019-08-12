@@ -10,6 +10,8 @@ import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { promise } from 'protractor';
 import { AuthService } from './auth.service';
+import { ExpenseReport } from '@shared/models/expense-report.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable()
 export class UserService {
@@ -71,9 +73,49 @@ export class UserService {
       .catch(err => console.log(err, 'problem'));
   }
 
-   /**
-   * Users
+
+  /**
+   * Timecards
    */
+  
+  public createExpenseReport(expenseReport: ExpenseReport) {
+    expenseReport.id = this.db.createPushId();
+    const promise = this.db.list<ExpenseReport>('expenseReports').set(expenseReport.id, expenseReport);
+    promise
+      .then(_=> console.log('success'))
+      .catch(err => console.log(err, 'problem'));
+  }
+
+  public saveExpenseReport(expenseReport: ExpenseReport) {
+    const promise = this.db.list<ExpenseReport>('expenseReports').set(expenseReport.id, expenseReport);
+    promise
+      .then(_=> console.log('success'))
+      .catch(err => console.log(err, 'problem'));
+  }
+
+  public getExpenseReports(): Observable<ExpenseReport[]> {
+    return this.db.list<ExpenseReport>('expenseReports').valueChanges();
+  }
+
+  public getExpenseReportsByStatus(status: string): Observable<ExpenseReport[]> {
+    return this.db.list<ExpenseReport>('expenseReports', ref => ref.orderByChild('status').equalTo(status)).valueChanges();
+  }
+
+  public deleteExpenseReport(expenseReport: ExpenseReport) {
+    var id = expenseReport.id;
+
+    const promise = this.db.list<ExpenseReport>('expenseReports').remove(id);
+    promise
+      .then(_=> console.log('success'))
+      .catch(err => console.log(err, 'problem'));
+  }
+
+
+  
+
+  /**
+  * Users
+  */
   public createUser(user: User) {
     var userKey = this.authService.getUserKey(user);
     const promise = this.db.list<User>('users').set(userKey, user);
@@ -98,7 +140,6 @@ export class UserService {
     promise
       .then(_=> console.log('success'))
       .catch(err => console.log(err, 'problem'));
-
   }
 
   public updateUser(user: User) {

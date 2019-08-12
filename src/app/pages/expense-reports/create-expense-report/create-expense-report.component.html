@@ -1,0 +1,55 @@
+<form class="form" [formGroup]="expenseForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <mat-card>
+    <h3>Create New Expense Report</h3>
+    <div fxLayout="row wrap" fxLayoutGap="20px">
+
+      <div>
+        <mat-form-field class="date-picker">
+          <input matInput [matDatepicker]="fromPicker" placeholder="From date" formControlName="fromDate" required>
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="date-picker">
+          <input matInput [matDatepicker]="toPicker" placeholder="To date" formControlName="toDate">
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+
+      <div class="reimburseable-div">
+        <mat-checkbox color="primary" formControlName="reimburseable" [(ngModel)]="reimburseableChecked">Reimburseable
+          by Contract?</mat-checkbox>
+      </div>
+
+      <div *ngIf="reimburseableChecked">
+        <mat-form-field appearance="outline">
+          <mat-label>Contract</mat-label>
+          <input matInput formControlName="contract" placeholder="Contract">
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div fxLayout="row wrap" fxLayoutGap="20px">
+      <div>
+        <mat-form-field appearance="outline" class="amount">
+          <mat-label>Amount</mat-label>
+          <input matInput formControlName="amount" placeholder="$xx.xx" required>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex>
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="Description" formControlName="description"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    
+    <br />
+    <button mat-raised-button class="submit-btn" type="submit" [disabled]="expenseForm.invalid">Submit</button>
+  </mat-card>
+</form>
