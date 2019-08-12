@@ -9,8 +9,8 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Components
 import { TimecardComponent } from './timecard.component';
-import { TimePeriodPickerComponent } from '../../components/time-period-picker/time-period-picker.component'
-import { MonthlyTimecardComponent } from 'src/app/components/monthly-timecard/monthly-timecard.component';
+import { TimePeriodPickerComponent } from './time-period-picker/time-period-picker.component'
+import { MonthlyTimecardComponent } from './monthly-timecard/monthly-timecard.component';
 
 
 @NgModule({

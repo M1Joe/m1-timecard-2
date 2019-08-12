@@ -8,7 +8,7 @@
   <span class="spacer"></span>
 
   <!--JJF: button not showing proper status-->
-  <div fxFlex *ngIf="authService.isAuthenticated()" fxLayout="row">
+  <div *ngIf="authService.isAuthenticated()" fxLayout="row">
     <span class="welcome">Welcome, {{userName()}}</span>
     <button type="button" routerLink="/login" mat-icon-button (click)="onLogout()">  
       <mat-icon>lock_open</mat-icon>
