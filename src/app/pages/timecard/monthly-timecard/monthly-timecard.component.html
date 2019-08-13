@@ -1,21 +1,13 @@
-<mat-card>
-  <div *ngIf="loading; else show_form">
+<div *ngIf="loading; else show_form">
+  <mat-card>
     Loading timecard data...
-  </div>
+  </mat-card>
+</div>
 
-  <ng-template #show_form>
-    <form [formGroup]="timecardForm">
-      <div fxLayout="row">
-        <button mat-raised-button class="submit-btn" (click)="saveForm()" type="button">Save</button> <!--[disabled]="isSaveAndSubmitDisabled()"-->
-        <button mat-raised-button class="submit-btn" (click)="submitForm()" type="button">Submit</button>  <!--[disabled]="isSaveAndSubmitDisabled()"-->
-        <span class="status"><b>Status: </b><input type="text" formControlName="status" disabled
-            class="fake-input"></span>
+<ng-template #show_form>
 
-        <span class="total-hours"><b>Total Hours Entered: </b>{{totalHoursAllActivities()}}</span>
-        <span class="total-hours hours-available"><b>Total Available Hours: </b>{{totalAvailableHoursInMonth()}}</span>
-        
-      </div>
-      <mat-divider></mat-divider>
+  <form [formGroup]="timecardForm">
+    <mat-card>
       <div formArrayName="activities" fxLayout="column">
         <div class="activity-container">
           <div fxLayout="row" class="activity-title">
@@ -58,13 +50,10 @@
           <div *ngFor="let activity of timecardForm.get('activities').controls; let activityIndex = index"
             [formGroupName]="activityIndex" class="activity">
 
-            <!-- <input type="text" formControlName="chargeCode" class="TODO"> -->
 
             <mat-form-field class="charge-code-picker" appearance="outline">
               <mat-label>ChargeCode</mat-label>
               <mat-select formControlName="chargeCode">
-                <!-- [(value)]="chargeCode"-->
-                <!--formControlName='name'-->
                 <mat-option *ngFor="let chargeCode of chargeCodes$ | async" [value]="chargeCode">{{chargeCode}}
                 </mat-option>
               </mat-select>
@@ -117,18 +106,15 @@
       </div>
       <button mat-raised-button class="add-btn" (click)="addActivity()" type="button">Add Timecard Activity</button>
 
+    </mat-card>
+    <mat-card>
+
       <mat-form-field style="width: 100%" appearance="outline">
+        <mat-label>Notes</mat-label>
         <textarea matInput placeholder="Notes" formControlName="note"></textarea>
       </mat-form-field>
 
+    </mat-card>
+  </form>
 
-    </form>
-  </ng-template>
-</mat-card>
-<!-- <span>SAVED FORM DATA</span>
-  <pre>  {{showSavedValue() | json }}
-    </pre>
-  <hr />
-  <span>LIVE FORM DATA</span>
-  <pre>{{showValue() | json}}</pre>
-   -->
+</ng-template>

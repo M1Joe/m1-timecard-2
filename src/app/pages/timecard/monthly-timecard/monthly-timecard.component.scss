@@ -15,6 +15,11 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+//hide the spinner on firefox
+input[type="number"] {
+    -moz-appearance: textfield !important;
+}
+
 .hours-input {
     margin: 1px;
     padding: 0px;
@@ -43,12 +48,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .activity-container {
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .activity-title,
 .activity {
-    min-width: 1500px;
+    min-width: 1400px;
 }
 
 .fake-input {

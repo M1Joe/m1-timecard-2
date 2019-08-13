@@ -1,7 +1,22 @@
 <div *ngIf="currentTimePeriod$ | async as currentTimePeriod">
 
-  <app-time-period-picker [currentTimePeriod]="currentTimePeriod" (requestToLoadTimecard)="requestToLoadTimecard($event)">
-  </app-time-period-picker>
+  <div fxLayout="row" >
+    <mat-card class="time-period-picker-card">
+
+      <app-time-period-picker [currentTimePeriod]="currentTimePeriod"
+        (requestToLoadTimecard)="requestToLoadTimecard($event)"></app-time-period-picker>
+    </mat-card>
+    <mat-card fxFlex>
+      <app-save-timecard 
+              [currentTimePeriod]="currentTimePeriod" 
+              [totalHoursAllActivities]="totalHoursAllActivities()"
+              [totalAvailableHoursInMonth]="totalAvailableHoursInMonth()" 
+              [status]="getStatus()"
+              (requestToSaveTimecard)="requestToSaveTimecard($event)">
+      </app-save-timecard>
+
+    </mat-card>
+  </div>
 
   <app-monthly-timecard [curTimePer]="currentTimePeriod"></app-monthly-timecard>
 

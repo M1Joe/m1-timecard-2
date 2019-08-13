@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '@shared/services/auth.service';
@@ -22,6 +22,8 @@ export class MonthlyTimecardComponent implements OnInit {
   disableSaveAndSubmit: boolean;
   daysInMonth = 31;
 
+  @Output() requestToSaveTimecard: EventEmitter<null> = new EventEmitter();
+
   //for spinner in HTML
   loading = true;
 
@@ -29,7 +31,7 @@ export class MonthlyTimecardComponent implements OnInit {
     this.loading = true;
     //In order to find the number of days in a month, you need to get the 'date' of the 0th day of the next month.
     this.daysInMonth = new Date(+value.selectedYear, +value.selectedMonth, 0).getDate();
-    console.log("days in month is " + this.daysInMonth);
+    
     this.currentTimePeriod = value;
     this.initForm();
     
@@ -39,23 +41,6 @@ export class MonthlyTimecardComponent implements OnInit {
 
   showValue() {
     return this.timecardForm.getRawValue();
-  }
-
-  saveForm() {
-    var timecard: MonthlyTimecard = this.timecardForm.value;
-    //this.timecardForm.status = 'DRAFT'
-    timecard.status = 'DRAFT';
-    this.timecardForm.patchValue(timecard);
-
-    this.userService.saveTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, this.timecardForm.value);
-  }
-
-  submitForm() {
-    var timecard: MonthlyTimecard = this.timecardForm.value;
-    timecard.status = 'SUBMITTED';
-    this.timecardForm.patchValue(timecard);
-    this.userService.saveTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, timecard);
-
   }
 
   addActivity() {
@@ -155,8 +140,8 @@ export class MonthlyTimecardComponent implements OnInit {
   initForm() {
 
     this.timecardForm = this._fb.group({
-      note: ['', [Validators.required]],
-      status: [{value: 'DRAFT', disabled: true}],
+      note: [''],
+      status: [{value: 'DRAFT'}],
       activities: this._fb.array([
       ])
     });
@@ -185,22 +170,5 @@ export class MonthlyTimecardComponent implements OnInit {
     return totalHours;
   }
 
-  totalHoursAllActivities() {
-    var grandTotal = 0;
-    for (let index = 0; index < this.timecardForm.value.activities.length; index++) {
-    //for (let index of this.timecardForm.value.activities) {
-      grandTotal = grandTotal + this.totalHoursForActivity(index);
-    }
-    return grandTotal;
-  }
-
-  totalAvailableHoursInMonth() {
-    var totalHoursAvailable = 0;
-    for (let day = 1; day <= this.daysInMonth; day++) {
-      if (!this.isWeekend(day)) {
-        totalHoursAvailable = totalHoursAvailable + 8;
-      }
-    }
-    return totalHoursAvailable;
-  }
+ 
 }
