@@ -102,6 +102,43 @@
               <mat-icon>delete</mat-icon>
             </button>
           </div>
+          <!-- sum for each day -->
+          <div>
+            <div fxLayout="row" class="activity-title">
+              <span class="picker-title">Total hours for Day:</span>
+              <span class="hours-title">{{getHours('d01')}}</span>
+              <span class="hours-title">{{getHours('d02')}}</span>
+              <span class="hours-title">{{getHours('d03')}}</span>
+              <span class="hours-title">{{getHours('d04')}}</span>
+              <span class="hours-title">{{getHours('d05')}}</span>
+              <span class="hours-title">{{getHours('d06')}}</span>
+              <span class="hours-title">{{getHours('d07')}}</span>
+              <span class="hours-title">{{getHours('d08')}}</span>
+              <span class="hours-title">{{getHours('d09')}}</span>
+              <span class="hours-title">{{getHours('d10')}}</span>
+              <span class="hours-title">{{getHours('d11')}}</span>
+              <span class="hours-title">{{getHours('d12')}}</span>
+              <span class="hours-title">{{getHours('d13')}}</span>
+              <span class="hours-title">{{getHours('d14')}}</span>
+              <span class="hours-title">{{getHours('d15')}}</span>
+              <span class="hours-title">{{getHours('d16')}}</span>
+              <span class="hours-title">{{getHours('d17')}}</span>
+              <span class="hours-title">{{getHours('d18')}}</span>
+              <span class="hours-title">{{getHours('d19')}}</span>
+              <span class="hours-title">{{getHours('d20')}}</span>
+              <span class="hours-title">{{getHours('d21')}}</span>
+              <span class="hours-title">{{getHours('d22')}}</span>
+              <span class="hours-title">{{getHours('d23')}}</span>
+              <span class="hours-title">{{getHours('d24')}}</span>
+              <span class="hours-title">{{getHours('d25')}}</span>
+              <span class="hours-title">{{getHours('d26')}}</span>
+              <span class="hours-title">{{getHours('d27')}}</span>
+              <span class="hours-title" *ngIf="daysInMonth>=28">{{getHours('d28')}}</span>
+              <span class="hours-title" *ngIf="daysInMonth>=29">{{getHours('d29')}}</span>
+              <span class="hours-title" *ngIf="daysInMonth>=30">{{getHours('d30')}}</span>
+              <span class="hours-title" *ngIf="daysInMonth>=31">{{getHours('d31')}}</span>
+            </div>
+          </div>
         </div>
       </div>
       <button mat-raised-button class="add-btn" (click)="addActivity()" type="button">Add Timecard Activity</button>

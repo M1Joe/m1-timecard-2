@@ -170,5 +170,13 @@ export class MonthlyTimecardComponent implements OnInit {
     return totalHours;
   }
 
+  getHours(day: string): number {
+    var hours = 0;
+    for (let index in this.timecardForm.value.activities) {
+      hours = hours + +this.timecardForm.value.activities[index][day]
+    }
+    return hours;
+  }
  
+
 }
