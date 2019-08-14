@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
+import { DateService } from '@shared/services/date.service';
 
 @Component({
   selector: 'app-save-timecard',
@@ -15,6 +16,7 @@ export class SaveTimecardComponent implements OnInit {
 
   @Output() requestToSaveTimecard: EventEmitter<string> = new EventEmitter();
 
+  constructor(public dateService: DateService) {}
   ngOnInit() {}
 
   saveTimecard() {
@@ -27,9 +29,7 @@ export class SaveTimecardComponent implements OnInit {
 
 
   isWeekend(day: number) {
-    var date = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth-1, day);
-    var day = date.getDay();
-    return day === 0 || day === 6;
+    return this.dateService.isWeekend(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, day);
   }
 
 

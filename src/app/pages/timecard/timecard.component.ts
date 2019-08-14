@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
 import { MonthlyTimecardComponent } from './monthly-timecard/monthly-timecard.component';
+import { DateService } from '@shared/services/date.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { MonthlyTimecardComponent } from './monthly-timecard/monthly-timecard.co
 })
 export class TimecardComponent implements OnInit {
 
-  constructor(private authService: AuthService, private userService: UserService) {
+  constructor(private authService: AuthService, private userService: UserService, private dateService: DateService) {
   
   }
 
@@ -61,9 +62,7 @@ export class TimecardComponent implements OnInit {
   }
 
   isWeekend(day: number) {
-    var date = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth-1, day);
-    var day = date.getDay();
-    return day === 0 || day === 6;
+    return this.dateService.isWeekend(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, day);
   }
 
   totalHoursForActivity(index: number) {

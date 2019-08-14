@@ -31,6 +31,7 @@ import {
   AlertService,
   AuthGuardService,
   AuthService,
+  DateService,
   WindowService
 } from '@shared';
 
@@ -80,6 +81,7 @@ import { ExpenseReportModule } from './pages/expense-reports/expense-reports.mod
     AlertService,
     AuthGuardService,
     AuthService,
+    DateService,
     WindowService
   ],
   schemas: [
