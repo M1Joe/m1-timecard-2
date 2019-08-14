@@ -32,8 +32,10 @@ export class TimecardComponent implements OnInit {
   currentTimePeriod$: Observable<CurrentTimePeriod>; 
   currentTimePeriod: CurrentTimePeriod;
   daysInMonth: number;
+  //viewTimecardForUserKey: string; //the user who we are currently viewing
 
   ngOnInit(): void {
+    //this.viewTimecardForUserKey = this.authService.getUserKey(); //is this right?
     this.userKey = this.authService.getUserKey();
 
     console.log(this.userKey);
@@ -42,7 +44,7 @@ export class TimecardComponent implements OnInit {
     this.currentTimePeriod$.subscribe(result => {
       this.currentTimePeriod = result;
       this.daysInMonth = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, 0).getDate();
-      
+      this.requestToLoadTimecard(this.currentTimePeriod);
     });  //TODO: Unsubscribe
 
   }
@@ -50,6 +52,7 @@ export class TimecardComponent implements OnInit {
   requestToLoadTimecard(currentTimePeriod: CurrentTimePeriod) {
     this.currentTimePeriod = currentTimePeriod;
     this.userService.setCurrentTimePeriod(this.userKey, currentTimePeriod);
+    this.monthlyTimecardComponent.initForm(this.authService.getUserKey(), this.currentTimePeriod);
   }
 
   requestToSaveTimecard(status: string) {
@@ -59,6 +62,16 @@ export class TimecardComponent implements OnInit {
     timecard.status = status;
     this.monthlyTimecardComponent.timecardForm.patchValue(timecard);
     this.userService.saveTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, timecard);
+  }
+
+  requestToApproveTimecard(event: any) {
+    var timecard: MonthlyTimecard = this.monthlyTimecardComponent.timecardForm.value;
+    timecard.status = event.status;
+    this.userService.saveTimecard(event.userKey, this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, timecard);
+  }
+
+  requestToLoadTimecardForUser(userKey: string) {
+    this.monthlyTimecardComponent.initForm(userKey, this.currentTimePeriod);
   }
 
   isWeekend(day: number) {
@@ -79,7 +92,7 @@ export class TimecardComponent implements OnInit {
   }
 
   totalHoursAllActivities() {
-    if (!this.monthlyTimecardComponent) {
+    if (!this.monthlyTimecardComponent || !this.monthlyTimecardComponent.timecardForm) {
       return 0;
     }
 

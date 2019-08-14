@@ -7,17 +7,9 @@ import { DateService } from '@shared/services/date.service';
   templateUrl: './save-timecard.component.html',
   styleUrls: ['./save-timecard.component.scss']
 })
-export class SaveTimecardComponent implements OnInit {
-
-  @Input() currentTimePeriod: CurrentTimePeriod;
-  @Input() totalHoursAllActivities: number;
-  @Input() totalAvailableHoursInMonth: number;
-  @Input() status: string;
+export class SaveTimecardComponent {
 
   @Output() requestToSaveTimecard: EventEmitter<string> = new EventEmitter();
-
-  constructor(public dateService: DateService) {}
-  ngOnInit() {}
 
   saveTimecard() {
     this.requestToSaveTimecard.emit('DRAFT');
@@ -25,11 +17,6 @@ export class SaveTimecardComponent implements OnInit {
 
   submitTimecard() {
     this.requestToSaveTimecard.emit('SUBMITTED');
-  }
-
-
-  isWeekend(day: number) {
-    return this.dateService.isWeekend(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, day);
   }
 
 

@@ -23,20 +23,24 @@ export class MonthlyTimecardComponent implements OnInit {
   disableSaveAndSubmit: boolean;
   daysInMonth = 31;
 
+  userKey: string;
+
   @Output() requestToSaveTimecard: EventEmitter<null> = new EventEmitter();
 
   //for spinner in HTML
   loading = true;
 
-  @Input() set curTimePer(value: CurrentTimePeriod) {
-    this.loading = true;
-    //In order to find the number of days in a month, you need to get the 'date' of the 0th day of the next month.
-    this.daysInMonth = new Date(+value.selectedYear, +value.selectedMonth, 0).getDate();
+  //@Input() CurrentTimePeriod: CurrentTimePeriod;
+
+  // @Input() set curTimePer(value: CurrentTimePeriod) {
+  //   this.loading = true;
+  //   //In order to find the number of days in a month, you need to get the 'date' of the 0th day of the next month.
+  //   this.daysInMonth = new Date(+value.selectedYear, +value.selectedMonth, 0).getDate();
     
-    this.currentTimePeriod = value;
-    this.initForm();
-    
-  }
+  //   this.currentTimePeriod = value;
+  //   this.initForm(this.authService.getUserKey());  
+  // }
+
 
   constructor(
     private authService: AuthService, 
@@ -92,7 +96,7 @@ export class MonthlyTimecardComponent implements OnInit {
   loadData(): void {
     console.log('loadData Called');
 
-    this.userService.getTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth).pipe(take(1)).subscribe(
+    this.userService.getTimecard(this.userKey, this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth).pipe(take(1)).subscribe(
       results => {
         this.loadForm(results);
       }
@@ -139,11 +143,23 @@ export class MonthlyTimecardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.chargeCodes$ = this.userService.getUserChargeCodes(this.authService.getUserKey());
+    //this.userKey = this.authService.getUserKey();
+
+    
     
   }
 
-  initForm() {
+  /**
+   * 
+   * @param userKey the key of the user who we want to view the timecard for.  
+   * For most users, this is the user themself, but approvers can view any user's timecard.
+   */
+  initForm(userKey: string, currentTimePerdiod: CurrentTimePeriod) { 
+    
+    this.userKey = userKey;
+    this.currentTimePeriod = currentTimePerdiod;
+    
+    this.chargeCodes$ = this.userService.getUserChargeCodes(this.userKey);
 
     this.timecardForm = this._fb.group({
       note: [''],

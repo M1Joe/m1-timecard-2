@@ -13,6 +13,8 @@ import { TimePeriodPickerComponent } from './time-period-picker/time-period-pick
 import { MonthlyTimecardComponent } from './monthly-timecard/monthly-timecard.component';
 import { SaveTimecardComponent } from './save-timecard/save-timecard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TimecardStatsComponent } from './timecard-stats/timecard-stats.component';
+import { ApproveTimecardComponent } from './approve-timecard/approve-timecard.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     TimecardComponent,
     TimePeriodPickerComponent,
     MonthlyTimecardComponent,
-    SaveTimecardComponent
+    SaveTimecardComponent,
+    TimecardStatsComponent,
+    ApproveTimecardComponent
   ],
   imports: [
     CommonModule,
