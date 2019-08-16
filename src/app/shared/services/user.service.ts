@@ -26,11 +26,20 @@ export class UserService {
   //set = REPLACE
   //update = modify 
 
-
+  filterEmptyFields(data: any): any {    // Filter any fields that aren't empty & store in a new object - To be passed on the Pipe map's caller
+    let fields = {};
+    Object.keys(data).forEach(key =>  data[key] != "" ? fields[key] = data[key] : key);
+    return fields;   
+  }
   /**
    * Timecards
    */
   public saveTimecard(userKey: string, year: string, month: string, monthlyTimecard: MonthlyTimecard) {
+
+    for (let i in monthlyTimecard.activities) {
+      monthlyTimecard.activities[i] = this.filterEmptyFields(monthlyTimecard.activities[i]);
+    }
+    
     const sendAlert = this.alertService;
     return firebase.database().ref().child('employeeEditableFields/').child('timecards').child(year).child(month).child(userKey).set(monthlyTimecard, 
       function(error) {
