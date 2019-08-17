@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="userDisplayName$ | async">
 
     <app-header></app-header>
     <app-admin></app-admin>

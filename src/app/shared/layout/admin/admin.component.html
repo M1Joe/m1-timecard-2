@@ -4,13 +4,12 @@
     <button mat-raised-button routerLink="/timecard">Timecard</button>
     <button mat-raised-button routerLink="/expenseReports">Expense Report</button>
 
-    <button mat-raised-button routerLink="/users"       *ngIf="isAdmin">Users</button>
-    <button mat-raised-button routerLink="/chargeCodes" *ngIf="isAdmin">Charge Codes</button>
+    <span *ngIf="isAdmin()">
+      <button mat-raised-button routerLink="/users"       >Users</button>
+      <button mat-raised-button routerLink="/chargeCodes">Charge Codes</button>
+      <button mat-raised-button routerLink="/chargeCodes">Rates</button>
+    </span>
     
-    TODO:
-    <button mat-raised-button routerLink="/chargeCodes" *ngIf="isAdmin">Rates</button>
-    <button mat-raised-button routerLink="/approveTimecards" *ngIf="isAdmin">Approve Timecard</button>
-    <button mat-raised-button routerLink="/approveExpenseReports" *ngIf="isAdmin">Approve Expense Reports</button>
 
   </div>
 </mat-toolbar>

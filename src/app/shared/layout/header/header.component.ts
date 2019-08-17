@@ -16,21 +16,16 @@ export class HeaderComponent {
     private alertService: AlertService,
     ) {
       this.isAuthenticated = this.authService.isAuthenticated()
-      //this.emailPrefix = this.authService.getEmailPrefix();
   }
 
-  public userUid(): string {
-    return firebase.auth().currentUser.uid;
-  }
-
-  public userEmail(): string {
-    return firebase.auth().currentUser.email;
-  }
 
   public userName(): string {
-    //console.log(firebase.auth().currentUser.displayName);
-    //console.log(firebase.auth().currentUser.email);
-    return firebase.auth().currentUser.displayName;
+    if (firebase.auth().currentUser) {
+      return firebase.auth().currentUser.displayName;
+    } else {
+      return '';
+    }
+    
   }
 
   public onLogout(): void {

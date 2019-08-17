@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 
 import { AuthService, AlertService } from '../../services';
@@ -9,16 +9,14 @@ import { AuthService, AlertService } from '../../services';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent {
-  public isAuthenticated: string;
-  //public emailPrefix: string;
+
   public test: string;
 
   constructor(
     public authService: AuthService,
     private alertService: AlertService,
     ) {
-      this.isAuthenticated = this.authService.isAuthenticated()
-      //this.emailPrefix = this.authService.getEmailPrefix();
+
   }
 
   public userUid(): string {
@@ -41,9 +39,8 @@ export class AdminComponent {
     return this.authService.logout();
   }
 
-  public isAdmin() {
+  public isAdmin(): boolean {
     return this.authService.isAdmin();
   }
-
   
 }
