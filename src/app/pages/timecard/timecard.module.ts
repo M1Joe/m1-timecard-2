@@ -15,7 +15,7 @@ import { SaveTimecardComponent } from './save-timecard/save-timecard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TimecardStatsComponent } from './timecard-stats/timecard-stats.component';
 import { ApproveTimecardComponent } from './approve-timecard/approve-timecard.component';
-
+import { PtoComponent } from './pto/pto.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { ApproveTimecardComponent } from './approve-timecard/approve-timecard.co
     MonthlyTimecardComponent,
     SaveTimecardComponent,
     TimecardStatsComponent,
-    ApproveTimecardComponent
+    ApproveTimecardComponent,
+    PtoComponent
   ],
   imports: [
     CommonModule,

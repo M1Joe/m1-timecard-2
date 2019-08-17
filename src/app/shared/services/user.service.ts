@@ -12,6 +12,7 @@ import { promise } from 'protractor';
 import { AuthService } from './auth.service';
 import { ExpenseReport } from '@shared/models/expense-report.model';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { PTO } from '@shared/models/pto.model';
 
 @Injectable()
 export class UserService {
@@ -80,6 +81,18 @@ export class UserService {
     promise
       .then(_=> console.log('success'))
       .catch(err => console.log(err, 'problem'));
+  }
+
+
+  /**
+   * PTO
+   */
+  public getPto(userKey: string): Observable<any> {
+    return this.db.object(`users/${userKey}/pto`).valueChanges();
+  }
+
+  public setPto(userKey: string, pto: PTO) {
+    return this.db.object(`users/${userKey}/`).set({pto});
   }
 
 

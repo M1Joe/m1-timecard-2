@@ -20,7 +20,13 @@
               [status]="getStatus()">
       </app-timecard-stats>
 
-      <app-approve-timecard 
+      <mat-divider [vertical]="true"></mat-divider>
+
+      <app-pto></app-pto>
+
+      <div fxFlex></div>
+      
+      <app-approve-timecard *ngIf="isAdmin()"
             (requestToApproveTimecard)="requestToApproveTimecard($event)"
             (requestToLoadTimecardForUser)="requestToLoadTimecardForUser($event)">
       </app-approve-timecard>

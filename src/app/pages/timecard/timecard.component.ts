@@ -114,10 +114,7 @@ export class TimecardComponent implements OnInit {
     return totalHoursAvailable;
   }
 
-
-  //TODO: Figure out why this cuases error: Expression has changed after it was checked. Previous value:
   getStatus(): string {
-    
     var timecard: MonthlyTimecard;
     if (this.monthlyTimecardComponent && this.monthlyTimecardComponent.timecardForm) {
       timecard = this.monthlyTimecardComponent.timecardForm.value;
@@ -125,7 +122,10 @@ export class TimecardComponent implements OnInit {
     } else {
       return '';
     }
-    
+  }
+
+  public isAdmin(): boolean {
+    return this.authService.isAdmin();
   }
 
 }
