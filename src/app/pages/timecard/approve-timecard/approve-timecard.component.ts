@@ -4,6 +4,7 @@ import { DateService } from '@shared/services/date.service';
 import { UserService } from '@shared/services/user.service';
 import { User } from '@shared/models/user.model';
 import { Observable } from 'rxjs';
+import { PTO } from '@shared/models/pto.model';
 
 @Component({
   selector: 'app-approve-timecard',
@@ -14,6 +15,8 @@ export class ApproveTimecardComponent implements OnInit {
   
   currentUserKey: string; //key of current user that we are viewing/approving
   users$: Observable<User[]>;
+
+  pto: PTO;
 
   @Output() requestToApproveTimecard: EventEmitter<Object> = new EventEmitter();
   @Output() requestToLoadTimecardForUser: EventEmitter<string> = new EventEmitter();

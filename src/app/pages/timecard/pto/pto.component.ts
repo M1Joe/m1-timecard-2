@@ -1,27 +1,35 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, getPlatform, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { DateService } from '@shared/services/date.service';
 import { UserService } from '@shared/services/user.service';
 import { PTO } from '@shared/models/pto.model';
-import { AuthService } from '@shared/';
 import { Observable } from 'rxjs/internal/Observable';
+import { TimecardComponent } from '../timecard.component';
 
 @Component({
   selector: 'app-pto',
   templateUrl: './pto.component.html',
-  styleUrls: ['./pto.component.scss']
+  styleUrls: ['./pto.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class PtoComponent implements OnInit {
+export class PtoComponent { //implements OnInit, OnChanges {
 
+  
   pto$: Observable<PTO>;
+  
+  @Input() //userKey: string;
+  set userKey(userKey: string) {
+    this.getPto(userKey);
+  }
 
   constructor(
-    public authService: AuthService,
-    public userService: UserService
+    public userService: UserService,
+    public timecardComponent: TimecardComponent
   ) {}
-  
-  ngOnInit() {
-    this.pto$ = this.userService.getPto(this.authService.getUserKey());
+
+  getPto(userKey: string) {
+    console.log('userkey is ' + userKey);
+    this.pto$ = this.userService.getPto(userKey);
   }
 
   

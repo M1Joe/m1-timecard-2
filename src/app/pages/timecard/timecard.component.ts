@@ -32,14 +32,13 @@ export class TimecardComponent implements OnInit {
   currentTimePeriod$: Observable<CurrentTimePeriod>; 
   currentTimePeriod: CurrentTimePeriod;
   daysInMonth: number;
-  //viewTimecardForUserKey: string; //the user who we are currently viewing
+  viewTimecardForUserKey: string; //the user who we are currently viewing
 
   ngOnInit(): void {
-    //this.viewTimecardForUserKey = this.authService.getUserKey(); //is this right?
     this.userKey = this.authService.getUserKey();
+    this.viewTimecardForUserKey = this.userKey;
 
-    console.log(this.userKey);
-    this.currentTimePeriod$ = this.userService.getCurrentTimePeriod(this.userKey);
+    this.currentTimePeriod$ = this.userService.getCurrentTimePeriod(this.authService.getUserKey());
 
     this.currentTimePeriod$.subscribe(result => {
       this.currentTimePeriod = result;
@@ -51,7 +50,7 @@ export class TimecardComponent implements OnInit {
 
   requestToLoadTimecard(currentTimePeriod: CurrentTimePeriod) {
     this.currentTimePeriod = currentTimePeriod;
-    this.userService.setCurrentTimePeriod(this.userKey, currentTimePeriod);
+    this.userService.setCurrentTimePeriod(this.authService.getUserKey(), currentTimePeriod);
     this.monthlyTimecardComponent.initForm(this.authService.getUserKey(), this.currentTimePeriod);
   }
 
@@ -71,6 +70,7 @@ export class TimecardComponent implements OnInit {
   }
 
   requestToLoadTimecardForUser(userKey: string) {
+    this.viewTimecardForUserKey = userKey;
     this.monthlyTimecardComponent.initForm(userKey, this.currentTimePeriod);
   }
 
@@ -128,4 +128,8 @@ export class TimecardComponent implements OnInit {
     return this.authService.isAdmin();
   }
 
+  getActiveUserKey(): string {
+    console.log('getactiveuserkey' + this.userKey);
+    return this.userKey;
+  }
 }
