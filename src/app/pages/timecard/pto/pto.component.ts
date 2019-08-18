@@ -14,11 +14,13 @@ import { TimecardComponent } from '../timecard.component';
 })
 export class PtoComponent { //implements OnInit, OnChanges {
 
-  
+  @Input() currentTimePeriod: CurrentTimePeriod;
+
   pto$: Observable<PTO>;
   
   @Input() //userKey: string;
   set userKey(userKey: string) {
+    this.pto$ = null;
     this.getPto(userKey);
   }
 
@@ -28,8 +30,8 @@ export class PtoComponent { //implements OnInit, OnChanges {
   ) {}
 
   getPto(userKey: string) {
-    console.log('userkey is ' + userKey);
-    this.pto$ = this.userService.getPto(userKey);
+    //this.pto$ = this.userService.getPtoForMonth(userKey, this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth);
+    this.pto$ = this.userService.getOfficialPto(userKey);
   }
 
   

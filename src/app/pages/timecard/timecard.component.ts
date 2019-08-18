@@ -50,6 +50,8 @@ export class TimecardComponent implements OnInit {
 
   requestToLoadTimecard(currentTimePeriod: CurrentTimePeriod) {
     this.currentTimePeriod = currentTimePeriod;
+    // this is always for the current user
+    this.viewTimecardForUserKey = this.authService.getUserKey();
     this.userService.setCurrentTimePeriod(this.authService.getUserKey(), currentTimePeriod);
     this.monthlyTimecardComponent.initForm(this.authService.getUserKey(), this.currentTimePeriod);
   }
@@ -60,12 +62,14 @@ export class TimecardComponent implements OnInit {
     console.log(timecard);
     timecard.status = status;
     this.monthlyTimecardComponent.timecardForm.patchValue(timecard);
-    this.userService.saveTimecard(this.authService.getUserKey(), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, timecard);
+    this.userService.saveTimecard(this.viewTimecardForUserKey, this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, timecard);
   }
 
   requestToApproveTimecard(event: any) {
     var timecard: MonthlyTimecard = this.monthlyTimecardComponent.timecardForm.value;
     timecard.status = event.status;
+    this.userService.savePto(event.userKey, event.pto);
+    timecard.pto = event.pto;
     this.userService.saveTimecard(event.userKey, this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, timecard);
   }
 

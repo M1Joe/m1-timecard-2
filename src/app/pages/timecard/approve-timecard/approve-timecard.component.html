@@ -1,32 +1,25 @@
 <div fxLayout="row">
 
-  <mat-form-field class="month-picker">
-    <mat-label>Balance</mat-label>
-    <mat-select [(value)]="selectedMonth">
-      <mat-option value="1">January</mat-option>
-      <mat-option value="2">February</mat-option>
-      <mat-option value="3">March</mat-option>
-      <mat-option value="4">April</mat-option>
-      <mat-option value="5">May</mat-option>
-      <mat-option value="6">June</mat-option>
-      <mat-option value="7">July</mat-option>
-      <mat-option value="8">August</mat-option>
-      <mat-option value="9">September</mat-option>
-      <mat-option value="10">October</mat-option>
-      <mat-option value="11">November</mat-option>
-      <mat-option value="12">December</mat-option>
-  
-    </mat-select>
-  </mat-form-field>
-  
+  <div fxLayout="column">
+    <mat-form-field class="pto-input" appearance="outline">
+      <mat-label>Balance</mat-label>
+      <input matInput placeholder="Balance" [(ngModel)]="balance">
+    </mat-form-field>
+    
+    <mat-form-field class="pto-input" appearance="outline">
+      <mat-label>As Of</mat-label>
+      <input matInput placeholder="As Of" [(ngModel)]="asOf">
+    </mat-form-field>
+  </div>
 
-  <mat-form-field>
+  <mat-form-field  appearance="outline">
     <mat-label>Users</mat-label>
     <mat-select (selectionChange)="loadTimecardFor($event)">
-      <mat-option *ngFor="let user of users$ | async" [value]="user.displayName">{{user.displayName}}</mat-option>
+      <mat-option *ngFor="let user of users$ | async" [value]="user">{{user.displayName}}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button class="submit-btn" (click)="approveTimecard()" type="button">Approve</button>
+  <button mat-raised-button class="submit-btn" (click)="approveTimecard()" [disabled]="balance.length < 1 || asOf.length < 2">Approve</button>
   
 </div>
+

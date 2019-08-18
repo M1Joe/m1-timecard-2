@@ -25,7 +25,7 @@ export class MonthlyTimecardComponent implements OnInit {
 
   userKey: string;
 
-  @Output() requestToSaveTimecard: EventEmitter<null> = new EventEmitter();
+  //@Output() requestToSaveTimecard: EventEmitter<null> = new EventEmitter();
 
   //for spinner in HTML
   loading = true;

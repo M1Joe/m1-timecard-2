@@ -87,12 +87,16 @@ export class UserService {
   /**
    * PTO
    */
-  public getPto(userKey: string): Observable<any> {
+  public getOfficialPto(userKey: string): Observable<any> {
     return this.db.object(`users/${userKey}/pto`).valueChanges();
   }
 
-  public setPto(userKey: string, pto: PTO) {
-    return this.db.object(`users/${userKey}/`).set({pto});
+  public getPtoForMonth(userKey: string, year: string, month: string): Observable<any> {
+    return this.db.object(`employeeEditableFields/timecards/${year}/${month}/${userKey}/pto`).valueChanges();
+  }
+
+  public savePto(userKey: string, pto: PTO) {
+    return this.db.object(`users/${userKey}/pto`).set(pto);
   }
 
 
