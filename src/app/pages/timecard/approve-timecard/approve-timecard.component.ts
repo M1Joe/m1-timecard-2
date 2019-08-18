@@ -12,7 +12,9 @@ import { AuthService } from '@shared/services/auth.service';
 })
 export class ApproveTimecardComponent implements OnInit {
   
-  currentUserKey: string; //key of current user that we are viewing/approving
+  @Input() currentUser: User;
+
+  //currentUserKey: string; //key of current user that we are viewing/approving
   users$: Observable<User[]>;
 
   pto: PTO = new PTO();
@@ -20,6 +22,8 @@ export class ApproveTimecardComponent implements OnInit {
   asOf: string = '';
 
   @Output() requestToApproveTimecard: EventEmitter<Object> = new EventEmitter();
+  @Output() requestToSaveTimecard: EventEmitter<Object> = new EventEmitter();
+  
   @Output() requestToLoadTimecardForUser: EventEmitter<string> = new EventEmitter();
 
 
@@ -32,15 +36,21 @@ export class ApproveTimecardComponent implements OnInit {
   approveTimecard() {
     this.pto.balance = this.balance;
     this.pto.asOf = this.asOf;
-    this.requestToApproveTimecard.emit({userKey: this.currentUserKey, status: 'APPROVED', pto: this.pto});
+    this.requestToApproveTimecard.emit({user: this.currentUser, status: 'APPROVED', pto: this.pto});
     this.balance = '';
     this.asOf = '';
   }
 
+  rejectTimecard() {
+    this.requestToSaveTimecard.emit('REJECTED');
+  }
+
   loadTimecardFor(event) {
-    console.log(event.value)
-    this.currentUserKey = this.authService.getUserKey(event.value);
-    this.requestToLoadTimecardForUser.emit(this.currentUserKey);
+    this.requestToLoadTimecardForUser.emit(event.value);
+  }
+
+  compareObjects(user1: User, user2: User): boolean {
+    return user1.email === user2.email;
   }
 
 

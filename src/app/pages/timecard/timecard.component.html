@@ -1,34 +1,33 @@
 <div>
 
-  <div fxLayout="row"  *ngIf="currentTimePeriod$ | async as currentTimePeriod">
-    <mat-card class="time-period-picker-card">
+  <div fxLayout="row" *ngIf="currentTimePeriod$ | async as currentTimePeriod">
 
+    <mat-card class="time-period-picker-card">
       <app-time-period-picker [currentTimePeriod]="currentTimePeriod"
         (requestToLoadTimecard)="requestToLoadTimecard($event)"></app-time-period-picker>
     </mat-card>
+
     <mat-card fxFlex fxLayout="row">
-      <app-save-timecard 
-              (requestToSaveTimecard)="requestToSaveTimecard($event)">
+      <app-save-timecard (requestToSaveTimecard)="requestToSaveTimecard($event)" [status]="getStatus()">
       </app-save-timecard>
 
       <mat-divider [vertical]="true"></mat-divider>
 
-      <app-timecard-stats
-              [currentTimePeriod]="currentTimePeriod" 
-              [totalHoursAllActivities]="totalHoursAllActivities()"
-              [totalAvailableHoursInMonth]="totalAvailableHoursInMonth()" 
-              [status]="getStatus()">
+      <app-timecard-stats [currentTimePeriod]="currentTimePeriod" [totalHoursAllActivities]="totalHoursAllActivities()"
+        [totalAvailableHoursInMonth]="totalAvailableHoursInMonth()" [status]="getStatus()">
       </app-timecard-stats>
 
       <mat-divider [vertical]="true"></mat-divider>
 
-      <app-pto [userKey]="viewTimecardForUserKey" [currentTimePeriod]="currentTimePeriod" ></app-pto>
+      <app-pto [currentUser]="currentUser" [currentTimePeriod]="currentTimePeriod"></app-pto>
 
       <div fxFlex></div>
-      
-      <app-approve-timecard *ngIf="isAdmin()"
-            (requestToApproveTimecard)="requestToApproveTimecard($event)"
-            (requestToLoadTimecardForUser)="requestToLoadTimecardForUser($event)">
+
+      <app-approve-timecard *ngIf="isAdmin()" 
+        [currentUser]="currentUser"
+        (requestToApproveTimecard)="requestToApproveTimecard($event)"
+        (requestToSaveTimecard)="requestToSaveTimecard($event)"
+        (requestToLoadTimecardForUser)="requestToLoadTimecardForUser($event)">
       </app-approve-timecard>
 
     </mat-card>

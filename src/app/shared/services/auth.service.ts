@@ -45,8 +45,6 @@ export class AuthService {
 
   public getUserKey(user?: User): string {
     
-    //TODO: Handle timecard page refreshes.  Maybe need to convert this all to an observable?
-    //It theoretically shouldn't happen outside of development or page refreshes.
     var userKey;
 
     //everything before the @ symbol
@@ -78,5 +76,9 @@ export class AuthService {
 
   public isAdmin(): boolean {
     return this.getUserKey() === 'joe';
+  }
+
+  public getUser(): User {
+    return firebase.auth().currentUser;
   }
 }

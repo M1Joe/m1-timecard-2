@@ -5,6 +5,8 @@ import { UserService } from '@shared/services/user.service';
 import { PTO } from '@shared/models/pto.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { TimecardComponent } from '../timecard.component';
+import { User } from '@shared/models/user.model';
+import { AuthService } from '@shared/services/auth.service';
 
 @Component({
   selector: 'app-pto',
@@ -18,20 +20,21 @@ export class PtoComponent { //implements OnInit, OnChanges {
 
   pto$: Observable<PTO>;
   
-  @Input() //userKey: string;
-  set userKey(userKey: string) {
+  @Input()
+  set currentUser(user: User) {
     this.pto$ = null;
-    this.getPto(userKey);
+    this.getPto(user);
   }
 
   constructor(
     public userService: UserService,
-    public timecardComponent: TimecardComponent
+    public timecardComponent: TimecardComponent,
+    public authService: AuthService
   ) {}
 
-  getPto(userKey: string) {
+  getPto(user: User) {
     //this.pto$ = this.userService.getPtoForMonth(userKey, this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth);
-    this.pto$ = this.userService.getOfficialPto(userKey);
+    this.pto$ = this.userService.getOfficialPto(this.authService.getUserKey(user));
   }
 
   

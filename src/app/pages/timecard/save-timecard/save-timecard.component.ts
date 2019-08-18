@@ -10,6 +10,8 @@ import { DateService } from '@shared/services/date.service';
 export class SaveTimecardComponent {
 
   @Output() requestToSaveTimecard: EventEmitter<string> = new EventEmitter();
+  
+  @Input() status: string;
 
   saveTimecard() {
     this.requestToSaveTimecard.emit('DRAFT');

@@ -1,8 +1,6 @@
 <div fxLayout="row">
   
-  <button mat-raised-button class="submit-btn" (click)="saveTimecard()" type="button">Save</button>
-  <!--[disabled]="isSaveAndSubmitDisabled()"-->
-  <button mat-raised-button class="submit-btn" (click)="submitTimecard()" type="button">Submit</button>
-  <!--[disabled]="isSaveAndSubmitDisabled()"-->
+  <button mat-raised-button class="submit-btn" (click)="saveTimecard()" type="button" [disabled]="status === 'SUBMITTED' || status === 'APPROVED'">Save</button>
+  <button mat-raised-button class="submit-btn" (click)="submitTimecard()" type="button" [disabled]="status === 'SUBMITTED' || status === 'APPROVED'">Submit</button>
 
 </div>

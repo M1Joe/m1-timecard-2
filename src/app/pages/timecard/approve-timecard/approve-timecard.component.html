@@ -14,12 +14,13 @@
 
   <mat-form-field  appearance="outline">
     <mat-label>Users</mat-label>
-    <mat-select (selectionChange)="loadTimecardFor($event)">
+    <mat-select (selectionChange)="loadTimecardFor($event)" [(compareWith)]="compareObjects" [(ngModel)]="currentUser">
       <mat-option *ngFor="let user of users$ | async" [value]="user">{{user.displayName}}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <button mat-raised-button class="submit-btn" (click)="approveTimecard()" [disabled]="balance.length < 1 || asOf.length < 2">Approve</button>
+  <button mat-raised-button class="submit-btn" (click)="rejectTimecard()">Reject</button>
   
 </div>
 
