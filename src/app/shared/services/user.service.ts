@@ -92,6 +92,7 @@ export class UserService {
   }
 
   public getPtoForMonth(userKey: string, year: string, month: string): Observable<any> {
+    console.log(month);
     return this.db.object(`employeeEditableFields/timecards/${year}/${month}/${userKey}/pto`).valueChanges();
   }
 

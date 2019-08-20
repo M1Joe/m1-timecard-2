@@ -1,5 +1,3 @@
-
-
 <!-- Header -->
 <mat-toolbar color="#004ba0">
   <img src="../../../../assets/img/m1-timecard.png" style="height: 50px;">
@@ -8,9 +6,15 @@
   <span class="spacer"></span>
 
   <!--JJF: button not showing proper status-->
+
+
+
   <div *ngIf="authService.isAuthenticated()" fxLayout="row">
+    <mat-slide-toggle *ngIf="isAdmin()" class="toggle" (change)="adminToggleChange($event)">
+      Admin Mode
+    </mat-slide-toggle>
     <span class="welcome">Welcome, {{userName()}}</span>
-    <button type="button" routerLink="/login" mat-icon-button (click)="onLogout()">  
+    <button type="button" routerLink="/login" mat-icon-button (click)="onLogout()">
       <mat-icon>lock_open</mat-icon>
     </button>
   </div>

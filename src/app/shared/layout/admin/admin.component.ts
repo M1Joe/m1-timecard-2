@@ -39,8 +39,8 @@ export class AdminComponent {
     return this.authService.logout();
   }
 
-  public isAdmin(): boolean {
-    return this.authService.isAdmin();
+  public isAdminMode(): boolean {
+    return this.authService.isAdminMode();
   }
   
 }

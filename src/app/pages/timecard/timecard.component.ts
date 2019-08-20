@@ -150,8 +150,8 @@ export class TimecardComponent implements OnInit {
     }
   }
 
-  public isAdmin(): boolean {
-    return this.authService.isAdmin();
+  public isAdminMode(): boolean {
+    return this.authService.isAdminMode();
   }
 
 }

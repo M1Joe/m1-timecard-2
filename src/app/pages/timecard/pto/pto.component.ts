@@ -17,13 +17,29 @@ import { AuthService } from '@shared/services/auth.service';
 export class PtoComponent { //implements OnInit, OnChanges {
 
   @Input() currentTimePeriod: CurrentTimePeriod;
+  
+  _viewingTimecardForUser: User;
+  _status: string;
 
   pto$: Observable<PTO>;
   
+  // This component is a little buggy.
+  // It loads the PTO twice because Joe couldn't figure out how to get the Status and ViewingTimecardForUser 
+  // input values to both load before making the PTO call, so the app just refreshes the PTO anytime either changes.
+  // When they both change, the update happens twice.
+
+  @Input('status')
+  set status(value: string) {
+    console.log('value is ' + value);
+    this._status = value;
+    this.triggerPtoRefresh();
+  }
+
   @Input()
-  set currentUser(user: User) {
-    this.pto$ = null;
-    this.getPto(user);
+  set viewingTimecardForUser(user: User) {
+    console.log('viewing is ' + user.displayName);
+    this._viewingTimecardForUser = user;
+    this.triggerPtoRefresh();
   }
 
   constructor(
@@ -32,9 +48,16 @@ export class PtoComponent { //implements OnInit, OnChanges {
     public authService: AuthService
   ) {}
 
-  getPto(user: User) {
-    //this.pto$ = this.userService.getPtoForMonth(userKey, this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth);
-    this.pto$ = this.userService.getOfficialPto(this.authService.getUserKey(user));
+
+  triggerPtoRefresh() {
+    console.log(this._status);
+    if (this._status === 'APPROVED') {
+      // display the status for that month
+      this.pto$ = this.userService.getPtoForMonth(this.authService.getUserKey(this._viewingTimecardForUser), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth);
+    } else {
+      // otherwise, display the official PTO count because the current month doesn't have PTO saved in it yet.
+      this.pto$ = this.userService.getOfficialPto(this.authService.getUserKey(this._viewingTimecardForUser));
+    }
   }
 
   

@@ -4,7 +4,7 @@
     <button mat-raised-button routerLink="/timecard">Timecard</button>
     <button mat-raised-button routerLink="/expenseReports">Expense Report</button>
 
-    <span *ngIf="isAdmin()">
+    <span *ngIf="isAdminMode()">
       <button mat-raised-button routerLink="/users"       >Users</button>
       <button mat-raised-button routerLink="/chargeCodes">Charge Codes</button>
       <button mat-raised-button routerLink="/chargeCodes">Rates</button>

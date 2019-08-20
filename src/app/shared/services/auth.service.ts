@@ -8,9 +8,13 @@ import 'rxjs/add/operator/map';
 import { map } from 'rxjs/internal/operators/map';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   public token: string;
+
+  adminMode = false;
 
   constructor(
     private router: Router,
@@ -80,5 +84,13 @@ export class AuthService {
 
   public getUser(): User {
     return firebase.auth().currentUser;
+  }
+
+  public setAdminMode(mode: boolean) {
+    this.adminMode = mode;
+  }
+
+  public isAdminMode(): boolean {
+    return this.isAdmin() && this.adminMode;
   }
 }

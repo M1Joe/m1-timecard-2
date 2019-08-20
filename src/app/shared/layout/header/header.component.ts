@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as firebase from 'firebase';
 
 import { AuthService, AlertService } from '../../services';
+import { MatSlideToggleChange } from '@angular/material';
 
 @Component({
   selector: 'app-header',
@@ -31,5 +32,13 @@ export class HeaderComponent {
   public onLogout(): void {
     this.alertService.showToaster('Logout succesful');
     return this.authService.logout();
+  }
+
+  public isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  public adminToggleChange(ob: MatSlideToggleChange) {
+    this.authService.setAdminMode(ob.checked);
   }
 }

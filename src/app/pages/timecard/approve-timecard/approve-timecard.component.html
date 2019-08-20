@@ -1,26 +1,25 @@
 <div fxLayout="row">
 
-  <div fxLayout="column">
-    <mat-form-field class="pto-input" appearance="outline">
-      <mat-label>Balance</mat-label>
-      <input matInput placeholder="Balance" [(ngModel)]="balance">
-    </mat-form-field>
-    
-    <mat-form-field class="pto-input" appearance="outline">
-      <mat-label>As Of</mat-label>
-      <input matInput placeholder="As Of" [(ngModel)]="asOf">
-    </mat-form-field>
-  </div>
+  <mat-form-field class="pto-input" appearance="outline">
+    <mat-label>Balance</mat-label>
+    <input matInput placeholder="Balance" [(ngModel)]="balance">
+  </mat-form-field>
+  
+  <mat-form-field class="pto-input" appearance="outline">
+    <mat-label>As Of</mat-label>
+    <input matInput placeholder="As Of" [(ngModel)]="asOf">
+  </mat-form-field>
 
-  <mat-form-field  appearance="outline">
+  <button mat-raised-button class="submit-btn" (click)="approveTimecard()" [disabled]="balance.length < 1 || asOf.length < 2">Approve</button>
+  <button mat-raised-button class="submit-btn" (click)="rejectTimecard()">Reject</button>
+
+  <mat-form-field  appearance="outline" class="pick-user">
     <mat-label>Users</mat-label>
     <mat-select (selectionChange)="loadTimecardFor($event)" [(compareWith)]="compareObjects" [(ngModel)]="currentUser">
       <mat-option *ngFor="let user of users$ | async" [value]="user">{{user.displayName}}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button class="submit-btn" (click)="approveTimecard()" [disabled]="balance.length < 1 || asOf.length < 2">Approve</button>
-  <button mat-raised-button class="submit-btn" (click)="rejectTimecard()">Reject</button>
   
 </div>
 

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule, MatMenuModule, MatInputModule, MatSnackBarModule,
          MatToolbarModule, MatDialogModule, MatSidenavModule, MatNativeDateModule,
-         MatCardModule, MatTabsModule, MatIconModule, MatSelectModule } from '@angular/material';
+         MatCardModule, MatTabsModule, MatIconModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
@@ -58,7 +58,7 @@ import { ExpenseReportModule } from './pages/expense-reports/expense-reports.mod
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule, MatMenuModule, MatInputModule, MatSnackBarModule,
     MatToolbarModule, MatDialogModule, MatSidenavModule, MatNativeDateModule, MatSelectModule,
-    MatCardModule, MatTabsModule, MatIconModule,
+    MatCardModule, MatTabsModule, MatIconModule, MatSlideToggleModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
