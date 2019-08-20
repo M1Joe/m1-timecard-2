@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, Validators, FormGroup  } from '@angular/forms';
 
-import { UserService, EmailValidator, ChargeCode } from '@shared';
+import { UserService, EmailValidator, ChargeCode, AuthService } from '@shared';
 import { Observable } from 'rxjs';
 import { ExpenseReport } from '@shared/models/expense-report.model';
 
@@ -17,7 +17,7 @@ export class ExpenseReportsComponent implements OnInit {
   expenseReports$ : Observable<ExpenseReport[]>;
   displayedColumns = ["email", "dateSubmitted", "fromDate", "toDate", "amount", "description", "contract", "status", "actions"];
   
-  constructor( private userService: UserService) {
+  constructor( private userService: UserService, private authService: AuthService) {
 
   }
 

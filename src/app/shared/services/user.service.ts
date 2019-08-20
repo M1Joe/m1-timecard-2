@@ -114,14 +114,14 @@ export class UserService {
     expenseReport.id = this.db.createPushId();
     const promise = this.db.list<ExpenseReport>('expenseReports').set(expenseReport.id, expenseReport);
     promise
-      .then(_=> console.log('success'))
-      .catch(err => console.log(err, 'problem'));
+      .then(_=> this.alertService.showToaster("Expense Created"))
+      .catch(err =>this.alertService.showToaster("ERROR: Could not create expense"));
   }
 
   public saveExpenseReport(expenseReport: ExpenseReport) {
     const promise = this.db.list<ExpenseReport>('expenseReports').set(expenseReport.id, expenseReport);
     promise
-      .then(_=> console.log('success'))
+      .then(_=> this.alertService.showToaster("Expense Saved"))
       .catch(err => console.log(err, 'problem'));
   }
 

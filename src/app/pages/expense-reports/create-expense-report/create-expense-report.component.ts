@@ -31,18 +31,38 @@ export class CreateExpenseReportComponent {
     });
   }
 
+  generateStringFromDate(date: Date) {
+    var month = date.getMonth() + 1; //months from 1-12
+    var day = date.getDate();
+    var year = date.getFullYear();
+    return month + '/' + day + '/' + year;
+  }
+
   public onSubmit(form: NgForm) {
 
     var expenseReport: ExpenseReport = this.expenseForm.value;
+
+    if (expenseReport.reimburseable === undefined) {
+      expenseReport.reimburseable = false;
+    }
+    
     expenseReport.status = 'SUBMITTED';
     expenseReport.email = this.authService.getUserKey();
-    expenseReport.fromYear = 'TODO';
-    expenseReport.fromMonth = 'TODO';
-    expenseReport.dateSubmitted = "" + Date.now();
+    
+    expenseReport.fromYear = this.expenseForm.value.fromDate.getFullYear();
+    expenseReport.fromMonth = this.expenseForm.value.fromDate.getMonth() + 1;
+
+    expenseReport.fromDate = this.generateStringFromDate(this.expenseForm.value.fromDate);
+    if (expenseReport.toDate) {
+      expenseReport.toDate = this.generateStringFromDate(this.expenseForm.value.toDate);
+    }
+    expenseReport.dateSubmitted = this.generateStringFromDate(new Date());
     
     this.userService.createExpenseReport(expenseReport); 
+    
     //TODO: Only reset form is save was actually successful.
     this.resetFormAfterSubmission();
+    
   }
 
   public resetFormAfterSubmission() {

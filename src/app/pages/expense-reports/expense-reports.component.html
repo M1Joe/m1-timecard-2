@@ -69,9 +69,9 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let expenseReport">
-        <button mat-raised-button class="paid-btn" (click)="markExpenseReportAsPaid(expenseReport)">Mark as
+        <button mat-raised-button class="paid-btn" (click)="markExpenseReportAsPaid(expenseReport)" *ngIf="authService.isAdminMode()">Mark as
           Paid</button>
-        <button mat-raised-button class="delete-btn" (click)="deleteExpenseReport(expenseReport)">Delete</button>
+        <button mat-raised-button class="delete-btn" (click)="deleteExpenseReport(expenseReport)"  *ngIf="authService.isAdminMode() || expenseReport.status === 'SUBMITTED'">Delete</button>
       </td>
     </ng-container>
 
