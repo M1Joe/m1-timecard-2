@@ -45,10 +45,10 @@ export class UserService {
     return firebase.database().ref().child('employeeEditableFields/').child('timecards').child(year).child(month).child(userKey).set(monthlyTimecard, 
       function(error) {
         if (error) {
-          sendAlert.showToaster("Failure");
+          sendAlert.showToaster("Failed to save timecard");
           console.log("Failure");
         } else {
-          sendAlert.showToaster("Success");
+          sendAlert.showToaster("Timecard saved");
           console.log("Success");
         }
       });
