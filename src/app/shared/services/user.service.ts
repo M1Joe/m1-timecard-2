@@ -40,6 +40,11 @@ export class UserService {
     for (let i in monthlyTimecard.activities) {
       monthlyTimecard.activities[i] = this.filterEmptyFields(monthlyTimecard.activities[i]);
     }
+
+    var successMessage = 'Timecard saved';
+    if (monthlyTimecard.status === 'SUBMITTED') {
+      successMessage = 'Timecard submitted';
+    }
     
     const sendAlert = this.alertService;
     return firebase.database().ref().child('employeeEditableFields/').child('timecards').child(year).child(month).child(userKey).set(monthlyTimecard, 
@@ -48,7 +53,7 @@ export class UserService {
           sendAlert.showToaster("Failed to save timecard");
           console.log("Failure");
         } else {
-          sendAlert.showToaster("Timecard saved");
+          sendAlert.showToaster(successMessage);
           console.log("Success");
         }
       });

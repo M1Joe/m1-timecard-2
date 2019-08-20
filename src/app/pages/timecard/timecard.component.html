@@ -16,7 +16,7 @@
     </mat-card>
 
     <mat-card fxFlex fxLayout="row" class="save-card">
-      <app-save-timecard (requestToSaveTimecard)="requestToSaveTimecard($event)" [status]="getStatus()">
+      <app-save-timecard (requestToSaveTimecard)="requestToSaveTimecard($event)" [status]="getStatus()" [totalHoursLessThanAvailableHours]="totalHoursLessThanAvailableHours()">
       </app-save-timecard>
 
       <mat-divider [vertical]="true"></mat-divider>

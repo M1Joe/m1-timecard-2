@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatProgressBarModule, 
-         MatCardModule, MatIconModule, MatSelectModule, MatDividerModule } from '@angular/material';
+         MatCardModule, MatIconModule, MatSelectModule, MatDividerModule, MatDialogModule } from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Components
@@ -16,6 +16,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TimecardStatsComponent } from './timecard-stats/timecard-stats.component';
 import { ApproveTimecardComponent } from './approve-timecard/approve-timecard.component';
 import { PtoComponent } from './pto/pto.component';
+import { SubmitDialogComponent } from './save-timecard/submit-dialog/submit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { PtoComponent } from './pto/pto.component';
     SaveTimecardComponent,
     TimecardStatsComponent,
     ApproveTimecardComponent,
-    PtoComponent
+    PtoComponent,
+    SubmitDialogComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,7 @@ import { PtoComponent } from './pto/pto.component';
     FormsModule,
     MatButtonModule, MatInputModule, MatProgressBarModule,
     MatCardModule, MatIconModule, MatSelectModule, 
-    FlexLayoutModule, MatDividerModule,
+    FlexLayoutModule, MatDividerModule, MatDialogModule,
     NgxAuthFirebaseUIModule,
     ReactiveFormsModule
   ],
@@ -44,6 +46,9 @@ import { PtoComponent } from './pto/pto.component';
   ],
   exports: [
     TimecardComponent
+  ],
+  entryComponents: [
+    SubmitDialogComponent
   ]
 })
 export class TimecardModule {

@@ -140,6 +140,10 @@ export class TimecardComponent implements OnInit {
     return totalHoursAvailable;
   }
 
+  totalHoursLessThanAvailableHours() {
+    return this.totalHoursAllActivities() < this.totalAvailableHoursInMonth();
+  }
+
   getStatus(): string {
     var timecard: MonthlyTimecard;
     if (this.monthlyTimecardComponent && this.monthlyTimecardComponent.timecardForm) {

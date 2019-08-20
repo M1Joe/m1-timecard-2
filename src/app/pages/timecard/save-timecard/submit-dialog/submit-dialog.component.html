@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Submit Timecard?</h1>
+<div mat-dialog-content>
+  <p *ngIf="data.displayWarning" class="warning">Warning: You are submitting with fewer hours than required for this month. This should only happen to new hires during their first month.</p>
+  <p>Do you want to submit your timecard?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No, Cancel</button>
+  <button mat-button mat-dialog-close="SUBMIT" cdkFocusInitial>Yes, Submit</button>
+</div>
