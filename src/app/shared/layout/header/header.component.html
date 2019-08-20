@@ -13,7 +13,7 @@
     <mat-slide-toggle *ngIf="isAdmin()" class="toggle" (change)="adminToggleChange($event)">
       Admin Mode
     </mat-slide-toggle>
-    <span class="welcome">Welcome, {{userName()}}</span>
+    <span class="welcome" fxHide.lt-md="">Welcome, {{userName()}}</span>
     <button type="button" routerLink="/login" mat-icon-button (click)="onLogout()">
       <mat-icon>lock_open</mat-icon>
     </button>

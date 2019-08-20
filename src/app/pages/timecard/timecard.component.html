@@ -1,4 +1,4 @@
-<div >
+<div>
   <mat-card *ngIf="isAdminMode()" class="approve-card">
     <app-approve-timecard
       [currentUser]="currentUser"
@@ -8,14 +8,14 @@
     </app-approve-timecard>
   </mat-card>
   
-  <div fxLayout="row" *ngIf="currentTimePeriod$ | async as currentTimePeriod">
+  <div fxLayout="row wrap" *ngIf="currentTimePeriod$ | async as currentTimePeriod">
 
-    <mat-card class="time-period-picker-card">
+    <mat-card class="time-period-picker-card" >
       <app-time-period-picker [currentTimePeriod]="currentTimePeriod"
         (requestToLoadTimecard)="requestToLoadTimecard($event)"></app-time-period-picker>
     </mat-card>
 
-    <mat-card fxFlex fxLayout="row">
+    <mat-card fxFlex fxLayout="row" class="save-card">
       <app-save-timecard (requestToSaveTimecard)="requestToSaveTimecard($event)" [status]="getStatus()">
       </app-save-timecard>
 
