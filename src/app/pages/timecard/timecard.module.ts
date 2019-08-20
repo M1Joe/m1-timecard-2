@@ -17,6 +17,7 @@ import { TimecardStatsComponent } from './timecard-stats/timecard-stats.componen
 import { ApproveTimecardComponent } from './approve-timecard/approve-timecard.component';
 import { PtoComponent } from './pto/pto.component';
 import { SubmitDialogComponent } from './save-timecard/submit-dialog/submit-dialog.component';
+import { PoliciesDialogComponent } from './policies-dialog/policies-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SubmitDialogComponent } from './save-timecard/submit-dialog/submit-dial
     TimecardStatsComponent,
     ApproveTimecardComponent,
     PtoComponent,
-    SubmitDialogComponent
+    SubmitDialogComponent,
+    PoliciesDialogComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +50,8 @@ import { SubmitDialogComponent } from './save-timecard/submit-dialog/submit-dial
     TimecardComponent
   ],
   entryComponents: [
-    SubmitDialogComponent
+    SubmitDialogComponent,
+    PoliciesDialogComponent
   ]
 })
 export class TimecardModule {

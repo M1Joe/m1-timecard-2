@@ -12,6 +12,8 @@ import { MonthlyTimecardComponent } from './monthly-timecard/monthly-timecard.co
 import { DateService } from '@shared/services/date.service';
 import { User } from '@shared/models/user.model';
 import { take } from 'rxjs/operators';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { PoliciesDialogComponent } from './policies-dialog/policies-dialog.component';
 
 
 @Component({
@@ -24,7 +26,8 @@ export class TimecardComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private userService: UserService, 
-    private dateService: DateService
+    private dateService: DateService,
+    private dialog: MatDialog
   ) {}
 
   @ViewChild(MonthlyTimecardComponent, {static: false}) monthlyTimecardComponent: MonthlyTimecardComponent;
@@ -42,6 +45,9 @@ export class TimecardComponent implements OnInit {
   
   viewingTimecardForUser: User;
   //viewTimecardForUserKey: string; //the user who we are currently viewing
+
+  dialogRef: MatDialogRef<PoliciesDialogComponent>;
+
 
   ngOnInit(): void {
     // get the current user and set the viewingTimecard for that user to the same person.
@@ -95,6 +101,11 @@ export class TimecardComponent implements OnInit {
     this.monthlyTimecardComponent.initForm(this.authService.getUserKey(this.viewingTimecardForUser), this.currentTimePeriod);
   }
 
+  showPoliciesDialog() {
+    this.dialogRef = this.dialog.open(PoliciesDialogComponent, {
+      width: '900px'
+    });
+  }
 
   /**
    * HELPER FUNCTIONS BELOW

@@ -15,28 +15,28 @@
         (requestToLoadTimecard)="requestToLoadTimecard($event)"></app-time-period-picker>
     </mat-card>
 
-    <mat-card fxFlex fxLayout="row" class="save-card">
+    <mat-card fxFlex fxLayout="row wrap" class="save-card">
       <app-save-timecard (requestToSaveTimecard)="requestToSaveTimecard($event)" [status]="getStatus()" [totalHoursLessThanAvailableHours]="totalHoursLessThanAvailableHours()">
       </app-save-timecard>
 
-      <mat-divider [vertical]="true"></mat-divider>
+      <!-- <mat-divider [vertical]="true"></mat-divider> -->
 
       <app-timecard-stats [currentTimePeriod]="currentTimePeriod" [totalHoursAllActivities]="totalHoursAllActivities()"
         [totalAvailableHoursInMonth]="totalAvailableHoursInMonth()" [status]="getStatus()">
       </app-timecard-stats>
 
-      <mat-divider [vertical]="true"></mat-divider>
+      <!-- <mat-divider [vertical]="true"></mat-divider> -->
 
       <app-pto  [status]="getStatus()" [viewingTimecardForUser]="viewingTimecardForUser" [currentTimePeriod]="currentTimePeriod"></app-pto>
-
-      
-
-      
 
     </mat-card>
   </div>
 
   <app-monthly-timecard></app-monthly-timecard>
+
+  <mat-divider></mat-divider>
+
+  <a class='btn' (click)="showPoliciesDialog()">Timecard Policies and FAQ</a>
 
 </div>
 <!---*ngIf="currentTimePeriod$ | async as currentTimePeriod" -->
