@@ -12,37 +12,37 @@
         <div class="activity-container">
           <div fxLayout="row" class="activity-title">
             <span class="picker-title">Day:</span>
-            <span class="hours-title">1</span>
-            <span class="hours-title">2</span>
-            <span class="hours-title">3</span>
-            <span class="hours-title">4</span>
-            <span class="hours-title">5</span>
-            <span class="hours-title">6</span>
-            <span class="hours-title">7</span>
-            <span class="hours-title">8</span>
-            <span class="hours-title">9</span>
-            <span class="hours-title">10</span>
-            <span class="hours-title">11</span>
-            <span class="hours-title">12</span>
-            <span class="hours-title">13</span>
-            <span class="hours-title">14</span>
-            <span class="hours-title">15</span>
-            <span class="hours-title">16</span>
-            <span class="hours-title">17</span>
-            <span class="hours-title">18</span>
-            <span class="hours-title">19</span>
-            <span class="hours-title">20</span>
-            <span class="hours-title">21</span>
-            <span class="hours-title">22</span>
-            <span class="hours-title">23</span>
-            <span class="hours-title">24</span>
-            <span class="hours-title">25</span>
-            <span class="hours-title">26</span>
-            <span class="hours-title">27</span>
-            <span class="hours-title" *ngIf="daysInMonth>=28">28</span>
-            <span class="hours-title" *ngIf="daysInMonth>=29">29</span>
-            <span class="hours-title" *ngIf="daysInMonth>=30">30</span>
-            <span class="hours-title" *ngIf="daysInMonth>=31">31</span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(1)}}</span><span>1</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(2)}}</span><span>2</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(3)}}</span><span>3</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(4)}}</span><span>4</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(5)}}</span><span>5</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(6)}}</span><span>6</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(7)}}</span><span>7</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(8)}}</span><span>8</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(9)}}</span><span>9</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(10)}}</span><span>10</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(11)}}</span><span>11</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(12)}}</span><span>12</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(13)}}</span><span>13</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(14)}}</span><span>14</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(15)}}</span><span>15</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(16)}}</span><span>16</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(17)}}</span><span>17</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(18)}}</span><span>18</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(19)}}</span><span>19</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(20)}}</span><span>20</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(21)}}</span><span>21</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(22)}}</span><span>22</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(23)}}</span><span>23</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(24)}}</span><span>24</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(25)}}</span><span>25</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(26)}}</span><span>26</span></span>
+            <span class="hours-title" fxLayout="column"><span>{{getDay(27)}}</span><span>27</span></span>
+            <span class="hours-title" fxLayout="column" *ngIf="daysInMonth>=28"><span>{{getDay(28)}}</span><span>28</span></span>
+            <span class="hours-title" fxLayout="column" *ngIf="daysInMonth>=29"><span>{{getDay(29)}}</span><span>29</span></span>
+            <span class="hours-title" fxLayout="column" *ngIf="daysInMonth>=30"><span>{{getDay(30)}}</span><span>30</span></span>
+            <span class="hours-title" fxLayout="column" *ngIf="daysInMonth>=31"><span>{{getDay(31)}}</span><span>31</span></span>
             <span class="hours-title">Total</span>
 
             <!-- TODO: delete extra days in short months-->
@@ -105,7 +105,7 @@
           <!-- sum for each day -->
           <div>
             <div fxLayout="row" class="activity-title">
-              <span class="picker-title">Total hours for Day:</span>
+              <span class="total-title">Total hours for Day:</span>
               <span class="hours-title">{{getHours('d01')}}</span>
               <span class="hours-title">{{getHours('d02')}}</span>
               <span class="hours-title">{{getHours('d03')}}</span>

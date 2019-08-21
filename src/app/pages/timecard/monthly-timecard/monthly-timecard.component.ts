@@ -177,6 +177,10 @@ export class MonthlyTimecardComponent implements OnInit {
     return this.dateService.isWeekend(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, day);
   }
 
+  getDay(day: number): string {
+    return this.dateService.getDay(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, day);
+  }
+
   totalHoursForActivity(index: number) {
     var totalHours = 0;
 
