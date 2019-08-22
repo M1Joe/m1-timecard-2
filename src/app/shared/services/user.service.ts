@@ -13,6 +13,7 @@ import { AuthService } from './auth.service';
 import { ExpenseReport } from '@shared/models/expense-report.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { PTO } from '@shared/models/pto.model';
+import { ExpenseReportFilter } from '@shared/models/expense-report-filter.model';
 
 @Injectable()
 export class UserService {
@@ -125,12 +126,21 @@ export class UserService {
       .catch(err => console.log(err, 'problem'));
   }
 
-  public getExpenseReports(): Observable<ExpenseReport[]> {
-    return this.db.list<ExpenseReport>('expenseReports').valueChanges();
-  }
-
-  public getExpenseReportsByStatus(status: string): Observable<ExpenseReport[]> {
-    return this.db.list<ExpenseReport>('expenseReports', ref => ref.orderByChild('status').equalTo(status)).valueChanges();
+  public getExpenseReports(filter: ExpenseReportFilter): Observable<ExpenseReport[]> {
+    if (filter.user.email === "ALL") {
+      if (filter.status === 'ALL') {
+        return this.db.list<ExpenseReport>('expenseReports', ref => ref.orderByChild('keyYearMonth').equalTo(filter.selectedYear + '-' + filter.selectedMonth)).valueChanges();
+      } else {
+        return this.db.list<ExpenseReport>('expenseReports', ref => ref.orderByChild('keyYearMonthStatus').equalTo(filter.selectedYear + '-' + filter.selectedMonth + '-' + filter.status)).valueChanges();
+      }
+    } else {
+      if (filter.status === 'ALL') {
+        return this.db.list<ExpenseReport>('expenseReports', ref => ref.orderByChild('keyYearMonthUser').equalTo(filter.selectedYear + '-' + filter.selectedMonth + '-' + this.authService.getUserKey(filter.user))).valueChanges();
+      } else {
+        return this.db.list<ExpenseReport>('expenseReports', ref => ref.orderByChild('keyYearMonthUserStatus').equalTo(filter.selectedYear + '-' + filter.selectedMonth + '-' + this.authService.getUserKey(filter.user) + '-' + filter.status)).valueChanges();
+      }
+    }
+    
   }
 
   public deleteExpenseReport(expenseReport: ExpenseReport) {

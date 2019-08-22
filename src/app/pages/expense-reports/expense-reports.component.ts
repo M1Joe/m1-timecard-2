@@ -1,28 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm, FormBuilder, Validators, FormGroup  } from '@angular/forms';
 
-import { UserService, EmailValidator, ChargeCode, AuthService } from '@shared';
+import { UserService, EmailValidator, ChargeCode, AuthService, User } from '@shared';
 import { Observable } from 'rxjs';
 import { ExpenseReport } from '@shared/models/expense-report.model';
+import { MatPaginator, PageEvent } from '@angular/material';
+import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
+import { ExpenseReportFilter } from '@shared/models/expense-report-filter.model';
 
 @Component({
   selector: 'app-expense-reports',
   templateUrl: './expense-reports.component.html',
   styleUrls: ['./expense-reports.component.scss']
 })
-export class ExpenseReportsComponent implements OnInit {
+export class ExpenseReportsComponent implements OnInit {  // , AfterViewInit {
   
-
-  //public form: FormGroup;
   expenseReports$ : Observable<ExpenseReport[]>;
-  displayedColumns = ["email", "dateSubmitted", "fromDate", "toDate", "amount", "description", "contract", "status", "actions"];
+  displayedColumns = ["userKey", "dateSubmitted", "fromDate", "toDate", "amount", "description", "contract", "status", "actions"];
   
+  expenseReportFilter: ExpenseReportFilter;
+
   constructor( private userService: UserService, private authService: AuthService) {
 
   }
 
   ngOnInit(): void {
-    this.expenseReports$ = this.userService.getExpenseReports();
+    //set filters to current month
+    var all: User = {displayName: 'ALL', uid: 'ALL', email: 'ALL'}
+
+    this.expenseReportFilter =  {
+      user: all, 
+      selectedYear: (new Date()).getFullYear().toString(), 
+      selectedMonth: ((new Date()).getMonth() + 1).toString(),
+      status: "ALL"
+    };
+
+    this.getExpenseReport();
+
+  }
+
+  getExpenseReport() {
+    this.expenseReports$ = this.userService.getExpenseReports(this.expenseReportFilter); //this.startAt, this.pageSize);
   }
 
   deleteExpenseReport(expenseReport: ExpenseReport) {
@@ -31,7 +49,14 @@ export class ExpenseReportsComponent implements OnInit {
 
   markExpenseReportAsPaid(expenseReport: ExpenseReport) {
     expenseReport.status = 'PAID';
+    expenseReport.keyYearMonthUserStatus = expenseReport.keyYearMonthUserStatus.replace('SUBMITTED', 'PAID');
+    expenseReport.keyYearMonthStatus = expenseReport.keyYearMonthStatus.replace('SUBMITTED', 'PAID');
     this.userService.saveExpenseReport(expenseReport);
+  }
+
+  executeFilterRequest(filter: ExpenseReportFilter) {
+    this.expenseReports$ = this.userService.getExpenseReports(filter)
+    
   }
 
 }

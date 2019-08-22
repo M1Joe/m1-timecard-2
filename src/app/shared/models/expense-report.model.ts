@@ -1,10 +1,7 @@
 export class ExpenseReport {
   id: string;
   fromDate: string;
-  fromYear: string;
-  fromMonth: string;
   dateSubmitted: string;
-  
   toDate: string;
   
   amount: string;
@@ -13,6 +10,11 @@ export class ExpenseReport {
   contract: string;
 
   status: string;
-  email: string;
+  userKey: string;
+
+  keyYearMonth: string;
+  keyYearMonthUser: string;
+  keyYearMonthStatus: string;
+  keyYearMonthUserStatus: string;
   
 }

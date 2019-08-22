@@ -47,10 +47,8 @@ export class CreateExpenseReportComponent {
     }
     
     expenseReport.status = 'SUBMITTED';
-    expenseReport.email = this.authService.getUserKey();
+    expenseReport.userKey = this.authService.getUserKey();
     
-    expenseReport.fromYear = this.expenseForm.value.fromDate.getFullYear();
-    expenseReport.fromMonth = this.expenseForm.value.fromDate.getMonth() + 1;
 
     expenseReport.fromDate = this.generateStringFromDate(this.expenseForm.value.fromDate);
     if (expenseReport.toDate) {
@@ -58,6 +56,13 @@ export class CreateExpenseReportComponent {
     }
     expenseReport.dateSubmitted = this.generateStringFromDate(new Date());
     
+    const fromYear = new Date(this.expenseForm.value.fromDate).getFullYear();
+    const fromMonth = new Date(this.expenseForm.value.fromDate).getMonth() + 1;
+    expenseReport.keyYearMonth = fromYear + '-' + fromMonth;
+    expenseReport.keyYearMonthUser = fromYear + '-' + fromMonth + '-' + this.authService.getUserKey();
+    expenseReport.keyYearMonthStatus = fromYear + '-' + fromMonth + '-' + expenseReport.status;
+    expenseReport.keyYearMonthUserStatus = fromYear + '-' + fromMonth + '-' + this.authService.getUserKey() + '-' + expenseReport.status;
+
     this.userService.createExpenseReport(expenseReport); 
     
     //TODO: Only reset form is save was actually successful.

@@ -4,18 +4,20 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatProgressBarModule,
-         MatCardModule, MatIconModule, MatDatepickerModule, MatCheckboxModule, MatTableModule } from '@angular/material';
+         MatCardModule, MatIconModule, MatDatepickerModule, MatCheckboxModule, MatTableModule, MatPaginatorModule, MatSelectModule } from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Components
 import { ExpenseReportsComponent } from './expense-reports.component';
 import { CreateExpenseReportComponent } from './create-expense-report/create-expense-report.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ExpenseFiltersComponent } from './expense-filters/expense-filters.component';
 
 @NgModule({
   declarations: [
     ExpenseReportsComponent,
-    CreateExpenseReportComponent
+    CreateExpenseReportComponent,
+    ExpenseFiltersComponent
   ],
   imports: [
     CommonModule,
@@ -23,8 +25,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule, MatInputModule, MatProgressBarModule, MatTableModule,
-    MatCardModule, MatIconModule, MatDatepickerModule, MatCheckboxModule,
-    NgxAuthFirebaseUIModule,
+    MatCardModule, MatIconModule, MatDatepickerModule, MatCheckboxModule, MatPaginatorModule, MatSelectModule,
+    NgxAuthFirebaseUIModule, 
     FlexLayoutModule
   ],
   providers: [

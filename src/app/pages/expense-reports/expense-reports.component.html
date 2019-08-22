@@ -1,34 +1,16 @@
-<!-- <div *ngIf="expenseReports$ | async as expenseReports">
-  <div *ngFor="let expenseReport of expenseReports">
-    <mat-card>
-      <mat-card-title>{{expenseReport.email}} - {{expenseReport.dateSubmitted}}</mat-card-title>
-      <mat-card-content>
-          <div><b>Date Submitted:</b> {{expenseReport.dateSubmitted}}</div>
-          <div><b>From:</b> {{expenseReport.fromDate}}</div>
-          <div><b>To:</b> {{expenseReport.toDate}}</div>
-          <div><b>Amount:</b> {{expenseReport.amount}}</div>
-          <div><b>Description:</b> {{expenseReport.description}}</div>
-          <div><b>Reimburseable to Contract:</b> {{expenseReport.contract}}</div>
-          <div><b>Status:</b> {{expenseReport.status}}</div>
-          <div><b>Employee:</b> {{expenseReport.email}}</div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button class="paid-btn" (click)="markExpenseReportAsPaid(expenseReport)">Mark as Paid</button>
-        <button mat-raised-button class="delete-btn" (click)="deleteExpenseReport(expenseReport)">Delete</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-</div> -->
-
-
 <app-create-expense-report></app-create-expense-report>
+
+<div class="filters-container">
+  <app-expense-filters *ngIf="expenseReportFilter" [expenseReportFilter]="expenseReportFilter" (filterExpenseRequest)="executeFilterRequest($event)"></app-expense-filters>
+</div>
+
 
 <div *ngIf="expenseReports$ | async as expenseReports">
   <table mat-table [dataSource]="expenseReports" class="mat-elevation-z8">
 
-    <ng-container matColumnDef="email">
+    <ng-container matColumnDef="userKey">
       <th mat-header-cell *matHeaderCellDef> Employee </th>
-      <td mat-cell *matCellDef="let expenseReport"> {{expenseReport.email}} </td>
+      <td mat-cell *matCellDef="let expenseReport"> {{expenseReport.userKey}} </td>
     </ng-container>
 
     <ng-container matColumnDef="dateSubmitted">
