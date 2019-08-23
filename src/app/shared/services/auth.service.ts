@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-import * as firebase from 'firebase';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import * as firebase from 'firebase/app';
 import { User } from '@shared/models/user.model';
-import { Observable, pipe } from 'rxjs';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
 
@@ -93,4 +92,16 @@ export class AuthService {
   public isAdminMode(): boolean {
     return this.isAdmin() && this.adminMode;
   }
+
+  // canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  //   return this.afAuth.au
+  //   return this.af.auth.subscribe((auth) =>  {
+  //     if(auth == null) {
+  //       this.router.navigate(['/login']);
+  //       return false;
+  //     } else {
+  //       return true;
+  //     }
+  //   }).first()
+  // }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 import { AuthService, AlertService } from '../../services';
 import { MatSlideToggleChange } from '@angular/material';

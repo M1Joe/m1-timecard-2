@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="authService.isAuthenticated()">
   <mat-card *ngIf="isAdminMode()" class="approve-card">
     <app-approve-timecard
       [currentUser]="currentUser"

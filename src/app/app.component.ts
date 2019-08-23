@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { firebaseKeys } from './firebase.config';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthService } from './shared';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,25 +18,22 @@ export class AppComponent implements OnInit {
   
   userDisplayName$: Observable<string>;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService, private afAuth: AngularFireAuth) {}
 
   public ngOnInit(): void {
-    if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseKeys);
-    }
     
-    // Wait to show the app.component html until a user is returned. 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        // If user is null, route guard should have redirected user to /login page,
-        // but that didn't always work, so gaurding against it here, too.
-        this.router.navigate(['/login']);
-      } else {
-        this.userDisplayName$ = of(user.displayName);     
-      }
-      
-    });
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseKeys);
+    }
 
-    //}
+    this.afAuth.authState.pipe(take(1)).subscribe(user => {
+      if (user) {
+        this.userDisplayName$ = of(user.displayName);
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
+
+ 
 }

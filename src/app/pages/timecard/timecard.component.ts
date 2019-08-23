@@ -1,10 +1,6 @@
-import { Component, ViewEncapsulation, OnInit, ViewChild } from '@angular/core';
-import { NgForm, FormGroup } from '@angular/forms';
-
-import {AuthProvider, Theme} from 'ngx-auth-firebaseui';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '@shared/services/user.service';
 import { AuthService } from '@shared/services/auth.service';
-import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';

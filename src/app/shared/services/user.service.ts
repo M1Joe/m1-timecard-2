@@ -1,17 +1,13 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { Injectable } from '@angular/core';
-
 import { User, ChargeCode } from '../models';
 import { AlertService } from './alert.service';
-import { defaultAuthFirebaseUIConfig } from 'ngx-auth-firebaseui/module/interfaces/config.interface';
 import { Observable, of } from 'rxjs';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { promise } from 'protractor';
 import { AuthService } from './auth.service';
 import { ExpenseReport } from '@shared/models/expense-report.model';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { PTO } from '@shared/models/pto.model';
 import { ExpenseReportFilter } from '@shared/models/expense-report-filter.model';
 
