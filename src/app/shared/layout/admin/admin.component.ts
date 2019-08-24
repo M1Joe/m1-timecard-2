@@ -28,9 +28,6 @@ export class AdminComponent {
   }
 
   public userName(): string {
-    console.log('1');
-    //console.log(firebase.auth().currentUser.displayName);
-    //console.log(firebase.auth().currentUser.email);
     return firebase.auth().currentUser.displayName;
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '@shared/services/user.service';
 import { AuthService } from '@shared/services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { MonthlyTimecard } from '@shared/models/monthly-timecard.model';
 import { MonthlyTimecardComponent } from './monthly-timecard/monthly-timecard.component';
@@ -55,7 +55,14 @@ export class TimecardComponent implements OnInit {
 
     // determine how many days are in the current month.
     this.currentTimePeriod$.pipe(take(1)).subscribe(result => {
-      this.currentTimePeriod = result;
+      if (result === null) {
+        var currentYear = (new Date()).getFullYear().toString();
+        var currentMonth = ((new Date()).getMonth() + 1).toString();
+        this.currentTimePeriod = {selectedMonth: currentMonth, selectedYear: currentYear};
+        this.currentTimePeriod$ = of(this.currentTimePeriod);
+      } else {
+        this.currentTimePeriod = result;
+      }
       this.daysInMonth = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, 0).getDate();
       this.requestToLoadTimecard(this.currentTimePeriod);
     }); 

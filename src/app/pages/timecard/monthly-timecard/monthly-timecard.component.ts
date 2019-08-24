@@ -94,8 +94,6 @@ export class MonthlyTimecardComponent implements OnInit {
   }
 
   loadData(): void {
-    console.log('loadData Called');
-
     this.userService.getTimecard(this.userKey, this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth).pipe(take(1)).subscribe(
       results => {
         this.loadForm(results);

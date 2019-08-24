@@ -30,14 +30,12 @@ export class PtoComponent { //implements OnInit, OnChanges {
 
   @Input('status')
   set status(value: string) {
-    console.log('value is ' + value);
     this._status = value;
     this.triggerPtoRefresh();
   }
 
   @Input()
   set viewingTimecardForUser(user: User) {
-    console.log('viewing is ' + user.displayName);
     this._viewingTimecardForUser = user;
     this.triggerPtoRefresh();
   }
@@ -50,7 +48,6 @@ export class PtoComponent { //implements OnInit, OnChanges {
 
 
   triggerPtoRefresh() {
-    console.log(this._status);
     if (this._status === 'APPROVED') {
       // display the status for that month
       this.pto$ = this.userService.getPtoForMonth(this.authService.getUserKey(this._viewingTimecardForUser), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth);

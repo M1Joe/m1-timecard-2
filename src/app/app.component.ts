@@ -17,6 +17,7 @@ import { take } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   
   userDisplayName$: Observable<string>;
+  isLoginPage: boolean;
 
   constructor(private router: Router, private authService: AuthService, private afAuth: AngularFireAuth) {}
 
@@ -31,6 +32,7 @@ export class AppComponent implements OnInit {
         this.userDisplayName$ = of(user.displayName);
       } else {
         this.router.navigate(['/login']);
+        this.isLoginPage = true;
       }
     });
   }

@@ -31,7 +31,6 @@ export class UserComponent implements OnInit {
 
     //get a string list of available charge codes
     this.availableChargeCodeNames = this.availableChargeCodes.map(a => a.name);
-    console.log('this.available' + this.availableChargeCodeNames);
 
     //set already selected values
     if (this.user.chargeCodeNames) {
@@ -66,7 +65,6 @@ export class UserComponent implements OnInit {
   saveUser() {
     this.user.chargeCodeNames = [];
     this.user.chargeCodeNames = this.availableChargeCodeNamesFormGroup.value.chargeCodes;
-    console.log('this.chargeCodes' + this.user.chargeCodeNames);
     this.userService.updateUser(this.user);
     
   }

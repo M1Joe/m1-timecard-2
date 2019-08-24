@@ -1,4 +1,4 @@
-<div class="container" *ngIf="userDisplayName$ | async">
+<div class="container" *ngIf="isLoginPage || (userDisplayName$ | async)">
 
     <app-header></app-header>
     <app-admin></app-admin>

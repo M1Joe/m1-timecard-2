@@ -24,13 +24,11 @@ export class AuthService {
     sessionStorage.setItem('session-alive', 'true');
     this.token = 'some-temporary-token';
     this.router.navigate(['/timecard']);
-    console.log('afAuth: ', this.afAuth);
   }
 
   public logout(): void {
     sessionStorage.removeItem('session-alive');
     this.token = null;
-    console.log('LOGOUT!');
     this.router.navigate(['/login']);
   }
 

@@ -39,10 +39,8 @@ export class SaveTimecardComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       if (result === 'SUBMIT') {
-        console.log('submitteded');
         this.requestToSaveTimecard.emit('SUBMITTED');
       } else {
-        console.log('cancelled');
       }
       
     });
