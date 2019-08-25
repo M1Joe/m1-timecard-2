@@ -3,6 +3,7 @@ import { CurrentTimePeriod } from '@shared/models/current-time-period.model';
 import { DateService } from '@shared/services/date.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SubmitDialogComponent } from './submit-dialog/submit-dialog.component';
+import { FridaySaveDialogComponent } from './friday-save-dialog/friday-save-dialog.component';
 
 @Component({
   selector: 'app-save-timecard',
@@ -29,6 +30,15 @@ export class SaveTimecardComponent implements OnInit {
   
   saveTimecard() {
     this.requestToSaveTimecard.emit('DRAFT');
+
+    var currentDay = (new Date()).getDay()
+    if (currentDay === 5) { 
+      // It's Friday!
+      this.dialog.open(FridaySaveDialogComponent, {
+        width: '600px',
+      });
+    }
+      
   }
 
   submitTimecard() {

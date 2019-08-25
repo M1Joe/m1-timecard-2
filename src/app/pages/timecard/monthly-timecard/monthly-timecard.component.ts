@@ -84,6 +84,16 @@ export class MonthlyTimecardComponent implements OnInit {
     //once we setup the form with all the arrays and such, we can just patch the form:
     this.timecardForm.patchValue(data);
 
+    /*
+    // TODO: If the form is the current month and year, focus the cursor to the current day so that the user can easily enter time.
+    var currentYear = (new Date()).getFullYear().toString();
+    var currentMonth = ((new Date()).getMonth() + 1).toString();
+    var currentDay = (new Date()).getDate().toString();
+
+    if (this.currentTimePeriod.selectedMonth === currentMonth && this.currentTimePeriod.selectedYear === currentYear) {
+      //set form to currentDay
+    }
+    */  
     //show form to user
     this.loading = false;
   }
