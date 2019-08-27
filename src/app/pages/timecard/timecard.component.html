@@ -2,6 +2,7 @@
   <mat-card *ngIf="isAdminMode()" class="approve-card">
     <app-approve-timecard
       [currentUser]="currentUser"
+      [totalHoursPTO]="totalHoursPTO()"
       (requestToApproveTimecard)="requestToApproveTimecard($event)"
       (requestToSaveTimecard)="requestToSaveTimecard($event)"
       (requestToLoadTimecardForUser)="requestToLoadTimecardForUser($event)">

@@ -4,9 +4,15 @@
     color: white;
 }
 
+.pto-input-new-as-of,
 .pto-input {
-    width: 150px;
+    width: 160px;
     padding-right: 8px;
+    padding-left: 8px;
+}
+
+.pto-input-balance {
+    width: 200px;
 }
 
 .pick-user {

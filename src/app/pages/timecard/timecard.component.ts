@@ -144,6 +144,20 @@ export class TimecardComponent implements OnInit {
     return grandTotal;
   }
 
+  totalHoursPTO() {
+    if (!this.monthlyTimecardComponent || !this.monthlyTimecardComponent.timecardForm) {
+      return 0;
+    }
+
+    var totalPto = 0;
+    for (let index = 0; index < this.monthlyTimecardComponent.timecardForm.value.activities.length; index++) {
+      if (this.monthlyTimecardComponent.timecardForm.value.activities[index].chargeCode === 'PTO') {
+        totalPto = totalPto + this.totalHoursForActivity(index);
+      }
+    }
+    return totalPto;
+  }
+
   totalAvailableHoursInMonth() {
     var totalHoursAvailable = 0;
     for (let day = 1; day <= this.daysInMonth; day++) {
