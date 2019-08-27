@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { NgForm, FormBuilder, Validators, FormGroup  } from '@angular/forms';
+import { NgForm, FormBuilder, Validators, FormGroup, FormGroupDirective } from '@angular/forms';
 
 import { UserService, EmailValidator, ChargeCode, AuthService } from '@shared';
 import { ExpenseReport } from '@shared/models/expense-report.model';
@@ -13,21 +13,21 @@ export class CreateExpenseReportComponent {
 
   public expenseForm: FormGroup;
   reimburseableChecked: boolean;
-  
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
     public formBuilder: FormBuilder) {
     this.expenseForm = formBuilder.group({
       fromDate: ['', Validators.compose([Validators.required])],
-      toDate: [''],
+      toDate: ['', Validators.compose([Validators.nullValidator])],
 
       amount: ['', Validators.compose([Validators.required])],
       description: ['', Validators.compose([Validators.required])],
-      
+
       reimburseable: [false],
       contract: [''],
-      
+
     });
   }
 
@@ -38,24 +38,24 @@ export class CreateExpenseReportComponent {
     return month + '/' + day + '/' + year;
   }
 
-  public onSubmit(form: NgForm) {
+  public onSubmit(form: FormGroupDirective) {
 
     var expenseReport: ExpenseReport = this.expenseForm.value;
 
     if (expenseReport.reimburseable === undefined) {
       expenseReport.reimburseable = false;
     }
-    
+
     expenseReport.status = 'SUBMITTED';
     expenseReport.userKey = this.authService.getUserKey();
-    
+
 
     expenseReport.fromDate = this.generateStringFromDate(this.expenseForm.value.fromDate);
     if (expenseReport.toDate) {
       expenseReport.toDate = this.generateStringFromDate(this.expenseForm.value.toDate);
     }
     expenseReport.dateSubmitted = this.generateStringFromDate(new Date());
-    
+
     const fromYear = new Date(this.expenseForm.value.fromDate).getFullYear();
     const fromMonth = new Date(this.expenseForm.value.fromDate).getMonth() + 1;
     expenseReport.keyYearMonth = fromYear + '-' + fromMonth;
@@ -63,30 +63,27 @@ export class CreateExpenseReportComponent {
     expenseReport.keyYearMonthStatus = fromYear + '-' + fromMonth + '-' + expenseReport.status;
     expenseReport.keyYearMonthUserStatus = fromYear + '-' + fromMonth + '-' + this.authService.getUserKey() + '-' + expenseReport.status;
 
-    this.userService.createExpenseReport(expenseReport); 
-    
+    this.userService.createExpenseReport(expenseReport);
+
     //TODO: Only reset form is save was actually successful.
-    this.resetFormAfterSubmission();
+    this.resetFormAfterSubmission(form);
+
+  }
+
+  public resetFormAfterSubmission(form: FormGroupDirective) {
+
+    
+    var tempForm = this.expenseForm.value;
+    tempForm.amount = '';
+    tempForm.description = '';
+    form.resetForm();
+
+    this.expenseForm.patchValue({contract: tempForm.contract, reimburseable: tempForm.reimburseable, fromDate: tempForm.fromDate}); 
     
   }
 
-  public resetFormAfterSubmission() {
-    
-    //TODO: FIX THIS so that the amount and description fields don't show errors after completed.
-    
-
-
-    // this.expenseForm.controls.amount.setValue('')
-    // this.expenseForm.controls.description.setValue('')
-    // this.expenseForm.markAsPristine();
-    // this.expenseForm.markAsUntouched();
-
-    // this.expenseForm.controls.amount.reset();
-    // this.expenseForm.controls.amount.markAsPristine();
-    // this.expenseForm.controls.amount.markAsUntouched();
-    // this.expenseForm.controls.description.reset();
-    // this.expenseForm.controls.description.markAsPristine();
-    // this.expenseForm.controls.description.markAsUntouched();
+  clearContract() {
+    //clear contract when reimburseable button is clicked
+    this.expenseForm.patchValue({contract: ''});
   }
-
 }

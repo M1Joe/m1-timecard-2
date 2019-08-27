@@ -5,7 +5,7 @@
 
       <div>
         <mat-form-field class="date-picker">
-          <input matInput [matDatepicker]="fromPicker" placeholder="From date" formControlName="fromDate" required>
+          <input matInput [matDatepicker]="fromPicker" placeholder="From date" formControlName="fromDate">
           <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
           <mat-datepicker #fromPicker></mat-datepicker>
         </mat-form-field>
@@ -21,7 +21,7 @@
 
 
       <div class="reimburseable-div">
-        <mat-checkbox color="primary" formControlName="reimburseable" [(ngModel)]="reimburseableChecked">Reimburseable
+        <mat-checkbox color="primary" formControlName="reimburseable" [(ngModel)]="reimburseableChecked" (click)="clearContract()">Reimburseable
           by Contract?</mat-checkbox>
       </div>
 
@@ -37,7 +37,7 @@
       <div>
         <mat-form-field appearance="outline" class="amount">
           <mat-label>Amount</mat-label>
-          <input matInput formControlName="amount" placeholder="$xx.xx" required>
+          <input matInput formControlName="amount" placeholder="$xx.xx">
         </mat-form-field>
       </div>
 
