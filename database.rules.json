@@ -1,6 +1,46 @@
+
 {
-  "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
+  "rules":  {    
+    "chargeCodes" : { 
+      ".read":"auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3'",
+      ".write":"auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3'"
+    },
+
+    "expenseReports" : {
+      ".read":" auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3'",
+      "$key" : {
+        ".write":" auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3'",
+        ".validate": " auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3' || newData.child('userKey').val() == auth.token.email.replace('@m1technology.com','').replace('.','')"
+      }
+      
+    },
+    
+    "employeeEditableFields" : {
+      "$uid" : {
+        ".read": " auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3' || $uid == auth.token.email.replace('@m1technology.com','').replace('.','') ",
+        ".write": " auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3' ||$uid == auth.token.email.replace('@m1technology.com','').replace('.','') ",
+      },
+      "timecards": {
+        "$year" : {
+          "$month" : {
+            "$uid" : {
+              ".read": " auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3' || $uid == auth.token.email.replace('@m1technology.com','').replace('.','') ",
+              ".write": " auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3' || $uid == auth.token.email.replace('@m1technology.com','').replace('.','')  ",
+              ".validate": "auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3' || data.child('status').val() != 'APPROVED' || data.child('status').val() != 'SUBMITTED' || newData.child('status').val() != 'APPROVED'"
+            }
+          }
+        }
+
+      }
+    },
+
+    "users" : {
+      ".read":" auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3'",
+      ".write":" auth.uid == 'A0T9HVcSusNXP3Ug0FiLa03XmmE3'",
+      "$uid" : {
+        ".read": " $uid == auth.token.email.replace('@m1technology.com','').replace('.','') "
+      }
+    }
+  
   }
 }
