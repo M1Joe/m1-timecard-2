@@ -60,41 +60,41 @@
             </mat-form-field>
 
 
-            <input type="number" formControlName="d01" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(1) }">
-            <input type="number" formControlName="d02" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(2) }">
-            <input type="number" formControlName="d03" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(3) }">
-            <input type="number" formControlName="d04" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(4) }">
-            <input type="number" formControlName="d05" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(5) }">
-            <input type="number" formControlName="d06" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(6) }">
-            <input type="number" formControlName="d07" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(7) }">
-            <input type="number" formControlName="d08" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(8) }">
-            <input type="number" formControlName="d09" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(9) }">
-            <input type="number" formControlName="d10" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(10) }">
-            <input type="number" formControlName="d11" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(11) }">
-            <input type="number" formControlName="d12" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(12) }">
-            <input type="number" formControlName="d13" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(13) }">
-            <input type="number" formControlName="d14" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(14) }">
-            <input type="number" formControlName="d15" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(15) }">
-            <input type="number" formControlName="d16" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(16) }">
-            <input type="number" formControlName="d17" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(17) }">
-            <input type="number" formControlName="d18" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(18) }">
-            <input type="number" formControlName="d19" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(19) }">
-            <input type="number" formControlName="d20" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(20) }">
-            <input type="number" formControlName="d21" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(21) }">
-            <input type="number" formControlName="d22" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(22) }">
-            <input type="number" formControlName="d23" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(23) }">
-            <input type="number" formControlName="d24" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(24) }">
-            <input type="number" formControlName="d25" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(25) }">
-            <input type="number" formControlName="d26" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(26) }">
-            <input type="number" formControlName="d27" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(27) }">
+            <input type="number" formControlName="d01" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(1) }" [autofocus]="shouldFocus(1, activityIndex)">
+            <input type="number" formControlName="d02" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(2) }" [autofocus]="shouldFocus(2, activityIndex)">
+            <input type="number" formControlName="d03" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(3) }" [autofocus]="shouldFocus(3, activityIndex)">
+            <input type="number" formControlName="d04" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(4) }" [autofocus]="shouldFocus(4, activityIndex)">
+            <input type="number" formControlName="d05" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(5) }" [autofocus]="shouldFocus(5, activityIndex)">
+            <input type="number" formControlName="d06" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(6) }" [autofocus]="shouldFocus(6, activityIndex)">
+            <input type="number" formControlName="d07" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(7) }" [autofocus]="shouldFocus(7, activityIndex)">
+            <input type="number" formControlName="d08" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(8) }" [autofocus]="shouldFocus(8, activityIndex)">
+            <input type="number" formControlName="d09" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(9) }" [autofocus]="shouldFocus(9, activityIndex)">
+            <input type="number" formControlName="d10" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(10) }" [autofocus]="shouldFocus(10, activityIndex)">
+            <input type="number" formControlName="d11" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(11) }" [autofocus]="shouldFocus(11, activityIndex)">
+            <input type="number" formControlName="d12" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(12) }" [autofocus]="shouldFocus(12, activityIndex)">
+            <input type="number" formControlName="d13" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(13) }" [autofocus]="shouldFocus(13, activityIndex)">
+            <input type="number" formControlName="d14" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(14) }" [autofocus]="shouldFocus(14, activityIndex)">
+            <input type="number" formControlName="d15" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(15) }" [autofocus]="shouldFocus(15, activityIndex)">
+            <input type="number" formControlName="d16" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(16) }" [autofocus]="shouldFocus(16, activityIndex)">
+            <input type="number" formControlName="d17" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(17) }" [autofocus]="shouldFocus(17, activityIndex)">
+            <input type="number" formControlName="d18" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(18) }" [autofocus]="shouldFocus(18, activityIndex)">
+            <input type="number" formControlName="d19" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(19) }" [autofocus]="shouldFocus(19, activityIndex)">
+            <input type="number" formControlName="d20" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(20) }" [autofocus]="shouldFocus(20, activityIndex)">
+            <input type="number" formControlName="d21" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(21) }" [autofocus]="shouldFocus(21, activityIndex)">
+            <input type="number" formControlName="d22" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(22) }" [autofocus]="shouldFocus(22, activityIndex)">
+            <input type="number" formControlName="d23" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(23) }" [autofocus]="shouldFocus(23, activityIndex)">
+            <input type="number" formControlName="d24" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(24) }" [autofocus]="shouldFocus(24, activityIndex)">
+            <input type="number" formControlName="d25" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(25) }" [autofocus]="shouldFocus(25, activityIndex)">
+            <input type="number" formControlName="d26" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(26) }" [autofocus]="shouldFocus(26, activityIndex)">
+            <input type="number" formControlName="d27" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(27) }" [autofocus]="shouldFocus(27, activityIndex)">
             <input type="number" formControlName="d28" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(28) }"
-              *ngIf="daysInMonth>=28">
+              *ngIf="daysInMonth>=28" [autofocus]="shouldFocus(28, activityIndex)">
             <input type="number" formControlName="d29" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(29) }"
-              *ngIf="daysInMonth>=29">
+              *ngIf="daysInMonth>=29" [autofocus]="shouldFocus(29, activityIndex)">
             <input type="number" formControlName="d30" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(30) }"
-              *ngIf="daysInMonth>=30">
+              *ngIf="daysInMonth>=30"  [autofocus]="shouldFocus(30, activityIndex)">
             <input type="number" formControlName="d31" [ngClass]="{'hours-input': true, 'weekend' : isWeekend(31) }"
-              *ngIf="daysInMonth>=31">
+              *ngIf="daysInMonth>=31" [autofocus]="shouldFocus(31, activityIndex)">
 
             <span class="total-hours">{{totalHoursForActivity(activityIndex)}}</span>
 

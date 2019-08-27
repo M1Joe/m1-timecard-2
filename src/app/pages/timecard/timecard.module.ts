@@ -19,6 +19,7 @@ import { PtoComponent } from './pto/pto.component';
 import { SubmitDialogComponent } from './save-timecard/submit-dialog/submit-dialog.component';
 import { PoliciesDialogComponent } from './policies-dialog/policies-dialog.component';
 import { FridaySaveDialogComponent } from './save-timecard/friday-save-dialog/friday-save-dialog.component';
+import { AutofocusDirective } from 'src/app/directives/autofocus.directive';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { FridaySaveDialogComponent } from './save-timecard/friday-save-dialog/fr
     PtoComponent,
     SubmitDialogComponent,
     FridaySaveDialogComponent,
-    PoliciesDialogComponent
+    PoliciesDialogComponent,
+    AutofocusDirective
   ],
   imports: [
     CommonModule,

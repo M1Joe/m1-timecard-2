@@ -209,6 +209,20 @@ export class MonthlyTimecardComponent implements OnInit {
     }
     return hours;
   }
+
+  shouldFocus(day: number, activityIndex: number) {
+    var date = new Date();
+    var currentYear = date.getFullYear();
+    var currentMonth = date.getMonth() + 1; //months from 1-12
+    var currentDay = date.getDate();
+
+    return this.timecardForm.value.status === 'DRAFT' 
+          && +this.currentTimePeriod.selectedMonth === currentMonth 
+          && +this.currentTimePeriod.selectedYear === currentYear
+          && day === currentDay
+          && activityIndex === 0;
+    
+  }
  
 
 }
