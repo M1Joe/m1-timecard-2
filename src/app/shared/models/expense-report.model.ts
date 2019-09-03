@@ -12,6 +12,15 @@ export class ExpenseReport {
   status: string;
   userKey: string;
 
+  type: string;
+  fromLocation?: string;
+  toLocation?: string;
+  roundTrip?: boolean;
+  mileage?: string;
+  mileageRate?: string;
+  tolls?: string;
+
+
   keyYearMonth: string;
   keyYearMonthUser: string;
   keyYearMonthStatus: string;

@@ -1,27 +1,24 @@
 <form class="form" [formGroup]="expenseForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
   <mat-card>
     <h3>Create New Expense Report</h3>
+
     <div fxLayout="row wrap" fxLayoutGap="20px">
-
       <div>
-        <mat-form-field class="date-picker">
-          <input matInput [matDatepicker]="fromPicker" placeholder="From date" formControlName="fromDate">
-          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
-          <mat-datepicker #fromPicker></mat-datepicker>
+        <mat-form-field class="type-picker" appearance="outline">
+          <mat-label>Type*</mat-label>
+          <mat-select formControlName="type" (selectionChange)="setType($event)">
+            <mat-option value="LOCAL_TRAVEL">Local Travel</mat-option>
+            <mat-option value="TDY">TDY</mat-option>
+            <mat-option value="TECH">Tech Reimbursement</mat-option>
+            <mat-option value="TUITION">Tuition/Training Reimbursement</mat-option>
+            <mat-option value="OTHER">Other</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
-
-      <div>
-        <mat-form-field class="date-picker">
-          <input matInput [matDatepicker]="toPicker" placeholder="To date" formControlName="toDate">
-          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
-          <mat-datepicker #toPicker></mat-datepicker>
-        </mat-form-field>
-      </div>
-
 
       <div class="reimburseable-div">
-        <mat-checkbox color="primary" formControlName="reimburseable" [(ngModel)]="reimburseableChecked" (click)="clearContract()">Reimburseable
+        <mat-checkbox color="primary" formControlName="reimburseable" [(ngModel)]="reimburseableChecked"
+          (click)="clearContract()">Reimburseable
           by Contract?</mat-checkbox>
       </div>
 
@@ -31,26 +28,102 @@
           <input matInput formControlName="contract" placeholder="Contract">
         </mat-form-field>
       </div>
+    </div>
+
+
+
+    <div fxLayout="row wrap" fxLayoutGap="20px">
+
+      <!-- only difference between two below is placeholder text -->
+      <div *ngIf="currentType !== 'TDY'">
+        <mat-form-field class="date-picker">
+          <input matInput [matDatepicker]="fromPicker" placeholder="Date*" formControlName="fromDate">
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="currentType === 'TDY'">
+          <mat-form-field class="date-picker">
+            <input matInput [matDatepicker]="fromPicker" placeholder="From Date*" formControlName="fromDate">
+            <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+      <div *ngIf="currentType === 'TDY'">
+        <mat-form-field class="date-picker">
+          <input matInput [matDatepicker]="toPicker" placeholder="To date" formControlName="toDate">
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
 
     </div>
+
+    <div fxLayout="row wrap" fxLayoutGap="20px" *ngIf="currentType === 'LOCAL_TRAVEL'">
+
+      <div>
+        <mat-form-field appearance="outline" class="from-location">
+          <mat-label>From Location</mat-label>
+          <input matInput formControlName="fromLocation" placeholder="From Location">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="to-location">
+          <mat-label>To Location</mat-label>
+          <input matInput formControlName="toLocation" placeholder="To Location">
+        </mat-form-field>
+      </div>
+
+      <div class="round-trip-div">
+        <mat-checkbox color="primary" formControlName="roundTrip" [(ngModel)]="roundTripChecked">Round Trip?
+        </mat-checkbox>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="total-mileage">
+          <mat-label>Total Mileage</mat-label>
+          <input matInput formControlName="mileage" placeholder="##">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="mileage-rate">
+          <mat-label>Mileage Rate</mat-label>
+          <input matInput formControlName="mileageRate" placeholder="$0.xx">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="tolls">
+          <mat-label>Tolls</mat-label>
+          <input matInput formControlName="tolls" placeholder="$xx.xx">
+        </mat-form-field>
+      </div>
+
+    </div>
+
     <div fxLayout="row wrap" fxLayoutGap="20px">
       <div>
         <mat-form-field appearance="outline" class="amount">
-          <mat-label>Amount</mat-label>
+          <mat-label>Amount*</mat-label>
           <input matInput formControlName="amount" placeholder="$xx.xx">
         </mat-form-field>
       </div>
 
       <div fxFlex>
         <mat-form-field appearance="outline" fxFlex>
-          <mat-label>Description</mat-label>
+          <mat-label>Description*</mat-label>
           <textarea matInput placeholder="Description" formControlName="description"></textarea>
         </mat-form-field>
       </div>
     </div>
 
-    <div class="over-75">Please email receipts for any expense over $75 to <a href="mailto:receipts@m1technology.com?subject=Expense%20Report">receipts@m1technology.com</a></div>
-    
+    <div class="over-75">Please email receipts for any expense over $75 to <a
+        href="mailto:receipts@m1technology.com?subject=Expense%20Report">receipts@m1technology.com</a></div>
+
     <button mat-raised-button class="submit-btn" type="submit" [disabled]="expenseForm.invalid">Submit</button>
   </mat-card>
 </form>

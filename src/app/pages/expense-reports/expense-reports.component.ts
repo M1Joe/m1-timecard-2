@@ -16,7 +16,7 @@ import { ExpenseReportFilter } from '@shared/models/expense-report-filter.model'
 export class ExpenseReportsComponent implements OnInit {  // , AfterViewInit {
   
   expenseReports$ : Observable<ExpenseReport[]>;
-  displayedColumns = ["userKey", "dateSubmitted", "fromDate", "toDate", "amount", "description", "contract", "status", "actions"];
+  displayedColumns = ["userKey", "type","dateSubmitted", "fromDate", "toDate", "fromLocation","toLocation","roundTrip","mileage","mileageRate","tolls","amount", "description", "contract", "status", "actions"];
   
   expenseReportFilter: ExpenseReportFilter;
 

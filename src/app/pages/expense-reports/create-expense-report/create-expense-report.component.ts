@@ -13,13 +13,14 @@ export class CreateExpenseReportComponent {
 
   public expenseForm: FormGroup;
   reimburseableChecked: boolean;
+  public currentType: string;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     public formBuilder: FormBuilder) {
     this.expenseForm = formBuilder.group({
-      fromDate: ['', Validators.compose([Validators.required])],
+      fromDate: ['', Validators.compose([Validators.nullValidator])],
       toDate: ['', Validators.compose([Validators.nullValidator])],
 
       amount: ['', Validators.compose([Validators.required])],
@@ -27,6 +28,17 @@ export class CreateExpenseReportComponent {
 
       reimburseable: [false],
       contract: [''],
+
+      type: ['', Validators.compose([Validators.required])],
+
+      fromLocation: [''],
+      toLocation: [''],
+      roundTrip: [false],
+      mileage: [''],
+      mileageRate: [''],
+      tolls: [''],
+
+      //TODO: Add options for TDY, local travel, training, tech reimbursements, and other to expense report.
 
     });
   }
@@ -40,11 +52,18 @@ export class CreateExpenseReportComponent {
 
   public onSubmit(form: FormGroupDirective) {
 
+    this.currentType = '';
+
     var expenseReport: ExpenseReport = this.expenseForm.value;
 
     if (expenseReport.reimburseable === undefined) {
       expenseReport.reimburseable = false;
     }
+
+    if (expenseReport.roundTrip === undefined) {
+      expenseReport.roundTrip = false;
+    }
+
 
     expenseReport.status = 'SUBMITTED';
     expenseReport.userKey = this.authService.getUserKey();
@@ -80,10 +99,21 @@ export class CreateExpenseReportComponent {
 
     this.expenseForm.patchValue({contract: tempForm.contract, reimburseable: tempForm.reimburseable, fromDate: tempForm.fromDate}); 
     
+
+    // fromLocation: [''],
+    //   toLocation: [''],
+    //   roundTrip: [false],
+    //   mileage: [''],
+    //   mileageRate: [''],
+    //   tolls: [''],
   }
 
   clearContract() {
     //clear contract when reimburseable button is clicked
     this.expenseForm.patchValue({contract: ''});
+  }
+
+  setType(event) {
+    this.currentType = event.value;
   }
 }
