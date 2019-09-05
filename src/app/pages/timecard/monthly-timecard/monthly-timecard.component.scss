@@ -22,8 +22,9 @@ input[type="number"] {
 
 .hours-input {
     margin: 1px;
-    padding: 0px;
-    width: 34px;
+    padding: 2px;
+    width: 40px;
+    height: 30px;
 }
 
 .charge-code-picker {
@@ -47,7 +48,7 @@ input[type="number"] {
 .hours-title {
     margin: 1px;
     padding: 0px;
-    width: 34px;
+    width: 40px;
     text-align: center;
     display: inline-block;
     //font-weight: bold;
@@ -59,7 +60,7 @@ input[type="number"] {
 
 .activity-title,
 .activity {
-    min-width: 1450px;
+    min-width: 1630px;
 }
 
 .fake-input {
@@ -92,4 +93,10 @@ input[type="number"] {
     background-color: #eaeaea;
     color: black;
     margin-bottom: 4px;
+}
+
+
+//make the activity select shorter so that the rows line up properly.
+:host ::ng-deep .mat-form-field-infix {
+    padding: 0.4em 0 0.7em 0 !important;
 }
