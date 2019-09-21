@@ -124,6 +124,7 @@
     <div class="over-75">Please email receipts for any expense over $75 to <a
         href="mailto:receipts@m1technology.com?subject=Expense%20Report">receipts@m1technology.com</a></div>
 
-    <button mat-raised-button class="submit-btn" type="submit" [disabled]="expenseForm.invalid">Submit</button>
+    <!-- todo: fix flaky fromDate validation -->
+    <button mat-raised-button class="submit-btn" type="submit" [disabled]="expenseForm.invalid || !expenseForm.value.fromDate">Submit</button>
   </mat-card>
 </form>

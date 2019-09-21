@@ -20,8 +20,8 @@ export class CreateExpenseReportComponent {
     private userService: UserService,
     public formBuilder: FormBuilder) {
     this.expenseForm = formBuilder.group({
-      fromDate: ['', Validators.compose([Validators.nullValidator])],
-      toDate: ['', Validators.compose([Validators.nullValidator])],
+      fromDate: [''],
+      toDate: [''],
 
       amount: ['', Validators.compose([Validators.required])],
       description: ['', Validators.compose([Validators.required])],

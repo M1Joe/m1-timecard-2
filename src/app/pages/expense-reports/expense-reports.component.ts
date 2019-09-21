@@ -26,10 +26,12 @@ export class ExpenseReportsComponent implements OnInit {  // , AfterViewInit {
 
   ngOnInit(): void {
     //set filters to current month
-    var all: User = {displayName: 'ALL', uid: 'ALL', email: 'ALL'}
+    //var all: User = {displayName: 'ALL', uid: 'ALL', email: 'ALL'}
+    //var currentUser = this.authService.getUser();
+
 
     this.expenseReportFilter =  {
-      user: all, 
+      user: this.authService.getUser(),
       selectedYear: (new Date()).getFullYear().toString(), 
       selectedMonth: ((new Date()).getMonth() + 1).toString(),
       status: "ALL"
