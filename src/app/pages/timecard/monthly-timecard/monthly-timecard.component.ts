@@ -33,10 +33,7 @@ export class MonthlyTimecardComponent implements OnInit {
   //@Input() CurrentTimePeriod: CurrentTimePeriod;
 
   // @Input() set curTimePer(value: CurrentTimePeriod) {
-  //   this.loading = true;
-  //   //In order to find the number of days in a month, you need to get the 'date' of the 0th day of the next month.
-  //   this.daysInMonth = new Date(+value.selectedYear, +value.selectedMonth, 0).getDate();
-    
+  
   //   this.currentTimePeriod = value;
   //   this.initForm(this.authService.getUserKey());  
   // }
@@ -84,16 +81,6 @@ export class MonthlyTimecardComponent implements OnInit {
     //once we setup the form with all the arrays and such, we can just patch the form:
     this.timecardForm.patchValue(data);
 
-    /*
-    // TODO: If the form is the current month and year, focus the cursor to the current day so that the user can easily enter time.
-    var currentYear = (new Date()).getFullYear().toString();
-    var currentMonth = ((new Date()).getMonth() + 1).toString();
-    var currentDay = (new Date()).getDate().toString();
-
-    if (this.currentTimePeriod.selectedMonth === currentMonth && this.currentTimePeriod.selectedYear === currentYear) {
-      //set form to currentDay
-    }
-    */  
     //show form to user
     this.loading = false;
   }
@@ -152,9 +139,6 @@ export class MonthlyTimecardComponent implements OnInit {
 
   ngOnInit() {
     //this.userKey = this.authService.getUserKey();
-
-    
-    
   }
 
   /**
@@ -166,6 +150,9 @@ export class MonthlyTimecardComponent implements OnInit {
     
     this.userKey = userKey;
     this.currentTimePeriod = currentTimePerdiod;
+
+    //In order to find the number of days in a month, you need to get the 'date' of the 0th day of the next month.
+    this.daysInMonth = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, 0).getDate();
     
     this.chargeCodes$ = this.userService.getUserChargeCodes(this.userKey);
 
