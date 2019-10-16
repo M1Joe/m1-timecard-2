@@ -23,6 +23,8 @@
     </mat-select>
   </mat-form-field>
 
+  <button mat-raised-button class="submit-btn" (click)="viewNextUser()">Next</button>
+
   <mat-form-field class="pto-input-new-as-of" appearance="outline">
     <mat-label>New As Of</mat-label>
     <input matInput placeholder="New As Of Date" [(ngModel)]="newAsOf">
