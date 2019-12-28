@@ -1,0 +1,17 @@
+<div fxLayout="row" *ngIf="userArray">
+
+  
+  <button mat-raised-button class="submit-btn" (click)="reviewTimecard()">Accept</button>
+  <button mat-raised-button class="submit-btn" (click)="rejectTimecard()">Reject</button>
+
+  <mat-form-field  appearance="outline" class="pick-user">
+    <mat-label>Users</mat-label>
+    <mat-select (selectionChange)="loadTimecardFor($event)" [(compareWith)]="compareObjects" [(ngModel)]="currentUser">
+      <mat-option *ngFor="let user of userArray" [value]="user">{{user.displayName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button class="submit-btn" (click)="viewNextUser()">Next</button>
+  
+</div>
+

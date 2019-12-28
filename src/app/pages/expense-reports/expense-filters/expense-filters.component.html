@@ -49,7 +49,7 @@
   </mat-select>
 </mat-form-field>
 
-<mat-form-field appearance="outline" class="pick-user" *ngIf="isAdminMode()">
+<mat-form-field appearance="outline" class="pick-user" *ngIf="isAdminMode() || isReviewerMode()">
   <mat-label>Users</mat-label>
   <mat-select (selectionChange)="setCurrentUser($event)" [(compareWith)]="compareObjects"
     [(ngModel)]="currentlyViewedUser">

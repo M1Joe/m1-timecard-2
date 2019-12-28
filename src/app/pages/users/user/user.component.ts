@@ -16,6 +16,9 @@ export class UserComponent implements OnInit {
   @Input() availableChargeCodes: ChargeCode[];
   availableChargeCodeNames: string[];
   @Input() user: User;
+
+  // the name of the reviewer in the select
+  reviewerUserKey: string;
   
   //@Output() refreshUserList = new EventEmitter();
 
@@ -44,6 +47,10 @@ export class UserComponent implements OnInit {
       });  
     }
 
+    if (this.user.reviewerUserKey) {
+      this.reviewerUserKey = this.user.reviewerUserKey;
+    }
+
   }
 
   deleteUser() {
@@ -63,6 +70,7 @@ export class UserComponent implements OnInit {
   }
 
   saveUser() {
+    this.user.reviewerUserKey = this.reviewerUserKey;
     this.user.chargeCodeNames = [];
     this.user.chargeCodeNames = this.availableChargeCodeNamesFormGroup.value.chargeCodes;
     this.userService.updateUser(this.user);

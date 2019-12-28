@@ -45,6 +45,10 @@ export class ExpenseFiltersComponent implements OnInit {
     return this.authService.isAdminMode();
   }
 
+  isReviewerMode() {
+    return this.authService.isReviewerMode();
+  }
+
   compareObjects(user1: User, user2: User): boolean {
     return user1.email === user2.email;
   }

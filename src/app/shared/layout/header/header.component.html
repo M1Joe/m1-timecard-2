@@ -10,6 +10,9 @@
 
 
   <div *ngIf="authService.isAuthenticated()" fxLayout="row">
+    <mat-slide-toggle *ngIf="isReviewer()" class="toggle" (change)="reviewerToggleChange($event)">
+      Reviewer Mode
+    </mat-slide-toggle>
     <mat-slide-toggle *ngIf="isAdmin()" class="toggle" (change)="adminToggleChange($event)">
       Admin Mode
     </mat-slide-toggle>

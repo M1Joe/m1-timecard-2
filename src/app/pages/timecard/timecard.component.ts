@@ -98,7 +98,6 @@ export class TimecardComponent implements OnInit {
     this.userService.saveTimecard(this.authService.getUserKey(event.user), this.currentTimePeriod.selectedYear, this.currentTimePeriod.selectedMonth, timecard);
   }
 
-
   requestToLoadTimecardForUser(user: User) {
     this.viewingTimecardForUser = user;
     this.monthlyTimecardComponent.initForm(this.authService.getUserKey(this.viewingTimecardForUser), this.currentTimePeriod);
@@ -186,4 +185,7 @@ export class TimecardComponent implements OnInit {
     return this.authService.isAdminMode();
   }
 
+  public isReviewerMode(): boolean {
+    return this.authService.isReviewerMode();
+  }
 }

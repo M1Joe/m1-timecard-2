@@ -5,4 +5,5 @@ export class User {
   public email: string;
   public uid: any;
   public chargeCodeNames?: string[];
+  public reviewerUserKey?: string;
 }

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatInputModule, MatProgressBarModule, MatCheckboxModule,
-         MatCardModule, MatIconModule, MatAutocompleteModule, MatChipsModule } from '@angular/material';
+         MatCardModule, MatIconModule, MatAutocompleteModule, MatChipsModule, MatSelectModule } from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Components
@@ -24,7 +24,8 @@ import { CreateUserComponent } from './create-user/create-user.component';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule, MatInputModule, MatProgressBarModule, MatCheckboxModule, 
-    MatCardModule, MatIconModule, MatAutocompleteModule, MatChipsModule,
+    MatCardModule, MatIconModule, MatAutocompleteModule, MatChipsModule, 
+    MatSelectModule,
     NgxAuthFirebaseUIModule
   ],
   providers: [

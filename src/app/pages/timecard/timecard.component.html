@@ -9,6 +9,16 @@
     </app-approve-timecard>
   </mat-card>
   
+  <mat-card *ngIf="isReviewerMode()" class="review-card">
+    <app-review-timecard
+      [currentUser]="currentUser"
+      [totalHoursPTO]="totalHoursPTO()"
+      (requestToReviewTimecard)="requestToReviewTimecard($event)"
+      (requestToSaveTimecard)="requestToSaveTimecard($event)"
+      (requestToLoadTimecardForUser)="requestToLoadTimecardForUser($event)">
+    </app-review-timecard>
+  </mat-card>
+
   <div fxLayout="row wrap" *ngIf="currentTimePeriod$ | async as currentTimePeriod">
 
     <mat-card class="time-period-picker-card" >

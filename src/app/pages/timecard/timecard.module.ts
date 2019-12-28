@@ -14,6 +14,7 @@ import { MonthlyTimecardComponent } from './monthly-timecard/monthly-timecard.co
 import { SaveTimecardComponent } from './save-timecard/save-timecard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TimecardStatsComponent } from './timecard-stats/timecard-stats.component';
+import { ReviewTimecardComponent } from './review-timecard/review-timecard.component';
 import { ApproveTimecardComponent } from './approve-timecard/approve-timecard.component';
 import { PtoComponent } from './pto/pto.component';
 import { SubmitDialogComponent } from './save-timecard/submit-dialog/submit-dialog.component';
@@ -29,6 +30,7 @@ import { AutofocusDirective } from 'src/app/directives/autofocus.directive';
     SaveTimecardComponent,
     TimecardStatsComponent,
     ApproveTimecardComponent,
+    ReviewTimecardComponent,
     PtoComponent,
     SubmitDialogComponent,
     FridaySaveDialogComponent,

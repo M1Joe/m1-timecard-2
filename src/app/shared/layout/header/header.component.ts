@@ -41,4 +41,12 @@ export class HeaderComponent {
   public adminToggleChange(ob: MatSlideToggleChange) {
     this.authService.setAdminMode(ob.checked);
   }
+
+  public isReviewer(): boolean {
+    return this.authService.isReviewer();
+  }
+
+  public reviewerToggleChange(ob: MatSlideToggleChange) {
+    this.authService.setReviewerMode(ob.checked);
+  }
 }

@@ -14,6 +14,7 @@ export class AuthService {
   public token: string;
 
   adminMode = false;
+  reviewerMode = false;
 
   constructor(
     private router: Router,
@@ -79,6 +80,10 @@ export class AuthService {
     return this.getUserKey() === 'joe';
   }
 
+  public isReviewer(): boolean {
+    return (this.getUserKey() === 'joe' || this.getUserKey() === 'davidnewton');
+  }
+
   public getUser(): User {
     return firebase.auth().currentUser;
   }
@@ -91,6 +96,13 @@ export class AuthService {
     return this.isAdmin() && this.adminMode;
   }
 
+  public setReviewerMode(mode: boolean) {
+    this.reviewerMode = mode;
+  }
+
+  public isReviewerMode(): boolean {
+    return this.isReviewer() && this.reviewerMode;
+  }
   // canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
   //   return this.afAuth.au
   //   return this.af.auth.subscribe((auth) =>  {
