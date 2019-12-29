@@ -35,21 +35,30 @@ export class AlertService {
         'OK',
         'OK',
         'OK',
-        'Sweet'
+        'Sweet',
+        'Yay'
       ];
       
       switch (userKey) {
         case 'joe':
           this.successWords.push('Great timecard app!');
+          this.successWords.push('Successfully connected to DAS');
           break;
         case 'sarahtroy':
-          this.successWords.push('Mush Mush');
+          this.successWords.push('Mew Mew');
           break;
         case 'joshsullivan':
-          this.successWords.push('Killer!');
+          this.successWords.push('Killer');
           break;
         case 'brian':
           this.successWords.push('DevOps FTW');
+          this.successWords.push('Successfully connected to DAS');
+          break;
+        case 'aldo':
+          this.successWords.push('Successfully connected to DAS');
+          break;
+        case 'suren':
+          this.successWords.push('Successfully connected to DAS');
           break;
         case 'ben':
           this.successWords.push('Go Steelers');
