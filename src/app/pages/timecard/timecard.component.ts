@@ -20,25 +20,25 @@ import { PoliciesDialogComponent } from './policies-dialog/policies-dialog.compo
 export class TimecardComponent implements OnInit {
 
   constructor(
-    private authService: AuthService, 
-    private userService: UserService, 
+    private authService: AuthService,
+    private userService: UserService,
     private dateService: DateService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
-  @ViewChild(MonthlyTimecardComponent, {static: false}) monthlyTimecardComponent: MonthlyTimecardComponent;
-  
+  @ViewChild(MonthlyTimecardComponent, { static: false }) monthlyTimecardComponent: MonthlyTimecardComponent;
+
   //selectedMonth = "4";
   //selectedYear = "2019";
 
-  currentTimePeriod$: Observable<CurrentTimePeriod>; 
+  currentTimePeriod$: Observable<CurrentTimePeriod>;
   currentTimePeriod: CurrentTimePeriod;
   daysInMonth: number;
 
   //the current user of the application
   currentUser: User;
   //userKey: string;
-  
+
   viewingTimecardForUser: User;
   //viewTimecardForUserKey: string; //the user who we are currently viewing
 
@@ -58,21 +58,24 @@ export class TimecardComponent implements OnInit {
       if (result === null) {
         var currentYear = (new Date()).getFullYear().toString();
         var currentMonth = ((new Date()).getMonth() + 1).toString();
-        this.currentTimePeriod = {selectedMonth: currentMonth, selectedYear: currentYear};
+        this.currentTimePeriod = { selectedMonth: currentMonth, selectedYear: currentYear };
         this.currentTimePeriod$ = of(this.currentTimePeriod);
       } else {
         this.currentTimePeriod = result;
       }
       this.daysInMonth = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, 0).getDate();
       this.requestToLoadTimecard(this.currentTimePeriod);
-    }); 
+    });
 
   }
 
   requestToLoadTimecard(currentTimePeriod: CurrentTimePeriod) {
     // change the current timeperiod to whatever the user suggested.
     this.currentTimePeriod = currentTimePeriod;
-    
+
+    // update the daysInMonth to that the Total Hours Available calculation is correct
+    this.daysInMonth = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, 0).getDate();
+
     // set the favorite time period to the current user.
     this.userService.setCurrentTimePeriod(this.authService.getUserKey(this.currentUser), currentTimePeriod);
 
@@ -111,7 +114,7 @@ export class TimecardComponent implements OnInit {
 
   /**
    * HELPER FUNCTIONS BELOW
-   */ 
+   */
 
   isWeekend(day: number) {
     return this.dateService.isWeekend(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, day);
@@ -126,7 +129,7 @@ export class TimecardComponent implements OnInit {
           totalHours = totalHours + +value;
         }
       }
-    );    
+    );
     return totalHours;
   }
 
@@ -137,7 +140,7 @@ export class TimecardComponent implements OnInit {
 
     var grandTotal = 0;
     for (let index = 0; index < this.monthlyTimecardComponent.timecardForm.value.activities.length; index++) {
-    //for (let index of this.timecardForm.value.activities) {
+      //for (let index of this.timecardForm.value.activities) {
       grandTotal = grandTotal + this.totalHoursForActivity(index);
     }
     return grandTotal;
@@ -158,6 +161,8 @@ export class TimecardComponent implements OnInit {
   }
 
   totalAvailableHoursInMonth() {
+    console.log('inside totalAvailableHoursInMonth()');
+    console.log('this.daysInMonth: ' + this.daysInMonth);
     var totalHoursAvailable = 0;
     for (let day = 1; day <= this.daysInMonth; day++) {
       if (!this.isWeekend(day)) {
