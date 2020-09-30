@@ -2,9 +2,11 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatMenuModule, MatInputModule, MatSnackBarModule,
-         MatToolbarModule, MatDialogModule, MatSidenavModule, MatNativeDateModule,
-         MatCardModule, MatTabsModule, MatIconModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
+import {
+  MatButtonModule, MatCheckboxModule, MatMenuModule, MatInputModule, MatSnackBarModule,
+  MatToolbarModule, MatDialogModule, MatSidenavModule, MatNativeDateModule,
+  MatCardModule, MatTabsModule, MatIconModule, MatSelectModule, MatSlideToggleModule
+} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
@@ -22,6 +24,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Shared
 import {
@@ -59,7 +62,7 @@ import { ExpenseReportModule } from './pages/expense-reports/expense-reports.mod
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule, MatMenuModule, MatInputModule, MatSnackBarModule,
     MatToolbarModule, MatDialogModule, MatSidenavModule, MatNativeDateModule, MatSelectModule,
-    MatCardModule, MatTabsModule, MatIconModule, MatSlideToggleModule,
+    MatCardModule, MatTabsModule, MatIconModule, MatSlideToggleModule, MatTooltipModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,

@@ -25,7 +25,6 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <style>
-
     .overlay {
       position: absolute;
       width: 100%;
@@ -42,7 +41,7 @@
       font-weight: 700;
       letter-spacing: 2px;
       position: absolute;
-      top: 50%;
+      top: 40%;
       left: 50%;
       opacity: 1.0;
       -webkit-transform: translate(-50%, -50%);
@@ -61,11 +60,79 @@
 
     .loading {
       position: absolute;
-      top: 50%;
+      top: 40%;
       left: 50%;
-      transform: translate(-50%, 80px);
+      transform: translate(-50%, 60px);
       color: #00aeef;
       font-family: Tele-Marines;
+    }
+
+
+    .clock-container {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, 100px);
+    }
+
+    .block-in {
+      width: 120px;
+      margin: 80px auto;
+      overflow: hidden;
+    }
+
+
+    .clock {
+      width: 80px;
+      height: 80px;
+      border-radius: 100%;
+      background: #333;
+      margin: 10px;
+      border: 5px solid #fff;
+      position: relative;
+      box-shadow: 0 5px 0 0 rgba(0, 0, 0, .3), inset 0 5px 0 0 rgba(0, 0, 0, .3), inset 0 0 0 34px #00aeef;
+    }
+
+    .clock:after {
+      content: "";
+      width: 5px;
+      height: 60px;
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      box-shadow: inset 0px 2px 0 0 #818285, inset 0px 30px 0 0 #585858;
+      animation: clock .5s linear infinite;
+    }
+
+    .clock:before {
+      content: "";
+      width: 5px;
+      height: 50px;
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      box-shadow: inset 0px 2px 0 0 #818285, inset 0px 25px 0 0 #585858;
+      animation: clockb 6s linear infinite;
+    }
+
+    @keyframes clock {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes clockb {
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 
@@ -119,7 +186,13 @@
 
       </div>
       <div class="loading">Loading...</div>
+
+
+      <div class="clock-container">
+        <div class="clock"></div>
+      </div>
     </div>
+
 
 
 

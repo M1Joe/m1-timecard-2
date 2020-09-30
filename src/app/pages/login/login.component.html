@@ -1,9 +1,6 @@
 <mat-card>
   <h3>Sign in to continue</h3>
-  <ngx-auth-firebaseui
-    [providers]="[providers.Google]"
-    [theme]="themes.RAISED"
-    (onSuccess)="onSuccess()"
+  <ngx-auth-firebaseui [providers]="[providers.Google]" [theme]="themes.RAISED" (onSuccess)="onSuccess()"
     appearance="outline">
   </ngx-auth-firebaseui>
 </mat-card>
