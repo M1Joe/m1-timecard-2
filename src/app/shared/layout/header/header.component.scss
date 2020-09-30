@@ -1,4 +1,7 @@
 // Header
+:host {
+  z-index: 99; //allow the header to be above the secondary admin bar so that the animation looks nice;
+}
 #content {
   padding: 20px;
 }
@@ -88,4 +91,39 @@ button {
   font-weight: 500;
   margin-right: 30px;
   margin-top: 4px;
+}
+
+.logo {
+  height: 50px;
+  animation: bounceInDown 1s, expandWidth .2s 1s linear;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@keyframes bounceInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-2000px);
+  }
+  60% {
+      opacity: 1;
+      transform: translateY(30px);
+  }
+  80% {
+      transform: translateY(-10px);
+  }
+  100% {
+      transform: translateY(0);
+  }
+}
+
+ @keyframes expandWidth {
+  0% {
+    width: 40px;
+    overflow-x: hidden;
+  }
+  100% {
+    width: 175px;
+    overflow-x: hidden;
+  }
 }

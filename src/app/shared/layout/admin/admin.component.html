@@ -1,15 +1,15 @@
-<mat-toolbar color="#004ba0" *ngIf="authService.isAuthenticated()">
-  
-  <div fxFlex fxLayout="row">
+<mat-toolbar color="#004ba0">
+
+  <div fxFlex fxLayout="row" class="delay-render">
     <button mat-raised-button routerLink="/timecard">Timecard</button>
     <button mat-raised-button routerLink="/expenseReports">Expense Report</button>
 
     <span *ngIf="isAdminMode()">
-      <button mat-raised-button routerLink="/users"       >Users</button>
+      <button mat-raised-button routerLink="/users">Users</button>
       <button mat-raised-button routerLink="/chargeCodes">Charge Codes</button>
       <button mat-raised-button routerLink="/chargeCodes">Rates</button>
     </span>
-    
+
 
   </div>
 </mat-toolbar>

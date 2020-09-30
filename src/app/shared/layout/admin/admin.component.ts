@@ -15,7 +15,7 @@ export class AdminComponent {
   constructor(
     public authService: AuthService,
     private alertService: AlertService,
-    ) {
+  ) {
 
   }
 
@@ -39,5 +39,5 @@ export class AdminComponent {
   public isAdminMode(): boolean {
     return this.authService.isAdminMode();
   }
-  
+
 }

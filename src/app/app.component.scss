@@ -17,3 +17,9 @@
 .router-container {
   padding: 10px;
 }
+
+::ng-deep router-outlet~* {
+  position: absolute;
+  width: calc(100% - 20px);
+  height: 100%;
+}

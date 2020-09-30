@@ -161,8 +161,6 @@ export class TimecardComponent implements OnInit {
   }
 
   totalAvailableHoursInMonth() {
-    console.log('inside totalAvailableHoursInMonth()');
-    console.log('this.daysInMonth: ' + this.daysInMonth);
     var totalHoursAvailable = 0;
     for (let day = 1; day <= this.daysInMonth; day++) {
       if (!this.isWeekend(day)) {

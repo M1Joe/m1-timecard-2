@@ -1,8 +1,9 @@
 <div class="container" *ngIf="isLoginPage || (userDisplayName$ | async)">
 
     <app-header></app-header>
-    <app-admin></app-admin>
-    <div class="router-container">
-        <router-outlet></router-outlet>
+    <app-admin *ngIf="authService.isAuthenticated()"></app-admin>
+
+    <div class="router-container" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+        <router-outlet #o="outlet"></router-outlet>
     </div>
 </div>

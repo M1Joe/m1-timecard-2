@@ -7,22 +7,24 @@ import { Router, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot } f
 import { AuthService } from './shared';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { take } from 'rxjs/operators';
+import { fadeAnimation, dropToolbar } from '@shared/animations/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [fadeAnimation, dropToolbar] // register the animation
 })
 
 export class AppComponent implements OnInit {
-  
+
   userDisplayName$: Observable<string>;
   isLoginPage: boolean;
 
-  constructor(private router: Router, private authService: AuthService, private afAuth: AngularFireAuth) {}
+  constructor(private router: Router, private authService: AuthService, private afAuth: AngularFireAuth) { }
 
   public ngOnInit(): void {
-    
+
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseKeys);
     }
@@ -37,5 +39,5 @@ export class AppComponent implements OnInit {
     });
   }
 
- 
+
 }
