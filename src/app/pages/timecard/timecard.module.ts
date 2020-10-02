@@ -3,8 +3,10 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatInputModule, MatProgressBarModule, 
-         MatCardModule, MatIconModule, MatSelectModule, MatDividerModule, MatDialogModule } from '@angular/material';
+import {
+  MatButtonModule, MatInputModule, MatProgressBarModule,
+  MatCardModule, MatIconModule, MatSelectModule, MatDividerModule, MatDialogModule
+} from '@angular/material';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Components
@@ -20,7 +22,7 @@ import { PtoComponent } from './pto/pto.component';
 import { SubmitDialogComponent } from './save-timecard/submit-dialog/submit-dialog.component';
 import { PoliciesDialogComponent } from './policies-dialog/policies-dialog.component';
 import { FridaySaveDialogComponent } from './save-timecard/friday-save-dialog/friday-save-dialog.component';
-import { AutofocusDirective } from 'src/app/directives/autofocus.directive';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -35,17 +37,17 @@ import { AutofocusDirective } from 'src/app/directives/autofocus.directive';
     SubmitDialogComponent,
     FridaySaveDialogComponent,
     PoliciesDialogComponent,
-    AutofocusDirective
   ],
   imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
     MatButtonModule, MatInputModule, MatProgressBarModule,
-    MatCardModule, MatIconModule, MatSelectModule, 
+    MatCardModule, MatIconModule, MatSelectModule,
     FlexLayoutModule, MatDividerModule, MatDialogModule,
     NgxAuthFirebaseUIModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [
   ],

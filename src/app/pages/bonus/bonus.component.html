@@ -1,0 +1,130 @@
+<div>
+  <ng-container *ngIf="pto$ as pto; then displayForm; else displayLoading"></ng-container>
+  <ng-template #displayForm>
+
+    <h3>Calculate Bonus</h3>
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon>info_outline</mat-icon>
+      <div class="vert-divider"></div>
+      <div class="explainer-text">Bonuses are paid annually on 3/15 for work performed in the previous calendar year. In
+        early January, you'll be given the opton to either "sell-back" or "back-back" PTO, which will increase or
+        decrease your planned bonus. This bonus calculator helps provide transparency in the bonus process.</div>
+    </div>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)" #f="ngForm" fxLayout="column">
+      <mat-card>
+        <h4>Step 1. Calculate Available PTO</h4>
+
+        <div fxLayout="column">
+
+          <mat-form-field class="form-entry" appearance="outline">
+            <mat-label>PTO balance (hours)</mat-label>
+            <input matInput type="number" formControlName="ptoBalance" placeholder="PTO balance (hours)" required>
+            <mat-hint> This is your current PTO balance as of {{existingptoAsOf}}. It does NOT take into account any
+              PTO on your timecard since this date (i.e. DRAFT timecards)</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="form-entry" appearance="outline">
+            <mat-label>PTO hours expected to EARN this year</mat-label>
+            <input matInput type="number" formControlName="ptoEstimatedWillEarn"
+              placeholder="PTO hours expected to EARN this year" required>
+            <mat-hint> Auto calculated as 11.66 hours/month x number of months remaining in the year. </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="form-entry" appearance="outline">
+            <mat-label>PTO hours expected to USE this year</mat-label>
+            <input matInput type="number" formControlName="ptoEstimatedWillUse"
+              placeholder="PTO hours expected to USE this year" required>
+            <mat-hint> The number of PTO hours you expect to use this calendar year. </mat-hint>
+          </mat-form-field>
+
+          <div fxLayout="row">
+            <span style="font-weight: bold;">End of year PTO balance:&nbsp;</span>
+            <span>{{ endOfYearPtoBalance() }}</span>
+            <span>&nbsp;hours</span>
+          </div>
+        </div>
+      </mat-card>
+      <mat-card>
+        <div fxLayout="column">
+          <h4>Step 2. Calculate PTO Buy-Back/Sell-Back Rate</h4>
+          <mat-form-field class="form-entry" appearance="outline">
+            <mat-label>Salary</mat-label>
+            <input matInput type="number" formControlName="salary" placeholder="Salary" required>
+            <mat-hint>Your annual salary</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="form-entry" appearance="outline">
+            <mat-label>Planned Bonus</mat-label>
+            <input matInput type="number" formControlName="plannedBonus" placeholder="Planned Bonus" required>
+            <mat-hint>The planned bonus amount from your offer letter. Enter 0 if you do not have a planned bonus.
+            </mat-hint>
+          </mat-form-field>
+
+          <div fxLayout="row">
+            <span style="font-weight: bold;">Buy-Back/Sell-Back Rate:&nbsp;</span>
+            <span>{{ calculateRate() | currency : 'USD' }}</span>
+          </div>
+
+        </div>
+      </mat-card>
+      <mat-card>
+        <div fxLayout="column">
+          <h4>Step 3. Set Buy-Back / Sell-Back hours</h4>
+          <div *ngIf="!calculateRate()" class="warning-text">Enter Salary and Bonus (or zero) to continue</div>
+          <div class="radio-container">
+            <mat-radio-group aria-label="Select an option" fxLayoutGap="8px" formControlName="buyOrSell"
+              [disabled]="!calculateRate()">
+              <mat-radio-button value="sell">Sell Back PTO (Bigger Bonus)</mat-radio-button>
+              <mat-radio-button value="buy">Buy Back PTO (Smaller Bonus)</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div *ngIf="form.controls.buyOrSell.value == 'buy' || form.controls.buyOrSell.value == 'sell'">
+            <mat-form-field class="form-entry" appearance="outline">
+              <mat-label> {{ form.controls.buyOrSell.value == 'buy' ? 'Hours to Buy-Back' : 'Hours to Sell-Back'}}
+              </mat-label>
+              <input matInput type="number" formControlName="hoursInBuyOrSell"
+                [placeholder]="form.controls.buyOrSell.value == 'buy' ? 'Hours to Buy-Back' : 'Hours to Sell-Back'"
+                required>
+              <mat-hint>The amount of hours of PTO that you want to
+                {{form.controls.buyOrSell.value == 'buy' ? 'buy back' : 'sell back'}}</mat-hint>
+            </mat-form-field>
+          </div>
+
+
+        </div>
+      </mat-card>
+    </form>
+
+    <div *ngIf="calculateBonus() < 0" class="warning-text">Bonus cannot be negative.</div>
+    <div *ngIf="form.controls.buyOrSell.value == 'buy' && calculateEndOfYearPtoBalanceAfterSale() < -40"
+      class="warning-text">End of year PTO balance cannot be
+      below -40 when buying PTO.</div>
+    <div *ngIf="form.controls.buyOrSell.value == 'sell' && calculateEndOfYearPtoBalanceAfterSale() < 0"
+      class="warning-text">End of year PTO balance cannot be
+      below 0 when selling PTO.</div>
+
+    <div fxLayout="row wrap">
+      <div class="output">
+        <div class="output-title">End Of Year Bonus</div>
+        <div class="output-value">{{calculateBonus() | currency : 'USD' }}</div>
+      </div>
+      <div class="output">
+        <div class="output-title">End Of Year PTO balance</div>
+        <div class="output-value">
+          {{calculateEndOfYearPtoBalanceAfterSale() }}&nbsp;hours
+        </div>
+      </div>
+    </div>
+
+
+  </ng-template>
+  <ng-template #displayLoading></ng-template>
+
+
+
+  <!-- While M1 bonuses are calculated annually, some contracts limit the number of hours that each staff member can work
+    in an option year. If you work less than the expected number of hours in an option year, your contract may not allow
+    you to work more hours in the next option year, which could affect your ability to work and require you to burn PTO
+    that you otherwise would not want to use. Contact your specific project lead for guidance. -->

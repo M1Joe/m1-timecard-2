@@ -3,11 +3,11 @@
   <div fxFlex fxLayout="row" class="delay-render">
     <button mat-raised-button routerLink="/timecard">Timecard</button>
     <button mat-raised-button routerLink="/expenseReports">Expense Report</button>
+    <!-- <button mat-raised-button routerLink="/bonus">Bonus Calculator</button> -->
 
     <span *ngIf="isAdminMode()">
       <button mat-raised-button routerLink="/users">Users</button>
       <button mat-raised-button routerLink="/chargeCodes">Charge Codes</button>
-      <button mat-raised-button routerLink="/chargeCodes">Rates</button>
     </span>
 
 

@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 // Modules
+import { BonusModule } from './pages/bonus/bonus.module';
 import { LoginModule } from './pages/login/login.module';
 import { TimecardModule } from './pages/timecard/timecard.module';
 import { ChargeCodesModule } from './pages/charge-codes/charge-codes.module';
@@ -47,9 +48,6 @@ import { firebaseKeys } from './firebase.config';
 import { PageNotFoundComponent } from './pages/not-found/not-found.component';
 import { ExpenseReportModule } from './pages/expense-reports/expense-reports.module';
 
-
-// Components
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +67,7 @@ import { ExpenseReportModule } from './pages/expense-reports/expense-reports.mod
     HttpClientModule,
     AppRoutingModule,
     PipesModule,
+    BonusModule,
     LoginModule,
     TimecardModule,
     ChargeCodesModule,

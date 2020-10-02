@@ -10,6 +10,7 @@ import { AuthGuardService } from '@shared';
 
 
 import { LoginComponent } from './pages/login/login.component';
+import { BonusComponent } from './pages/bonus/bonus.component';
 import { TimecardComponent } from './pages/timecard/timecard.component';
 import { ChargeCodesComponent } from './pages/charge-codes/charge-codes.component'
 import { UsersComponent } from './pages/users/users.component'
@@ -21,12 +22,13 @@ import { ExpenseReportsComponent } from './pages/expense-reports/expense-reports
 const appRoutes: Routes = [
 
   // M1 pages
-  { path: '', redirectTo: '/login', pathMatch : 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'timecard', canActivate : [AuthGuard], component: TimecardComponent },
-  { path: 'chargeCodes', canActivate : [AuthGuard], component: ChargeCodesComponent },
-  { path: 'expenseReports', canActivate : [AuthGuard], component: ExpenseReportsComponent },
-  { path: 'users', canActivate : [AuthGuard], component: UsersComponent },
+  { path: 'timecard', canActivate: [AuthGuard], component: TimecardComponent },
+  { path: 'bonus', canActivate: [AuthGuard], component: BonusComponent },
+  { path: 'chargeCodes', canActivate: [AuthGuard], component: ChargeCodesComponent },
+  { path: 'expenseReports', canActivate: [AuthGuard], component: ExpenseReportsComponent },
+  { path: 'users', canActivate: [AuthGuard], component: UsersComponent },
 
 
 

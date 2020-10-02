@@ -1,0 +1,93 @@
+
+.form-entry {
+    //width: 400px;
+}
+
+:host ::ng-deep .mat-form-field {
+    .mat-form-field-wrapper {
+        padding-bottom: 0;
+        margin-bottom: 16px;
+        .mat-form-field-underline {
+            position: initial !important;
+            display: block;
+            margin-top: -1px;
+        }
+        .mat-form-field-subscript-wrapper,
+        .mat-form-field-ripple {
+            position: initial !important;
+            display: table;
+        }
+        .mat-form-field-subscript-wrapper {
+            min-height: calc(1em + 1px);
+        }
+    }
+}
+
+.slider {
+    max-width: 400px;
+    width: 100%;
+}
+
+.output {
+    border: 1px green solid;
+    border-radius: 10px;
+    width: 180px;
+    margin: 10px;
+}
+
+.output-title {
+    margin: 4px 0 0 12px;
+    font-size: 14px;
+}
+
+.output-value {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+}
+
+mat-divider {
+    position: relative !important;
+    width: 400px !important;
+    margin: 5px 5px 10px 5px;
+    border-top-width: 2px;
+}
+
+mat-card {
+    margin-bottom: 14px;
+}
+
+.warning-text {
+    color: red;
+    font-size: 0.9em;
+}
+
+.radio-container {
+    margin: 2px 0px 10px 0px;
+}
+
+.mat-icon {
+    color: #333333;
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+    margin: 3px;
+}
+
+.vert-divider {
+    background-color: #004ba0;
+    width: 6px;
+    height: 40px;
+    margin: 2px;
+}
+
+.explainer-text {
+    margin-left: 4px;
+    margin-bottom: 4px;
+    color: #333333;
+    font-size: 14px;
+}
+
+h3 {
+    margin-top: 10px;
+}
