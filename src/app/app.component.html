@@ -1,9 +1,19 @@
 <div class="container" *ngIf="isLoginPage || (userDisplayName$ | async)">
 
-    <app-header></app-header>
-    <app-admin *ngIf="authService.isAuthenticated()"></app-admin>
+    <ng-container *ngIf="browserSupported == true; then showApp; else showBrowserNotSupported"></ng-container>
+    <ng-template #showApp>
+        <app-header></app-header>
+        <app-admin *ngIf="authService.isAuthenticated()"></app-admin>
 
-    <div class="router-container" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
-        <router-outlet #o="outlet"></router-outlet>
-    </div>
+        <div class="router-container" [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+            <router-outlet #o="outlet"></router-outlet>
+        </div>
+    </ng-template>
+
+    <ng-template #showBrowserNotSupported>
+        <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+            <div class="not-supported-title">Browser Not Supported</div>
+            <div class="not-supported-text">Please use literally anything besides Internet Explorer.</div>
+        </div>
+    </ng-template>
 </div>

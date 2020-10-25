@@ -79,7 +79,7 @@ export class BonusComponent implements OnInit {
   }
 
   calculateRate(): number {
-    if (!this.form.controls.salary.value || !this.form.controls.plannedBonus.value) {
+    if (!this.form.controls.salary.value) {
       return null;
     }
 

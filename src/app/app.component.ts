@@ -20,10 +20,13 @@ export class AppComponent implements OnInit {
 
   userDisplayName$: Observable<string>;
   isLoginPage: boolean;
+  browserSupported = true;
 
   constructor(private router: Router, private authService: AuthService, private afAuth: AngularFireAuth) { }
 
   public ngOnInit(): void {
+
+    this.browserSupported = this.getBrowserSupported();
 
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseKeys);
@@ -38,6 +41,14 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  getBrowserSupported(): boolean {
+    var ua = navigator.userAgent;
+    var isInternetExplorer = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+    return !isInternetExplorer;
+  }
+
+
 
 
 }
