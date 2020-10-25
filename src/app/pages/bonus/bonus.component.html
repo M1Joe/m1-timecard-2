@@ -2,33 +2,50 @@
   <ng-container *ngIf="pto$ as pto; then displayForm; else displayLoading"></ng-container>
   <ng-template #displayForm>
 
-    <h3>Calculate Bonus</h3>
+    <h3>Bonus Calculator</h3>
     <div fxLayout="row" fxLayoutAlign="start center">
       <mat-icon>info_outline</mat-icon>
-      <div class="vert-divider"></div>
-      <div class="explainer-text">Bonuses are paid annually on 3/15 for work performed in the previous calendar year. In
-        early January, you'll be given the opton to either "sell-back" or "back-back" PTO, which will increase or
-        decrease your planned bonus. This bonus calculator helps provide transparency in the bonus process.</div>
+      <div class="explainer-text">
+        <span class="explainer-title">When are bonsues paid?</span>
+        <span>Annually on 3/15 for work performed in the previous calendar year.</span>
+        <br>
+        <span class="explainer-title">What is a planned bonus?</span>
+        <span>Your "planned bonus" is the amount listed on your M1 offer letter.</span>
+        <br>
+        <span class="explainer-title">What is PTO buy-back/sell-back?</span>
+        <span>If you work more hours than expected in a year, you will end up with more PTO than you need, so you can "sell-back" your PTO for a larger bonus. If you take more vacation than expected, you will end up with a negative PTO, so you can "buy-back" PTO.</span>
+        <br>
+        <span class="explainer-title">When are buy-back/sell-back elections made?</span>
+        <span>Early January</span>
+        <br>
+        <span style="font-style: italic;">This plan provides enormous flexibility in our compensation model. This calculator is meant to provide transparency into the process.</span>
+
+      </div>
     </div>
+
+
+    <button mat-raised-button class="save-load-reset-btn" (click)="saveBonusData()" type="button" [disabled]="!form.valid">Save</button>
+    <button mat-raised-button class="save-load-reset-btn" (click)="loadBonusData()" type="button">Load Saved</button>
+    <button mat-raised-button class="save-load-reset-btn" (click)="resetForm()" type="button">Reset</button>
 
     <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(f)" #f="ngForm" fxLayout="column">
       <mat-card>
-        <h4>Step 1. Calculate Available PTO</h4>
+        <h4>Step 1. Estimate Year-End PTO Balance</h4>
 
         <div fxLayout="column">
 
           <mat-form-field class="form-entry" appearance="outline">
-            <mat-label>PTO balance (hours)</mat-label>
+            <mat-label>Current PTO balance in hours (AUTO-CALCULATED)</mat-label>
             <input matInput type="number" formControlName="ptoBalance" placeholder="PTO balance (hours)" required>
             <mat-hint> This is your current PTO balance as of {{existingptoAsOf}}. It does NOT take into account any
               PTO on your timecard since this date (i.e. DRAFT timecards)</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="form-entry" appearance="outline">
-            <mat-label>PTO hours expected to EARN this year</mat-label>
+            <mat-label>PTO hours expected to EARN this year (AUTO-CALCULATED)</mat-label>
             <input matInput type="number" formControlName="ptoEstimatedWillEarn"
               placeholder="PTO hours expected to EARN this year" required>
-            <mat-hint> Auto calculated as 11.66 hours/month x number of months remaining in the year. </mat-hint>
+            <mat-hint> Auto calculated as 11.66 hours/month x number of months remaining in the year. The total PTO earned in a year is 140 hours.</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="form-entry" appearance="outline">
@@ -38,8 +55,15 @@
             <mat-hint> The number of PTO hours you expect to use this calendar year. </mat-hint>
           </mat-form-field>
 
+          <mat-form-field class="form-entry" appearance="outline">
+            <mat-label>PTO Notes</mat-label>
+            <textarea matInput formControlName="ptoNotes"
+              placeholder="PTO Notes (e.g. Hawaii trip: 7/1-7/114, 80 hours)."></textarea>
+            <mat-hint> Take notes for yourself if you plan to use this throughout the year to track your bonus. </mat-hint>
+          </mat-form-field>
+
           <div fxLayout="row">
-            <span style="font-weight: bold;">End of year PTO balance:&nbsp;</span>
+            <span style="font-weight: bold;">Estimated Year-End PTO Balance:&nbsp;</span>
             <span>{{ endOfYearPtoBalance() }}</span>
             <span>&nbsp;hours</span>
           </div>
@@ -62,10 +86,12 @@
           </mat-form-field>
 
           <div fxLayout="row">
-            <span style="font-weight: bold;">Buy-Back/Sell-Back Rate:&nbsp;</span>
+            <span style="font-weight: bold;">PTO Buy-Back/Sell-Back Rate:&nbsp;</span>
             <span>{{ calculateRate() | currency : 'USD' }}</span>
           </div>
-
+          <div class="hint">
+            Note: The formula for calculating your rate is ('salary' + 'planned bonus') / 1860.
+          </div>
         </div>
       </mat-card>
       <mat-card>
@@ -97,26 +123,32 @@
       </mat-card>
     </form>
 
-    <div *ngIf="calculateBonus() < 0" class="warning-text">Bonus cannot be negative.</div>
-    <div *ngIf="form.controls.buyOrSell.value == 'buy' && calculateEndOfYearPtoBalanceAfterSale() < -40"
-      class="warning-text">End of year PTO balance cannot be
-      below -40 when buying PTO.</div>
-    <div *ngIf="form.controls.buyOrSell.value == 'sell' && calculateEndOfYearPtoBalanceAfterSale() < 0"
-      class="warning-text">End of year PTO balance cannot be
-      below 0 when selling PTO.</div>
+    <mat-card>
+      <div fxLayout="column">
+        <h4>Step 4. View Results</h4>
 
-    <div fxLayout="row wrap">
-      <div class="output">
-        <div class="output-title">End Of Year Bonus</div>
-        <div class="output-value">{{calculateBonus() | currency : 'USD' }}</div>
-      </div>
-      <div class="output">
-        <div class="output-title">End Of Year PTO balance</div>
-        <div class="output-value">
-          {{calculateEndOfYearPtoBalanceAfterSale() }}&nbsp;hours
+        <div *ngIf="calculateBonus() < 0" class="warning-text">Bonus cannot be negative.</div>
+        <div *ngIf="form.controls.buyOrSell.value == 'buy' && calculateEndOfYearPtoBalanceAfterSale() < -40"
+          class="warning-text">End of year PTO balance cannot be
+          below -40 when buying PTO.</div>
+        <div *ngIf="form.controls.buyOrSell.value == 'sell' && calculateEndOfYearPtoBalanceAfterSale() < 0"
+          class="warning-text">End of year PTO balance cannot be
+          below 0 when selling PTO.</div>
+
+        <div fxLayout="row wrap">
+          <div class="output">
+            <div class="output-title">End Of Year Bonus</div>
+            <div class="output-value">{{calculateBonus() | currency : 'USD' }}</div>
+          </div>
+          <div class="output">
+            <div class="output-title">End Of Year PTO balance</div>
+            <div class="output-value" *ngIf="calculateEndOfYearPtoBalanceAfterSale()">
+              {{calculateEndOfYearPtoBalanceAfterSale() }}&nbsp;hours
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </mat-card>
 
 
   </ng-template>

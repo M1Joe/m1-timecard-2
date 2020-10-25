@@ -29,9 +29,10 @@
 }
 
 .output {
-    border: 1px green solid;
+    border: 2px green solid;
     border-radius: 10px;
-    width: 180px;
+    width: 200px;
+    height: 64px;
     margin: 10px;
 }
 
@@ -74,20 +75,31 @@ mat-card {
     margin: 3px;
 }
 
-.vert-divider {
-    background-color: #004ba0;
-    width: 6px;
-    height: 40px;
-    margin: 2px;
-}
-
 .explainer-text {
     margin-left: 4px;
     margin-bottom: 4px;
     color: #333333;
     font-size: 14px;
+    border-left: 4px solid #004ba0;
+    padding-left: 4px;
+}
+
+.explainer-title {
+    font-weight: bold;
+    margin-right: 4px;
 }
 
 h3 {
     margin-top: 10px;
+}
+
+.save-load-reset-btn {
+    background-color: #004ba0;
+    margin: 4px;
+    color: white;
+}
+
+.hint {
+    font-size: .75em;
+    color: rgba(0, 0, 0, 0.6);
 }

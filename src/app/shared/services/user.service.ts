@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 import { ExpenseReport } from '@shared/models/expense-report.model';
 import { PTO } from '@shared/models/pto.model';
 import { ExpenseReportFilter } from '@shared/models/expense-report-filter.model';
+import { BonusData } from '@shared/models/bonus-data.model';
 
 @Injectable()
 export class UserService {
@@ -18,7 +19,7 @@ export class UserService {
     private alertService: AlertService,
     private db: AngularFireDatabase,
     private authService: AuthService
-    ) {}
+  ) { }
 
 
   //set = REPLACE
@@ -26,8 +27,8 @@ export class UserService {
 
   filterEmptyFields(data: any): any {    // Filter any fields that aren't empty & store in a new object - To be passed on the Pipe map's caller
     let fields = {};
-    Object.keys(data).forEach(key =>  data[key] != "" ? fields[key] = data[key] : key);
-    return fields;   
+    Object.keys(data).forEach(key => data[key] != "" ? fields[key] = data[key] : key);
+    return fields;
   }
   /**
    * Timecards
@@ -42,10 +43,10 @@ export class UserService {
     if (monthlyTimecard.status === 'SUBMITTED') {
       successMessage = 'Timecard submitted';
     }
-    
+
     const sendAlert = this.alertService;
-    return firebase.database().ref().child('employeeEditableFields/').child('timecards').child(year).child(month).child(userKey).set(monthlyTimecard, 
-      function(error) {
+    return firebase.database().ref().child('employeeEditableFields/').child('timecards').child(year).child(month).child(userKey).set(monthlyTimecard,
+      function (error) {
         if (error) {
           sendAlert.showToaster("Failed to save timecard", userKey);
           console.log("Failure");
@@ -55,11 +56,11 @@ export class UserService {
         }
       });
 
-     
+
   }
 
 
-  public getTimecard(userKey: string, year: string, month: string) : Observable<any> {
+  public getTimecard(userKey: string, year: string, month: string): Observable<any> {
     return this.db.object(`employeeEditableFields/timecards/${year}/${month}/${userKey}`).valueChanges();
   }
 
@@ -70,18 +71,18 @@ export class UserService {
   public createChargeCode(chargeCode: ChargeCode) {
     const promise = this.db.list<ChargeCode>('chargeCodes').set(chargeCode.name, chargeCode);
     promise
-      .then(_=> console.log('success'))
+      .then(_ => console.log('success'))
       .catch(err => console.log(err, 'problem'));
   }
 
-  public getChargeCodes() : Observable<ChargeCode[]> {
+  public getChargeCodes(): Observable<ChargeCode[]> {
     return this.db.list<ChargeCode>('chargeCodes').valueChanges();
   }
 
   public deleteChargeCode(chargeCodeName: string) {
     const promise = this.db.list<ChargeCode>('chargeCodes').remove(chargeCodeName);
     promise
-      .then(_=> console.log('success'))
+      .then(_ => console.log('success'))
       .catch(err => console.log(err, 'problem'));
   }
 
@@ -106,19 +107,19 @@ export class UserService {
   /**
    * Timecards
    */
-  
+
   public createExpenseReport(expenseReport: ExpenseReport) {
     expenseReport.id = this.db.createPushId();
     const promise = this.db.list<ExpenseReport>('expenseReports').set(expenseReport.id, expenseReport);
     promise
-      .then(_=> this.alertService.showToaster("Expense Created"))
-      .catch(err =>this.alertService.showToaster("ERROR: Could not create expense"));
+      .then(_ => this.alertService.showToaster("Expense Created"))
+      .catch(err => this.alertService.showToaster("ERROR: Could not create expense"));
   }
 
   public saveExpenseReport(expenseReport: ExpenseReport) {
     const promise = this.db.list<ExpenseReport>('expenseReports').set(expenseReport.id, expenseReport);
     promise
-      .then(_=> this.alertService.showToaster("Expense Saved"))
+      .then(_ => this.alertService.showToaster("Expense Saved"))
       .catch(err => console.log(err, 'problem'));
   }
 
@@ -136,7 +137,7 @@ export class UserService {
         return this.db.list<ExpenseReport>('expenseReports', ref => ref.orderByChild('keyYearMonthUserStatus').equalTo(filter.selectedYear + '-' + filter.selectedMonth + '-' + this.authService.getUserKey(filter.user) + '-' + filter.status)).valueChanges();
       }
     }
-    
+
   }
 
   public deleteExpenseReport(expenseReport: ExpenseReport) {
@@ -144,12 +145,12 @@ export class UserService {
 
     const promise = this.db.list<ExpenseReport>('expenseReports').remove(id);
     promise
-      .then(_=> console.log('success'))
+      .then(_ => console.log('success'))
       .catch(err => console.log(err, 'problem'));
   }
 
 
-  
+
 
   /**
   * Users
@@ -158,16 +159,16 @@ export class UserService {
     var userKey = this.authService.getUserKey(user);
     const promise = this.db.list<User>('users').set(userKey, user);
     promise
-      .then(_=> console.log('success'))
+      .then(_ => console.log('success'))
       .catch(err => console.log(err, 'problem'));
 
   }
 
-  public getUsers() : Observable<User[]> {
+  public getUsers(): Observable<User[]> {
     return this.db.list<User>('users').valueChanges();
   }
 
-  public getUserChargeCodes(userKey: string) : Observable<string[]> {
+  public getUserChargeCodes(userKey: string): Observable<string[]> {
     return this.db.list<string>(`users/${userKey}/chargeCodeNames`).valueChanges();
   }
 
@@ -176,7 +177,7 @@ export class UserService {
 
     const promise = this.db.list<User>('users').remove(userKey);
     promise
-      .then(_=> console.log('success'))
+      .then(_ => console.log('success'))
       .catch(err => console.log(err, 'problem'));
   }
 
@@ -184,7 +185,7 @@ export class UserService {
     var userKey = this.authService.getUserKey(user);
     const promise = this.db.list<User>('users').set(userKey, user);
     promise
-      .then(_=> console.log('success'))
+      .then(_ => console.log('success'))
       .catch(err => console.log(err, 'problem'));
   }
 
@@ -194,9 +195,16 @@ export class UserService {
   }
 
   public setCurrentTimePeriod(userKey: string, currentTimePeriod: CurrentTimePeriod) {
-    return this.db.object(`employeeEditableFields/${userKey}/preferences`).set({currentTimePeriod});
+    return this.db.object(`employeeEditableFields/${userKey}/preferences`).set({ currentTimePeriod });
   }
 
+  public getBonusData(userKey: string): Observable<any> {
+    return this.db.object(`employeeEditableFields/${userKey}/bonus/bonusData`).valueChanges();
+  }
+
+  public setBonusData(userKey: string, bonusData: BonusData) {
+    return this.db.object(`employeeEditableFields/${userKey}/bonus`).set({ bonusData });
+  }
 
   public verificationUserEmail(): Promise<void> {
     return firebase.auth().currentUser.sendEmailVerification().then(() => {

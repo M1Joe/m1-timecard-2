@@ -9,8 +9,8 @@ import { User } from '@shared/models/user.model';
 import { take } from 'rxjs/operators';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-
+import { BonusData } from '@shared/models/bonus-data.model';
+import { AlertService } from '@shared/services/alert.service';
 
 @Component({
   selector: 'app-bonus',
@@ -20,6 +20,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class BonusComponent implements OnInit {
 
   pto$: Observable<any>;
+  bonusData$: Observable<BonusData>;
   existingPtoBalance: string;
   existingptoAsOf: string;
   public form: FormGroup;
@@ -27,12 +28,14 @@ export class BonusComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private alertService: AlertService
   ) {
     this.form = this.formBuilder.group({
       ptoBalance: [this.existingPtoBalance, Validators.compose([Validators.required])],
       ptoEstimatedWillEarn: ['', Validators.compose([Validators.required])],
       ptoEstimatedWillUse: ['', Validators.compose([Validators.required])],
+      ptoNotes: ['', Validators.nullValidator],
 
       salary: ['', Validators.compose([Validators.required])],
       plannedBonus: ['', Validators.compose([Validators.required])],
@@ -46,6 +49,75 @@ export class BonusComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.loadPtoValues();
+  }
+
+
+  loadBonusData() {
+    this.resetForm();
+
+    this.bonusData$ = this.userService.getBonusData(this.authService.getUserKey());
+
+    this.bonusData$.pipe(take(1)).subscribe(result => {
+      if (result == null) {
+        this.alertService.showToaster('No Saved Data Found');
+        return;
+      }
+      this.form.controls.ptoEstimatedWillUse.setValue(result.ptoEstimatedWillUse);
+      this.form.controls.ptoNotes.setValue(result.ptoNotes);
+
+      this.form.controls.salary.setValue(result.salary);
+      this.form.controls.plannedBonus.setValue(result.plannedBonus);
+      //this.form.controls.ptoToSell.setValue(0);
+
+      this.form.controls.buyOrSell.setValue(result.buyOrSell);
+      this.form.controls.hoursInBuyOrSell.setValue(result.hoursInBuyOrSell);
+    });
+
+    this.alertService.showToaster('Data Loaded');
+  }
+
+  saveBonusData() {
+    let bonusData: BonusData = {
+      ptoEstimatedWillUse: this.form.controls.ptoEstimatedWillUse.value,
+      ptoNotes: this.form.controls.ptoNotes.value,
+
+      salary: this.form.controls.salary.value,
+      plannedBonus: this.form.controls.plannedBonus.value,
+
+      buyOrSell: this.form.controls.buyOrSell.value,
+      hoursInBuyOrSell: this.form.controls.hoursInBuyOrSell.value,
+
+      endOfYearBonus: this.calculateBonus(),
+      endOfYearPtoBalanceAfterSale: this.calculateEndOfYearPtoBalanceAfterSale(),
+    }
+
+    this.userService.setBonusData(this.authService.getUserKey(), bonusData);
+
+    this.alertService.showToaster('Form Saved');
+  }
+
+  resetForm() {
+    this.loadPtoValues();
+    this.clearUnsavedFields();
+    this.form.markAsPristine();
+
+    this.alertService.showToaster('Form reset');
+  }
+
+  clearUnsavedFields() {
+    this.form.controls.ptoEstimatedWillUse.setValue('');
+    this.form.controls.ptoNotes.setValue('');
+
+    this.form.controls.salary.setValue('');
+    this.form.controls.plannedBonus.setValue('');
+    this.form.controls.ptoToSell.setValue(0);
+
+    this.form.controls.buyOrSell.setValue(null);
+    this.form.controls.hoursInBuyOrSell.setValue(0);
+  }
+
+  loadPtoValues() {
     // Get the official PTO count
     this.pto$ = this.userService.getOfficialPto(this.authService.getUserKey(this.authService.getUser()));
 
@@ -119,4 +191,6 @@ export class BonusComponent implements OnInit {
     }
     return null;
   }
+
+
 }
