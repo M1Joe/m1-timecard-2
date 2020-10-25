@@ -134,11 +134,13 @@ export class BonusComponent implements OnInit {
         // set value to zero because this calculator is confusing in January. 
         // the user is probably checking this for the previous year's data.
         this.form.controls.ptoEstimatedWillEarn.setValue(0);
+        this.form.controls.ptoEstimatedWillUse.setValue(0);
       } else {
         this.form.controls.ptoEstimatedWillEarn.setValue(Math.round(monthsRemaining * 11.66 * 100) / 100);
+        this.form.controls.ptoEstimatedWillUse.setValue(Math.round(monthsRemaining * 11.66 * 100) / 100);
       }
 
-      this.form.controls.ptoEstimatedWillUse.setValue(0);
+
 
     });
   }
