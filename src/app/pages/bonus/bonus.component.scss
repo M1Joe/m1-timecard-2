@@ -1,6 +1,6 @@
 
 .form-entry {
-    //width: 400px;
+    width: 100%;
 }
 
 :host ::ng-deep .mat-form-field {
@@ -93,6 +93,7 @@ h3 {
     margin-top: 10px;
 }
 
+
 .save-load-reset-btn {
     background-color: #004ba0;
     margin: 4px;
@@ -102,4 +103,15 @@ h3 {
 .hint {
     font-size: .75em;
     color: rgba(0, 0, 0, 0.6);
+}
+
+.previous-value-title {
+    font-size: .8em;
+    width: 80px;
+    margin: 4px 4px 0 4px;
+}
+
+.previous-value-text {
+    width: 80px;
+    margin: 0 4px;
 }

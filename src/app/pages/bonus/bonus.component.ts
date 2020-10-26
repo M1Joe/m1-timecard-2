@@ -25,6 +25,10 @@ export class BonusComponent implements OnInit {
   existingptoAsOf: string;
   public form: FormGroup;
 
+  previousPtoEstimatedWillUse: string;
+  previousPtoEstimatedWillEarn: string;
+  previousPtoBalance: string;
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
@@ -98,6 +102,10 @@ export class BonusComponent implements OnInit {
   }
 
   resetForm() {
+    this.previousPtoEstimatedWillUse = this.form.controls.ptoEstimatedWillUse.value;
+    this.previousPtoEstimatedWillEarn = this.form.controls.ptoEstimatedWillEarn.value;
+    this.previousPtoBalance = this.form.controls.ptoBalance.value;
+
     this.loadPtoValues();
     this.clearUnsavedFields();
     this.form.markAsPristine();
