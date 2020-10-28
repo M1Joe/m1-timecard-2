@@ -36,7 +36,7 @@
 
           <div fxLayout="row" fxFlex>
             <mat-form-field class="form-entry" appearance="outline">
-              <mat-label>Current PTO balance in hours (AUTO-CALCULATED)</mat-label>
+              <mat-label>Current PTO balance in hours</mat-label>
               <input matInput type="number" formControlName="ptoBalance" placeholder="PTO balance (hours)" required>
               <mat-hint> This is your current PTO balance as of {{existingptoAsOf}}. It does NOT take into account any
                 PTO on your timecard since this date (i.e. DRAFT timecards)</mat-hint>
@@ -49,7 +49,7 @@
 
           <div fxLayout="row" fxFlex>
           <mat-form-field class="form-entry" appearance="outline">
-            <mat-label>PTO hours expected to ACCRUE for remainder of year (AUTO-CALCULATED)</mat-label>
+            <mat-label>PTO hours expected to ACCRUE for remainder of year</mat-label>
             <input matInput type="number" formControlName="ptoEstimatedWillEarn"
               placeholder="PTO hours expected to EARN this year" required>
             <mat-hint> Auto calculated as 11.66 hours/month x number of months remaining in the year. The total PTO earned in a year is 140 hours.</mat-hint>
