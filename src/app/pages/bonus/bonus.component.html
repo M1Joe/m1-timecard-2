@@ -33,52 +33,59 @@
         <h4>Step 1. Estimate Year-End PTO Balance</h4>
 
         <div fxLayout="column">
-
-          <div fxLayout="row" fxFlex>
-            <mat-form-field class="form-entry" appearance="outline">
-              <mat-label>Current PTO balance in hours</mat-label>
-              <input matInput type="number" formControlName="ptoBalance" placeholder="PTO balance (hours)" required>
-              <mat-hint> This is your current PTO balance as of {{existingptoAsOf}}. It does NOT take into account any
-                PTO on your timecard since this date (i.e. DRAFT timecards)</mat-hint>
-            </mat-form-field>
-            <div fxLayout="column" *ngIf="previousPtoBalance && form.controls.ptoBalance.value && previousPtoBalance != form.controls.ptoBalance.value">
-              <div class="previous-value-title">Previous value:</div>
-              <div class="previous-value-text">{{previousPtoBalance}}</div>
+          <div>
+            <div fxLayout="row" fxFlex>
+              <mat-form-field class="form-entry" appearance="outline">
+                <mat-label>Current PTO balance in hours</mat-label>
+                <input matInput type="number" formControlName="ptoBalance" placeholder="PTO balance (hours)" required>
+                <mat-hint> This is your current PTO balance as of {{existingptoAsOf}}. It does NOT take into account any
+                  PTO on your timecard since this date (i.e. DRAFT timecards)</mat-hint>
+              </mat-form-field>
+              <div fxLayout="column" *ngIf="previousPtoBalance && form.controls.ptoBalance.value && previousPtoBalance != form.controls.ptoBalance.value">
+                <div class="previous-value-title">Previous value:</div>
+                <div class="previous-value-text">{{previousPtoBalance}}</div>
+              </div>
             </div>
           </div>
 
-          <div fxLayout="row" fxFlex>
-          <mat-form-field class="form-entry" appearance="outline">
-            <mat-label>PTO hours expected to ACCRUE for remainder of year</mat-label>
-            <input matInput type="number" formControlName="ptoEstimatedWillEarn"
-              placeholder="PTO hours expected to EARN this year" required>
-            <mat-hint> Auto calculated as 11.66 hours/month x number of months remaining in the year. The total PTO earned in a year is 140 hours.</mat-hint>
-          </mat-form-field>
-          <div fxLayout="column" *ngIf="previousPtoEstimatedWillEarn && form.controls.ptoEstimatedWillEarn.value && previousPtoEstimatedWillEarn != form.controls.ptoEstimatedWillEarn.value">
-            <div class="previous-value-title">Previous value:</div>
-            <div class="previous-value-text">{{previousPtoEstimatedWillEarn}}</div>
-          </div>
-        </div>
-
-          <div fxLayout="row" fxFlex>
-            <mat-form-field class="form-entry" appearance="outline">
-              <mat-label>PTO hours planned to USE remainder of year</mat-label>
-              <input matInput type="number" formControlName="ptoEstimatedWillUse"
-                placeholder="PTO hours expected to USE this year" required>
-              <mat-hint> The number of PTO hours you expect to use this calendar year. </mat-hint>
-            </mat-form-field>
-            <div fxLayout="column" *ngIf="previousPtoEstimatedWillUse && form.controls.ptoEstimatedWillUse.value && previousPtoEstimatedWillUse != form.controls.ptoEstimatedWillUse.value">
-              <div class="previous-value-title">Previous value:</div>
-              <div class="previous-value-text">{{previousPtoEstimatedWillUse}}</div>
+          <div>
+            <div fxLayout="row" fxFlex>
+              <mat-form-field class="form-entry" appearance="outline">
+                <mat-label>PTO hours expected to ACCRUE for remainder of year</mat-label>
+                <input matInput type="number" formControlName="ptoEstimatedWillEarn"
+                  placeholder="PTO hours expected to EARN this year" required>
+                <mat-hint> Auto calculated as 11.66 hours/month x number of months remaining in the year. The total PTO earned in a year is 140 hours.</mat-hint>
+              </mat-form-field>
+              <div fxLayout="column" *ngIf="previousPtoEstimatedWillEarn && form.controls.ptoEstimatedWillEarn.value && previousPtoEstimatedWillEarn != form.controls.ptoEstimatedWillEarn.value">
+                <div class="previous-value-title">Previous value:</div>
+                <div class="previous-value-text">{{previousPtoEstimatedWillEarn}}</div>
+              </div>
             </div>
           </div>
 
-          <mat-form-field class="form-entry" appearance="outline">
-            <mat-label>PTO Notes</mat-label>
-            <textarea matInput formControlName="ptoNotes"
-              placeholder="PTO Notes (e.g. Hawaii trip: 7/1-7/114, 80 hours)."></textarea>
-            <mat-hint> Take notes for yourself if you plan to use this throughout the year to track your bonus. </mat-hint>
-          </mat-form-field>
+          <div>
+            <div fxLayout="row" fxFlex>
+              <mat-form-field class="form-entry" appearance="outline">
+                <mat-label>PTO hours planned to USE remainder of year</mat-label>
+                <input matInput type="number" formControlName="ptoEstimatedWillUse"
+                  placeholder="PTO hours expected to USE this year" required>
+                <mat-hint> The number of PTO hours you expect to use this calendar year. </mat-hint>
+              </mat-form-field>
+              <div fxLayout="column" *ngIf="previousPtoEstimatedWillUse && form.controls.ptoEstimatedWillUse.value && previousPtoEstimatedWillUse != form.controls.ptoEstimatedWillUse.value">
+                <div class="previous-value-title">Previous value:</div>
+                <div class="previous-value-text">{{previousPtoEstimatedWillUse}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <mat-form-field class="form-entry" appearance="outline">
+              <mat-label>PTO Notes</mat-label>
+              <textarea matInput formControlName="ptoNotes"
+                placeholder="PTO Notes (e.g. Hawaii trip: 7/1-7/114, 80 hours)."></textarea>
+              <mat-hint> Take notes for yourself if you plan to use this throughout the year to track your bonus. </mat-hint>
+            </mat-form-field>
+          </div>
 
           <div fxLayout="row">
             <span style="font-weight: bold;">Estimated Year-End PTO Balance:&nbsp;</span>
