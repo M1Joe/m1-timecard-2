@@ -49,15 +49,18 @@ export class AlertService {
           this.successWords.push('Go Steelers');
           break;
         case 'joshsullivan':
-          this.successWords.push('Killer');
+          this.successWords.push('HODL');
           break;
         case 'brian':
           this.successWords.push('DevOps FTW');
+          this.successWords.push('HODL');
+          this.successWords.push('ADA FTW');
           this.successWords.push('Successfully connected to DAS');
           break;
         case 'suren':
           this.successWords.push('Successfully connected to DAS');
           this.successWords.push('Lets go Patriots!');
+          this.successWords.push('HODL');
           break;
         case 'ben':
           this.successWords.push('Go Steelers');
@@ -67,6 +70,24 @@ export class AlertService {
           break;
         case 'tycarlson':
           this.successWords.push('Lets Go Mason!');
+          break;
+        case 'loisbriscoe':
+          this.successWords.push('TEST PASSED!');
+          break;
+        case 'justinrand':
+          this.successWords.push('Lets Go Pens!');
+          break;
+        case 'davidnewton':
+          this.successWords.push('HODL');
+          this.successWords.push('Ada FTW');
+          break;
+        case 'andrewcohilas':
+          this.successWords.push('HODL');
+          this.successWords.push('You have diamond hands');
+          break;
+        case 'jeffvandenbergh':
+          this.successWords.push('Lets go Sabres');
+          break;
       }
     }
     // zone fixes weird bug where snackbar opens in the wrong place, as described 

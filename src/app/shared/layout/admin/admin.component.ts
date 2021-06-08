@@ -32,7 +32,7 @@ export class AdminComponent {
   }
 
   public onLogout(): void {
-    this.alertService.showToaster('Logout succesful');
+    this.alertService.showToaster('Logout successful');
     return this.authService.logout();
   }
 
