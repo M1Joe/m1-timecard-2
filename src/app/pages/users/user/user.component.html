@@ -1,8 +1,11 @@
 <mat-card>
   <mat-card-title>{{user.displayName}}</mat-card-title>
+  
   <mat-card-content>
     <div>{{user.email}}</div>
-  
+    <ng-container *ngIf="user.percentEmployed && user.percentEmployed < 1">
+      <div class="part-time"><b>PART TIME -- PERCENT EMPLOYED: </b><span>{{user.percentEmployed}}</span></div>
+    </ng-container>
     <form [formGroup]="availableChargeCodeNamesFormGroup">
       <div *ngFor="let chargeCodeName of availableChargeCodeNames; let i = index" >
           <mat-checkbox class="example-margin" 

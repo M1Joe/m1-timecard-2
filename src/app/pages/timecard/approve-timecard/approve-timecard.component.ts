@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '@shared/services/user.service';
 import { User } from '@shared/models/user.model';
 import { Observable } from 'rxjs';
@@ -25,7 +25,8 @@ export class ApproveTimecardComponent implements OnInit {
   oldBalance: string;
   oldAsOf: string;
   newAsOf: string;
-  
+  percentEmployed = 1;
+
   balance: string = '';
   asOf: string = '';
 
@@ -47,8 +48,6 @@ export class ApproveTimecardComponent implements OnInit {
       this.oldBalance = oldPto.balance;
     });
 
-
-
   }
 
   approveTimecard() {
@@ -69,31 +68,30 @@ export class ApproveTimecardComponent implements OnInit {
   // These two functions do the same thing, but one fires on selectionChange of the mat-select and the other on the "Next" button
   // They take different inputs.  These are a copy/paste of each other, which is wrong, but it works.
   loadTimecardFor(event) {
-    this.requestToLoadTimecardForUser.emit(event.value);
-    
-    this.oldAsOf = 'UNKNOWN';
-    this.oldBalance = '-999';
-
-    this.userService.getOfficialPto(this.authService.getUserKey(event.value)).pipe(take(1)).subscribe(oldPto => {
-      if (oldPto) {
-        this.oldAsOf = oldPto.asOf;
-        this.oldBalance = oldPto.balance;
-      }
-    });
+    this.loadInternal(event.value);
   }
 
   loadTimecardForUser(user) {
-    this.requestToLoadTimecardForUser.emit(user);
+    this.loadInternal(user);
+  }
+
+  loadInternal(val) {
+    this.requestToLoadTimecardForUser.emit(val);
     
     this.oldAsOf = 'UNKNOWN';
     this.oldBalance = '-999';
 
-    this.userService.getOfficialPto(this.authService.getUserKey(user)).pipe(take(1)).subscribe(oldPto => {
+    this.userService.getOfficialPto(this.authService.getUserKey(val)).pipe(take(1)).subscribe(oldPto => {
       if (oldPto) {
         this.oldAsOf = oldPto.asOf;
         this.oldBalance = oldPto.balance;
       }
     });
+
+    this.percentEmployed = 1;
+    if (this.currentUser.percentEmployed != null && this.currentUser.percentEmployed > 0 && this.currentUser.percentEmployed < 1) {
+      this.percentEmployed = this.currentUser.percentEmployed;
+    }
   }
 
   compareObjects(user1: User, user2: User): boolean {
@@ -106,7 +104,7 @@ export class ApproveTimecardComponent implements OnInit {
   }
 
   calculatePto() {
-    var newBalance = +this.oldBalance + 11.67 - this.totalHoursPTO;
+    var newBalance = +this.oldBalance + (11.66 *this.percentEmployed) - this.totalHoursPTO;
     return newBalance.toFixed(2);
   }
 

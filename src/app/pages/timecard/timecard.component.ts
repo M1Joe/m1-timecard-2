@@ -35,6 +35,10 @@ export class TimecardComponent implements OnInit {
   currentTimePeriod: CurrentTimePeriod;
   daysInMonth: number;
 
+  // for part-time employees
+  percentEmployed$: Observable<number>;
+  percentEmployed: number = 1;
+
   //the current user of the application
   currentUser: User;
   //userKey: string;
@@ -66,6 +70,16 @@ export class TimecardComponent implements OnInit {
       this.daysInMonth = new Date(+this.currentTimePeriod.selectedYear, +this.currentTimePeriod.selectedMonth, 0).getDate();
       this.requestToLoadTimecard(this.currentTimePeriod);
     });
+
+     // set the part time status if it exists
+     this.percentEmployed$ = this.userService.getPercentEmployed(this.authService.getUserKey(this.viewingTimecardForUser));
+     this.percentEmployed$.pipe(take(1)).subscribe(result => {
+       if (result === null) {
+         this.percentEmployed = 1;
+       } else {
+         this.percentEmployed = result['percentEmployed'];
+       }
+     });
 
   }
 
@@ -104,6 +118,16 @@ export class TimecardComponent implements OnInit {
   requestToLoadTimecardForUser(user: User) {
     this.viewingTimecardForUser = user;
     this.monthlyTimecardComponent.initForm(this.authService.getUserKey(this.viewingTimecardForUser), this.currentTimePeriod);
+
+    // set the part time status if it exists
+    this.percentEmployed$ = this.userService.getPercentEmployed(this.authService.getUserKey(this.viewingTimecardForUser));
+    this.percentEmployed$.pipe(take(1)).subscribe(result => {
+      if (result === null) {
+        this.percentEmployed = 1;
+      } else {
+        this.percentEmployed = result['percentEmployed'];
+      }
+    });
   }
 
   showPoliciesDialog() {
@@ -167,7 +191,7 @@ export class TimecardComponent implements OnInit {
         totalHoursAvailable = totalHoursAvailable + 8;
       }
     }
-    return totalHoursAvailable;
+    return totalHoursAvailable * this.percentEmployed;
   }
 
   totalHoursLessThanAvailableHours() {

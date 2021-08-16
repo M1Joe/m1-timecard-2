@@ -189,6 +189,13 @@ export class UserService {
       .catch(err => console.log(err, 'problem'));
   }
 
+  public getPercentEmployed(userKey: string): Observable<any> {
+    return this.db.object(`employeeEditableFields/${userKey}/percentEmployed`).valueChanges();
+  }
+
+  public setPercentEmployed(userKey: string, percentEmployed: number) {
+    return this.db.object(`employeeEditableFields/${userKey}/percentEmployed`).set({ percentEmployed });
+  }
 
   public getCurrentTimePeriod(userKey: string): Observable<any> {
     return this.db.object(`employeeEditableFields/${userKey}/preferences/currentTimePeriod`).valueChanges();
