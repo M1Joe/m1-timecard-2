@@ -104,7 +104,7 @@ export class ApproveTimecardComponent implements OnInit {
   }
 
   calculatePto() {
-    var newBalance = +this.oldBalance + (11.66 *this.percentEmployed) - this.totalHoursPTO;
+    var newBalance = +this.oldBalance + (18.33 *this.percentEmployed) - this.totalHoursPTO;
     return newBalance.toFixed(2);
   }
 

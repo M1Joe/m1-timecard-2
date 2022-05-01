@@ -17,5 +17,4 @@ enum Type {
   MARKETING = "MARKING",
   PROPOSAL = "PROPOSAL",
   PTO = "PTO",
-  HOLIDAY = "HOLIDAY"
 }

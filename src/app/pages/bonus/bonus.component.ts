@@ -144,7 +144,7 @@ export class BonusComponent implements OnInit {
         this.form.controls.ptoEstimatedWillEarn.setValue(0);
         this.form.controls.ptoEstimatedWillUse.setValue(0);
       } else {
-        let roundedToHundredth = Math.round(monthsRemaining * 11.66 * 100) / 100;
+        let roundedToHundredth = Math.round(monthsRemaining * 18.33 * 100) / 100;
         let roundedToQuarterHour = (Math.round(roundedToHundredth * 4) / 4).toFixed(2);
 
         this.form.controls.ptoEstimatedWillEarn.setValue(roundedToHundredth);
